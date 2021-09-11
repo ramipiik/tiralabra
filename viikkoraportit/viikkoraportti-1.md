@@ -12,6 +12,7 @@
 
 ## Mitä opin tällä viikolla / tänään?
 * Kertasin aika- ja tilavaatimusten määrittelyn tira-kurssilta
+* Pintapuolinen tutustuminen minimax-algoritmiin.
 
 ## Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
 * Varmistaisin vielä, että onko tehtävien palautusaika tosiaan 0.59 la-su välisenä yönä?
