@@ -8,7 +8,7 @@
 ## Alustavat algoritmit ja tietorakenteet
 _Suunnitelma on alustava. Itselleni käy usein niin, että ohjelmaa oikeasti koodatessa huomaa, että alkuperäinen ajatus ei ollutkaan niin hyvä. Lisäksi työmäärän arvioiminen on hieman haastavaa etukäteen. _
 * Aion toteuttaa syvyysrajoitetun minimimax-algoritmin alpha-beta-karsinnalla ristinolla-peliin
-* En ole aiemmin toteuttanut minimax-algoritmia. Tietorakenteiden puolesta tarvitaan ainakin listoja. Tarkennan tätä kunhan saan jonkinlaisen koodirungon aikaiseksi ja ymmärrän paremmin mitä pelitilanteen ylläpitäminen algoritmin toteuttaminen vaatii. 
+* En ole aiemmin toteuttanut minimax-algoritmia, enkä ristinollaa, mutta näin suunnitteluvaiheessa uskoisin, että tietorakenteeksi käy hyvin kaksi sisäkkäistä Pythonin listaa eli siis matriisi. Jokaisen rekursiokutsun pitää kuljettaa mukaan ruudukon tilanne tuossa listassa sekä tieto siitä mikä on ko. tilan arvo (-1, 0, 1), jonka voi luonnollisesti tallentaa ihan normaaliin muuttujaan. Voi olla, että missaan jotakin, mutta tarkennan tätä kunhan saan jonkinlaisen koodirungon aikaiseksi ja ymmärrän paremmin mitä algoritmin toteuttaminen vaatii. 
 
 ## Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet?
 * Suunnitelma on tehdä ristinollapeli jota voi pelata a) ihminen vs. ihminen, b) ihminen vs. tekoäly c) tekoäly vs. tekoäly
