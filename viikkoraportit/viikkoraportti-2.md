@@ -1,8 +1,8 @@
 ## Mitä olen tehnyt tällä viikolla?
 * ti 14.9. tietomallien luontia. Minimax-algoritmin luonnostelua.
 
-## Miten ohjelma on edistynyt?V
-* xxx
+## Miten ohjelma on edistynyt?
+* xx
 
 ## Mitä opin tällä viikolla / tänään?
 * Minimax-algoritmin toteuttaminen
