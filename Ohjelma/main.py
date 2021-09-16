@@ -5,14 +5,17 @@ from alphabeta import get_rounds
 from alphabeta import get_max_depth
 import time
 
+
+
+
 def play(state:TicTacToe):  
-    time.sleep(2)
+    time.sleep(1)
     # if state.crosses_turn:
     #     print("x:n vuoro siirtää")
     # else:
     #     print("o:n vuoro siirtää")
 
-    print(state)
+    # print(state)
      
     
     if state.crosses_turn:
@@ -20,29 +23,44 @@ def play(state:TicTacToe):
     else:
         arvo=LARGE_NUMBER
     new_state=""
-    lapset=state.generate_children(True)
+    children=state.generate_children(True)
     # print("lasten määrä", len(lapset))
-    for i, siirto in enumerate (lapset):
-        siirron_arvo=alpha_beta_value(siirto)
+    moves=LARGE_NUMBER
+
+    for i, siirto in enumerate (children):
+        (siirron_arvo, nr_moves)=alpha_beta_value(siirto)
+        
         # print("------------")
         # print(siirto)
         # print("siirron", i, "arvo", siirron_arvo)
         # print("------------")
+        
         if state.crosses_turn:
             if siirron_arvo>arvo:
                 arvo=siirron_arvo
                 new_state=siirto
-                if arvo==1:
-                    break
+                moves=nr_moves
+                # if arvo==1: #lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
+                #     break
+            if arvo==1 and siirron_arvo==1:
+                if nr_moves<moves:
+                    new_state=siirto
+
         if not state.crosses_turn:
             if siirron_arvo<arvo:
                 arvo=siirron_arvo
                 new_state=siirto
-                if arvo==-1:
-                    break
+                moves=nr_moves
+                # moves=count_moves(siirto)
+                # if arvo==-1:#lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
+                #     break
+            if arvo==-1 and siirron_arvo==-1:
+                if nr_moves<moves:
+                    new_state=siirto
     
+    # print("checkpoint")
     print(new_state)
-    if new_state.is_end_state():
+    if new_state.is_end_state()[0]:
         voittaja=""
         print("----------------")
         if new_state.won('o'):
@@ -80,7 +98,7 @@ def settings():
             try:
                 players=int(players)
                 if players==99:
-                    return (1,'B',3)
+                    return (1,5,3)
                 if players==0 or players==2:
                     print("Got it!", players, "players.")
                     break
@@ -97,7 +115,7 @@ def settings():
         while True:
             print("Choose the size of the board that you want to play with.")
             print("A: 3x3 (takes three in a row to win)")
-            print("B: 5x5 (takes three in a row to win)")
+            print("B: 5x5 (takes four in a row to win)")
             print("C: 7x7 (takes four in a row to win)")
             print("D: 10x10 (takes five in a row to win)")
             print("E: 15x15 (takes five in a row to win)")
@@ -204,16 +222,21 @@ def settings():
         
 
 def main():
-    choices=settings()
-    players=choices[0]
-    board_size=choices[1]
-    level=choices[2]
+    user_choices=settings()
+    players=user_choices[0]
+    board_size=user_choices[1]
+    level=user_choices[2]
     # time.sleep(2)
     empty_board = 3 * '???'
-    test_board='?x???????'
+    # test_board='ABCDEFGHIJKLMNOPQRSTUVWXY'
+    test_board_2='oxoxox----x------oxoxoxox'
+    custom_board=(board_size**2) * '-'
     # print(type(empty_board))
-    state = TicTacToe(test_board, False)
-    # print(state)
+    state = TicTacToe(test_board_2, board_size, False)
+    # state = TicTacToe(custom_board, board_size, False)
+    
+    # state.won('x')
+    print(state)
     play(state)
 
 
