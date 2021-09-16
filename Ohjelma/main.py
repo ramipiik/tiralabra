@@ -46,14 +46,14 @@ def play(state:TicTacToe):
         voittaja=""
         print("----------------")
         if new_state.won('o'):
-            print("Voittaja: o")
+            print("AND THE WINNER IS: o")
         elif new_state.won('x'):
-            print("Voittaja: x")
+            print("AND THE WINNER IS: x")
         else:
-            print("Tasapeli")
+            print("DRAW")
         print("----------------")
         print("Stats:")
-        print("-Rekursiokutsuja: ", get_rounds())
+        print("-Recursion calls:", get_rounds())
         print("-Max depth:", get_max_depth() )
         print("----------------")
         return
@@ -65,20 +65,22 @@ def play(state:TicTacToe):
 
 # def create_empty_board(size:int):
 
+error_message="Well - that was not a valid choice. Let's try again."
 
 def settings():
     while True:
         while True:
             print("----------------")
             time.sleep(1)
-            print("Kuinka monta pelaajaa? (0, 1 tai 2):")
+            print("0, 1 or 2 players game?")
             print("----------------")
             players=input("Your choice: ")
             print("----------------")
-            if int(players)==99:
-                return (1,'B',3)
+            time.sleep(1)
             try:
                 players=int(players)
+                if players==99:
+                    return (1,'B',3)
                 if players==0 or players==2:
                     print("Got it!", players, "players.")
                     break
@@ -86,100 +88,119 @@ def settings():
                     print("Got it -", players, "player.")
                     break
                 else:
-                    print("Hmm. Tuo ei ollut vaihtoehtona. Yritä ystävällisesti uudelleen.")
+                    print(error_message)
             except:
-                print("Hmm. Tuo ei ollut vaihtoehtona. Yritä ystävällisesti uudelleen.")
+                print(error_message)
 
         print("----------------")
         time.sleep(1)
         while True:
-            print("Minkä kokoisella laudalla haluat pelata?")
-            print("A: 3x3 (voittoon vaaditaan kolme peräkkäistä merkkiä)")
-            print("B: 5x5 (voittoon vaaditaan neljä peräkkäistä merkkiä)")
-            print("C: 7x7 (voittoon vaaditaan neljä peräkkäistä merkkiä)")
-            print("D: 10x10 (voittoon vaaditaan viisi peräkkäistä merkkiä)")
-            print("E: 15x15 (voittoon vaaditaan viisi peräkkäistä merkkiä)")
-            print("F: 20x20 (voittoon vaaditaan viisi peräkkäistä merkkiä)")
-            print("G: 25x25 (voittoon vaaditaan viisi peräkkäistä merkkiä)")
+            print("Choose the size of the board that you want to play with.")
+            print("A: 3x3 (takes three in a row to win)")
+            print("B: 5x5 (takes three in a row to win)")
+            print("C: 7x7 (takes four in a row to win)")
+            print("D: 10x10 (takes five in a row to win)")
+            print("E: 15x15 (takes five in a row to win)")
+            print("F: 20x20 (takes five in a row to win)")
+            print("G: 25x25 (takes five in a row to win)")
             print("----------------")
             board_letter:str=input("Your choice: ")
             print("----------------")
+            time.sleep(1)
             board_letter=board_letter.capitalize()
             board_size=0
             if board_letter=='A':
                 board_size=3
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='B':
                 board_size=5
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='C':
                 board_size=7
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='D':
                 board_size=10
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='E':
                 board_size=15
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='F':
                 board_size=20
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             elif board_letter=='G':
                 board_size=25
-                print(str(board_size)+"x"+str(board_size), "on hyvä valinta!")
+                print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break
             else:
-                print("Oho. Tuli huti. Yritä uudelleen. :)")   
+                print(error_message)
+                print("----------------")   
+        
         time.sleep(1)
         level=0
         if players==0 or players==1:
             while True:
-                print("Valitse tekoälyn taso.")
-                print("1: helpoin")
-                print("2: keskitaso")
-                print("3: vaikein")
+                print("Choose the level of AI that you want to play against?")
+                print("1: Easy")
+                print("2: Pro")
+                print("3: Deep Blue")
                 print("----------------")
-                level=int(input("Please choose: "))
+                level=input("Your choice: ")
                 print("----------------")
                 time.sleep(1)
-                if level==1 or level==2 or level==3:
-                    print("Awesome! Let's recap your choices.")
+                try:
+                    level=int(level)
+                    if level==1 or level==2 or level==3:
+                        print("Awesome! Let's recap your choices.")
+                        print("----------------")
+                        break
+                    else:
+                        print(error_message)
+                        print("----------------")    
+                except:
+                    print(error_message)
                     print("----------------")
-                    break    
+               
         time.sleep(1)
         print("Players:", players)
         print("Board size:", str(board_size)+"x"+str(board_size))
         if players==0 or players==1:
-            print("Level:", level)
+            if level==1:
+                print("Level of AI: 1 (Easy)")
+            if level==2:
+                print("Level of AI: 2 (Pro)") 
+            if level==3:
+                print("Level of AI: 3 (Deep Blue)") 
         print("----------------")
         time.sleep(1)
         while True:
-            print("Press Enter to confirm or c to change the selections.")
+            confirmation=input ("Press Enter to confirm or c to change the selections: ")
             print("----------------")
-            confirmation=input()
-            print("----------------")
+            time.sleep(1)
+            # confirmation=input()
+            # print("----------------")
             if confirmation =="":
                 print("Great! Game on!")
                 print("----------------")
                 return (players, board_size, level)
             elif confirmation=="c" or confirmation=="C":
-                print("Ok, let's take it one more time from the beginning.")
+                # print("----------------")
+                print("Sure, let's take it from the beginning.")
                 break
             else:
-                print("That's neither Enter nor c. Please try again :)")
+                print("Come on man! That's neither Enter nor c. Please try again.")
         
 
 def main():
