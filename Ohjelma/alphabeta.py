@@ -24,7 +24,7 @@ class TicTacToe():
             return (True, count_moves(self.state))
             # return True
         else:
-            return (False, LARGE_NUMBER)
+            return (False, count_moves(self.state))
             return False
 
     def won(self, mark):
@@ -209,17 +209,32 @@ def max_value(node:TicTacToe, alpha, beta):
         if depth>max_depth:
             max_depth=depth
         depth=0
-        return (node.value(), moves)
+        # print("moves-testi B", moves)
+        return (node.value(), moves, moves)
     v=-LARGE_NUMBER
+    store_min_steps=1000
+    store_max_steps=-1
     for child in node.generate_children():
         # print(child)
-        v=max(v, min_value(child, alpha, beta)[0])
+        (new_value,min_steps, max_steps)=min_value(child, alpha, beta)
+        if new_value>v:
+            answer=child
+            v=new_value
+            store_min_steps=min_steps
+            store_max_steps=max_steps
+        if new_value==v:
+            if min_steps<store_min_steps:
+                store_min_steps=min_steps
+            if max_steps>store_max_steps:
+                store_max_steps=max_steps
+        # v=max(v, min_value(child, alpha, beta)[0])
         alpha=max(alpha,v)
         if alpha>=beta:
             # print("pruned!")
-            return (v, LARGE_NUMBER)
+            # s=steps
+            return (v, store_min_steps, store_max_steps)
     # print("v", v)
-    return (v, LARGE_NUMBER)
+    return (v, store_min_steps, store_max_steps)
     # return HUGE_NUMBER
 
 def get_max_depth():
@@ -243,17 +258,57 @@ def min_value(node, alpha, beta):
         if depth>max_depth:
             max_depth=depth
         depth=0
-        return (node.value(), moves)
+        # print("checkpoint A")
+        # print("------")
+        # print(node.state)
+        # print("moves", moves)
+        # print("------")
+        return (node.value(), moves, moves)
     v=LARGE_NUMBER
+
+    # IMPLEMENT HEURISTICS CHECK HERE
+    #IF DEPTH == MAX DEPTH (depth kulkee min ja max_value looppien mukana)
+       # RETURN node.heuristics()
+    # node.heuristics on funktio joka arvioi kuinka arvokas laudan tilanne on.
+    # heuristics palauttaa arvon -1:n j 1:n väliltä
+    #testaa ensin siten, että se palauttaa aina nollan ja varmista siten, että syvyysrajoitin toimii ja 4x4-lauta saadaan pelattua läpi
+    #logiikka:
+    # 1) jos löytyy molemmista päistä avoin suora -ooo-, niin se on melkein voitto eli 0.99 plussaa tai miinusta. heuristiikka loppuu tähän, koska se pakko hoittaa
+    # 2) jos tarkistettavalta riviltä löytyy vaadittavan pituinen suora yhdellä -:lla se on 0.8. Jos näitä löytyy useampi kuin yksi, niin 0.95
+    # 3) jos löytyy suora kahdella aukolla se on 0.2. Jos useampia, niin +0.1 jokaisesta
+    # kysymys: pitäisikö kakkosia ja kolmosia summata yhteen, vai palauttaa ainoastaan paras tilanne. 
+
+    store_min_steps=1000
+    store_max_steps=-1
     for child in node.generate_children():
         # print(child)
-        v=min(v, max_value(child, alpha, beta)[0])
+        (new_value, min_steps, max_steps)=max_value(child, alpha, beta)
+        if new_value<v:
+            answer=child
+            v=new_value
+            store_min_steps=min_steps
+            store_max_steps=max_steps
+        if new_value==v:
+            if min_steps<store_min_steps:
+                store_min_steps=min_steps
+            if max_steps>store_max_steps:
+                store_max_steps=max_steps
+        
+        # min(v, max_value(child, alpha, beta)[0])
         beta=min(beta,v)
         if alpha>=beta:
+            
             # print("pruned!")
-            return (v, LARGE_NUMBER)
+            # s=steps
+            return (v, store_min_steps, store_max_steps)
     # print("v", v)
-    return (v, LARGE_NUMBER)
+    # print("------")
+    # print("checkpoint A")
+    # print(answer.state)
+    # print("siirrot", count_moves(answer.state))
+    # print("------")
+
+    return (v, store_min_steps, store_max_steps)
     # return +HUGE_NUMBER
 
 def get_rounds():

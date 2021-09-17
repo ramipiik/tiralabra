@@ -25,10 +25,10 @@ def play(state:TicTacToe):
     new_state=""
     children=state.generate_children(True)
     # print("lasten määrä", len(lapset))
-    moves=LARGE_NUMBER
+    # moves=LARGE_NUMBER
 
     for i, siirto in enumerate (children):
-        (siirron_arvo, nr_moves)=alpha_beta_value(siirto)
+        (siirron_arvo, min_moves, max_moves)=alpha_beta_value(siirto)
         
         # print("------------")
         # print(siirto)
@@ -36,27 +36,63 @@ def play(state:TicTacToe):
         # print("------------")
         
         if state.crosses_turn:
+            # print("min_moves at checkpoint 0", min_moves)
+            # print("max_moves at checkpoint 0", max_moves)
+            # print("siirron arvo", siirron_arvo)
+            # print("siirron numero", i)
+            # print(siirto)
             if siirron_arvo>arvo:
                 arvo=siirron_arvo
                 new_state=siirto
-                moves=nr_moves
+                moves=min_moves
+                valittu_siirto= i
                 # if arvo==1: #lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
                 #     break
-            if arvo==1 and siirron_arvo==1:
-                if nr_moves<moves:
+            elif arvo==1 and siirron_arvo==1:
+                if min_moves<moves:
+                    moves=min_moves
                     new_state=siirto
+                    valittu_siirto= i
+            elif arvo==-1 and siirron_arvo==-1:
+                if max_moves>moves:
+                    moves=max_moves
+                    new_state=siirto
+                    valittu_siirto= i
 
         if not state.crosses_turn:
+            # print("nr_moves at checkpoint 1", nr_moves)
+            # print("siirron arvo", siirron_arvo)
+            # print("siirron numero", i)
+            # print(siirto)
             if siirron_arvo<arvo:
                 arvo=siirron_arvo
                 new_state=siirto
-                moves=nr_moves
-                # moves=count_moves(siirto)
+                valittu_siirto= i
+                moves=min_moves
+                # print("yo. valittu A")
+               
                 # if arvo==-1:#lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
                 #     break
-            if arvo==-1 and siirron_arvo==-1:
-                if nr_moves<moves:
+            elif arvo==-1 and siirron_arvo==-1:
+                if min_moves<moves:
+                    moves=min_moves
                     new_state=siirto
+                    valittu_siirto= i
+                    # print("yo. valittu B")
+            elif arvo==1 and siirron_arvo==1:
+                # print("moves", moves)
+                # print("nr_moves", nr_moves)
+                # print("i", i)
+                if max_moves>moves:
+                    moves=max_moves
+                    new_state=siirto
+                    valittu_siirto= i
+                    # print("yo. valittu C")
+        # print("----------")
+    # 
+    # print("valitun siirron movesit", moves)
+    print("valitun siirron arvo", arvo)
+    # print("valitun siiron numero", valittu_siirto)
     
     # print("checkpoint")
     print(new_state)
@@ -98,7 +134,7 @@ def settings():
             try:
                 players=int(players)
                 if players==99:
-                    return (1,5,3)
+                    return (1,3,3)
                 if players==0 or players==2:
                     print("Got it!", players, "players.")
                     break
@@ -227,15 +263,23 @@ def main():
     board_size=user_choices[1]
     level=user_choices[2]
     # time.sleep(2)
-    empty_board = 3 * '???'
+    empty_board = 3 * '---'
     # test_board='ABCDEFGHIJKLMNOPQRSTUVWXY'
-    test_board_2='oxoxox----x------oxoxoxox'
+    test_board_2='oxoxox-----------oxoxoxox'
+    test_board_3='oxoxox--o----x-oxoxoxoxox'
     custom_board=(board_size**2) * '-'
+    test_board_4='x-x------'
     # print(type(empty_board))
-    state = TicTacToe(test_board_2, board_size, False)
+    x_starts=False
+    state = TicTacToe(test_board_4, board_size, False)
     # state = TicTacToe(custom_board, board_size, False)
-    
+    if x_starts:
+        print("x starts from the below position")
+    else:
+        print("o starts from the below position")
+    print("--------------")
     # state.won('x')
+    
     print(state)
     play(state)
 
