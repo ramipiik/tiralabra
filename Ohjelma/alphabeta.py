@@ -1,7 +1,6 @@
 LARGE_NUMBER = 1000000
 
-depth=0
-max_depth=0
+max_depth=5
 
 class TicTacToe():
     def __init__(self, state, board_size, crosses_turn):
@@ -124,11 +123,6 @@ class TicTacToe():
 
 
     def generate_children(self, new=False):
-        global depth
-        if new:
-            # print("uusi kutsu")
-            depth=0
-        # Implement me
         possible_states=[]
         # print("---------")
         # print(self)
@@ -162,6 +156,23 @@ class TicTacToe():
             # print("o:n voitto!")
             return -1
         return 0
+    
+    def heuristics(self):
+        # print("heuristics called")
+        # print(self)
+    # IMPLEMENT HEURISTICS CHECK HERE
+    #IF DEPTH == MAX DEPTH (depth kulkee min ja max_value looppien mukana)
+       # RETURN node.heuristics()
+    # node.heuristics on funktio joka arvioi kuinka arvokas laudan tilanne on.
+    # heuristics palauttaa arvon -1:n j 1:n väliltä
+    #testaa ensin siten, että se palauttaa aina nollan ja varmista siten, että syvyysrajoitin toimii ja 4x4-lauta saadaan pelattua läpi
+    #logiikka:
+    # 1) jos löytyy molemmista päistä avoin suora -ooo-, niin se on melkein voitto eli 0.99 plussaa tai miinusta. heuristiikka loppuu tähän, koska se pakko hoittaa
+    # 2) jos tarkistettavalta riviltä löytyy vaadittavan pituinen suora yhdellä -:lla se on 0.8. Jos näitä löytyy useampi kuin yksi, niin 0.95
+    # 3) jos löytyy suora kahdella aukolla se on 0.2. Jos useampia, niin +0.1 jokaisesta
+    # kysymys: pitäisikö kakkosia ja kolmosia summata yhteen, vai palauttaa ainoastaan paras tilanne.     
+    
+        return 0
 
 
 def count_moves(siirto:TicTacToe):
@@ -179,25 +190,29 @@ round=0
 def alpha_beta_value(node):
     alpha=-1
     beta=1
+    depth=0
+    # print("aloitus. Depth =",depth)
     if node.crosses_turn:
         # print("x:n vuoro")
-        value=max_value(node, alpha, beta)
+        value=max_value(node, alpha, beta, depth)
     else:
         # print("o:n vuoro")
-        value=min_value(node, alpha, beta)
+        value=min_value(node, alpha, beta, depth)
     # print("ollaan alpha_beta_value metodissa")
     # print("arvo", arvo)
     return value
 
 
-def max_value(node:TicTacToe, alpha, beta):
-    # print("max value function is called")
 
-    global round
-    global depth
-    global max_depth
-    round+=1
+
+def max_value(node:TicTacToe, alpha, beta, depth):
+    # print("max value function is called")
     depth+=1
+    # print("max-value looppi. depth =", depth)
+    # print(node.state)
+    
+    global round
+    round+=1
     # print("tultiin max-value haaraan")
     # print(node)
     (is_end_state, moves)=node.is_end_state()
@@ -205,18 +220,17 @@ def max_value(node:TicTacToe, alpha, beta):
     # exit()
     if is_end_state:
         # print("node value", node.value())
-        # print("depth", depth)
-        if depth>max_depth:
-            max_depth=depth
-        depth=0
         # print("moves-testi B", moves)
         return (node.value(), moves, moves)
+    if depth>=max_depth:
+        # print("max-value syvyysrajoitin. depth=", depth)
+        return(node.heuristics(), moves, moves)
     v=-LARGE_NUMBER
     store_min_steps=1000
     store_max_steps=-1
     for child in node.generate_children():
         # print(child)
-        (new_value,min_steps, max_steps)=min_value(child, alpha, beta)
+        (new_value,min_steps, max_steps)=min_value(child, alpha, beta, depth)
         if new_value>v:
             answer=child
             v=new_value
@@ -237,27 +251,25 @@ def max_value(node:TicTacToe, alpha, beta):
     return (v, store_min_steps, store_max_steps)
     # return HUGE_NUMBER
 
-def get_max_depth():
-    return max_depth
 
-def min_value(node, alpha, beta):
+def min_value(node, alpha, beta, depth):
     # print("min value function is called")
-    global round
-    global depth
-    global max_depth
-    round+=1
     depth+=1
+    # print("max-value looppi. depth =", depth)
+    # print(node.state)
+    
+    global round
+    round+=1
     # print("tultiin min-value haaraan")
     # print(node)
     (is_end_state, moves)=node.is_end_state()
+    if depth>=max_depth:
+        # print("min-value syvyysrajoitin. depth=", depth)
+        return (node.heuristics(), moves,moves)
     # print(is_end_state)
     # exit()
     if is_end_state:
         # print("node value", node.value())
-        # print("depth", depth)
-        if depth>max_depth:
-            max_depth=depth
-        depth=0
         # print("checkpoint A")
         # print("------")
         # print(node.state)
@@ -266,23 +278,11 @@ def min_value(node, alpha, beta):
         return (node.value(), moves, moves)
     v=LARGE_NUMBER
 
-    # IMPLEMENT HEURISTICS CHECK HERE
-    #IF DEPTH == MAX DEPTH (depth kulkee min ja max_value looppien mukana)
-       # RETURN node.heuristics()
-    # node.heuristics on funktio joka arvioi kuinka arvokas laudan tilanne on.
-    # heuristics palauttaa arvon -1:n j 1:n väliltä
-    #testaa ensin siten, että se palauttaa aina nollan ja varmista siten, että syvyysrajoitin toimii ja 4x4-lauta saadaan pelattua läpi
-    #logiikka:
-    # 1) jos löytyy molemmista päistä avoin suora -ooo-, niin se on melkein voitto eli 0.99 plussaa tai miinusta. heuristiikka loppuu tähän, koska se pakko hoittaa
-    # 2) jos tarkistettavalta riviltä löytyy vaadittavan pituinen suora yhdellä -:lla se on 0.8. Jos näitä löytyy useampi kuin yksi, niin 0.95
-    # 3) jos löytyy suora kahdella aukolla se on 0.2. Jos useampia, niin +0.1 jokaisesta
-    # kysymys: pitäisikö kakkosia ja kolmosia summata yhteen, vai palauttaa ainoastaan paras tilanne. 
-
     store_min_steps=1000
     store_max_steps=-1
     for child in node.generate_children():
         # print(child)
-        (new_value, min_steps, max_steps)=max_value(child, alpha, beta)
+        (new_value, min_steps, max_steps)=max_value(child, alpha, beta, depth)
         if new_value<v:
             answer=child
             v=new_value

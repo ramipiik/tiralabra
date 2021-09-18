@@ -2,14 +2,17 @@ from alphabeta import TicTacToe
 from alphabeta import alpha_beta_value
 from alphabeta import LARGE_NUMBER
 from alphabeta import get_rounds
-from alphabeta import get_max_depth
 import time
 
 
+delay=0.3
+
+def input_move():
+    print("What's your move?")
 
 
 def play(state:TicTacToe):  
-    time.sleep(1)
+    time.sleep(delay)
     # if state.crosses_turn:
     #     print("x:n vuoro siirtää")
     # else:
@@ -28,6 +31,7 @@ def play(state:TicTacToe):
     # moves=LARGE_NUMBER
 
     for i, siirto in enumerate (children):
+        # print(siirto.state)
         (siirron_arvo, min_moves, max_moves)=alpha_beta_value(siirto)
         
         # print("------------")
@@ -108,7 +112,6 @@ def play(state:TicTacToe):
         print("----------------")
         print("Stats:")
         print("-Recursion calls:", get_rounds())
-        print("-Max depth:", get_max_depth() )
         print("----------------")
         return
     
@@ -125,16 +128,16 @@ def settings():
     while True:
         while True:
             print("----------------")
-            time.sleep(1)
+            time.sleep(delay)
             print("0, 1 or 2 players game?")
             print("----------------")
             players=input("Your choice: ")
             print("----------------")
-            time.sleep(1)
+            time.sleep(delay)
             try:
                 players=int(players)
                 if players==99:
-                    return (1,3,3)
+                    return (1,3,3,1)
                 if players==0 or players==2:
                     print("Got it!", players, "players.")
                     break
@@ -147,7 +150,7 @@ def settings():
                 print(error_message)
 
         print("----------------")
-        time.sleep(1)
+        time.sleep(delay)
         while True:
             print("Choose the size of the board that you want to play with.")
             print("A: 3x3 (takes three in a row to win)")
@@ -160,7 +163,7 @@ def settings():
             print("----------------")
             board_letter:str=input("Your choice: ")
             print("----------------")
-            time.sleep(1)
+            time.sleep(delay)
             board_letter=board_letter.capitalize()
             board_size=0
             if board_letter=='A':
@@ -202,7 +205,7 @@ def settings():
                 print(error_message)
                 print("----------------")   
         
-        time.sleep(1)
+        time.sleep(delay)
         level=0
         if players==0 or players==1:
             while True:
@@ -213,11 +216,40 @@ def settings():
                 print("----------------")
                 level=input("Your choice: ")
                 print("----------------")
-                time.sleep(1)
+                time.sleep(delay)
                 try:
                     level=int(level)
                     if level==1 or level==2 or level==3:
-                        print("Awesome! Let's recap your choices.")
+                        print("Rock'n roll!")
+                        print("----------------")
+                        time.sleep(delay)
+                        break
+                    else:
+                        print(error_message)
+                        print("----------------")    
+                except:
+                    print(error_message)
+                    print("----------------")
+        
+        first_move=1
+
+        if players==1:    
+            while True:
+                print("Which one goes first - computer or human?")
+                print("1: Computer")
+                print("2: Human")
+                print("----------------")
+                first_move=input("Your choice: ")
+                print("----------------")
+                time.sleep(delay)
+                try:
+                    first_move=int(first_move)
+                    if first_move==1:
+                        print("All right. Computer goes first")
+                        print("----------------")
+                        break
+                    if first_move==2:
+                        print("All right. Humans first")
                         print("----------------")
                         break
                     else:
@@ -227,28 +259,34 @@ def settings():
                     print(error_message)
                     print("----------------")
                
-        time.sleep(1)
+        time.sleep(delay)
+        print("Awesome! Let's recap your choices.")
+        print("----------------")
         print("Players:", players)
         print("Board size:", str(board_size)+"x"+str(board_size))
         if players==0 or players==1:
-            if level==1:
+            if level==1 or level=='1':
                 print("Level of AI: 1 (Easy)")
             if level==2:
                 print("Level of AI: 2 (Pro)") 
             if level==3:
                 print("Level of AI: 3 (Deep Blue)") 
+            if first_move==1:
+                print("First move: Computer")
+            if first_move==2:
+                print("First move: Human")
         print("----------------")
-        time.sleep(1)
+        time.sleep(delay)
         while True:
             confirmation=input ("Press Enter to confirm or c to change the selections: ")
             print("----------------")
-            time.sleep(1)
+            time.sleep(delay)
             # confirmation=input()
             # print("----------------")
             if confirmation =="":
                 print("Great! Game on!")
                 print("----------------")
-                return (players, board_size, level)
+                return (players, board_size, level, first_move)
             elif confirmation=="c" or confirmation=="C":
                 # print("----------------")
                 print("Sure, let's take it from the beginning.")
@@ -262,6 +300,7 @@ def main():
     players=user_choices[0]
     board_size=user_choices[1]
     level=user_choices[2]
+    first_move=user_choices[3]
     # time.sleep(2)
     empty_board = 3 * '---'
     # test_board='ABCDEFGHIJKLMNOPQRSTUVWXY'
@@ -270,8 +309,10 @@ def main():
     custom_board=(board_size**2) * '-'
     test_board_4='x-x------'
     # print(type(empty_board))
-    x_starts=False
-    state = TicTacToe(test_board_4, board_size, False)
+    x_starts=False 
+    if players==1 and first_move==1:
+        x_starts=True #computer plays crosses and gets to go first
+    state = TicTacToe(custom_board, board_size, x_starts)
     # state = TicTacToe(custom_board, board_size, False)
     if x_starts:
         print("x starts from the below position")
