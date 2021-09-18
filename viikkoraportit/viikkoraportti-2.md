@@ -18,7 +18,7 @@
 * Käytin tosi paljon aikaa siihen, että saisin algoritmin tekemään "fiksun näköisiä" päätöksiä.
   * Minimax-algoritmi valitsee nimittäin ensimmäisen parhaan vaihtoehdon, jonka onnistuu löytämään. Tämä vaikuttaa ihmiselle hieman erikoiselta, koska usein voitto voisi olla 1 tai 2 siirron päässä, mutta algoritmi lähtee hakemaan 4 siirron "mattia", koska  se tulee syvyyshaun polulla ensin vastaan. Onnistuinkin tässä siten, että jos kahden vaihtoehdon arvo on sama, valitsee algoritmi näistä lyhyemmän polun, jos se on voittamassa. Tai pidemmän polun jos se on häviämässä.   
   * Yo. lisäys toimii ihan hyvin ilman alpha-beta-karsintaa, mutta monen tunnin ihmettelyn jälkeen tajusin, että alpha-beta-karsinnalla se ei toimi, koska se jättää joka tapauksessa osan poluista käymättä eikä siksi välttämättä löydä ihmiselle ilmiselviä ratkaisuita
-  * Leveyshaku olisi sikäli parempi, että se löytäisi ensin lyhyemmät polut. Mutta toisaalta sillä menisi erittäin kauan käydä kaikki vaihtoehdot läpi. 
+  * Leveyshaku olisi sikäli parempi, että se löytäisi ensin lyhyemmät polut. Mutta toisaalta sillä menisi erittäin kauan käydä kaikki vaihtoehdot läpi. Pysyn toistaiseki rekursiivisessa syvyyshaussa. Leveyshaku pitäisi kai toteuttaa sisäkkäisinä looppeina, enkä jaksa alkaa enää muuttamaan ydinrakennetta. 
   * Heuristiikka on on vielä kokonaan toteuttamatta. Katsotaan, jos sieltä aukenisi joku ratkaisu "tyhmän näköisiin" siirtoihin. Sinänsä algoritmi kyllä toimii nytkin, koska se ajaa kohta löytämäänsä parasta ratkaisua. Ratkaisut eivät vaan näytä aina kovin intuitiivilta
  * Algoritmi on tällä hetkellä yllättävän hidas yli 3x3-ruudukoilla vaikka siinä on alpha-beta-karsinta implementoitu. Oikea heuristiikka tulee varmaan auttamaan tässä.
 
