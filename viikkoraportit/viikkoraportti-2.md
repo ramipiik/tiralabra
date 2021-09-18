@@ -8,7 +8,7 @@
 * syvyysrajoitin (dummy-heuristiikalla)
 
 ## Miten ohjelma on edistynyt?
-* Ihan ok. Aika on mennyt enemmän kuin mitä oletin
+* Ihan ok. Aikaa on tosin mennyt enemmän kuin mitä oletin
 
 ## Mitä opin tällä viikolla / tänään?
 * Minimax-algoritmin toteuttaminen
