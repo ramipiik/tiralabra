@@ -198,6 +198,7 @@ def alpha_beta_value(node):
     
     # print("aloitus. Depth =",depth)
     if node.crosses_turn:
+        # print("x:n vuoro")
         value=max_value(node, alpha, beta, depth)
     else:
         # print("o:n vuoro")
@@ -250,23 +251,34 @@ def max_value(node:TicTacToe, alpha, beta, depth):
             v=new_value
             store_min_depth=returned_min_depth
             store_max_depth=returned_max_depth
-            store_min_steps=min_steps
-            store_max_steps=max_steps
-        if new_value==v:
-            if min_steps<store_min_steps:
-                store_min_steps=min_steps
-            if max_steps>store_max_steps:
-                store_max_steps=max_steps
+            # store_min_steps=min_steps
+            # store_max_steps=max_steps
+        if new_value==1 and v==1:
+            # if min_steps<store_min_steps:
+            #     store_min_steps=min_steps
+            # if max_steps>store_max_steps:
+            #     store_max_steps=max_steps
             if returned_min_depth<store_min_depth:
                 store_min_depth=returned_min_depth
-            if returned_max_depth>store_max_depth:
+                store_max_depth=returned_min_depth
+            # if returned_max_depth>store_max_depth:
+            #     store_max_depth=returned_max_depth
+        if new_value==-1 and v==-1:
+            # if min_steps<store_min_steps:
+            #     store_min_steps=min_steps
+            # if max_steps>store_max_steps:
+            #     store_max_steps=max_steps
+            if returned_max_depth>store_min_depth:
                 store_max_depth=returned_max_depth
+                store_max_depth=returned_max_depth
+            # if returned_max_depth>store_max_depth:
+            #     store_max_depth=returned_max_depth
         
         alpha=max(alpha,v)
-        if alpha>=beta:
-            # print("pruned!")
-            # s=steps
-            return (v, 1000, -1, 1000, -1)
+        # if alpha>=beta:
+        #     print("pruned!")
+        #     # s=steps
+        #     return (v, 1000, -1, 1000, -1)
     # print("v", v)
     # print("max_value palauttaa ",v)
     return (v, store_min_steps, store_max_steps, store_min_depth, store_max_depth)
@@ -316,23 +328,33 @@ def min_value(node, alpha, beta, depth):
             store_max_depth=returned_max_depth
             store_min_steps=min_steps
             store_max_steps=max_steps
-        if new_value==v:
-            if min_steps<store_min_steps:
-                store_min_steps=min_steps
-            if max_steps>store_max_steps:
-                store_max_steps=max_steps
-            if returned_min_depth<store_min_depth:
-                store_min_depth=returned_min_depth
+        if new_value==1 and v==1:
+            # if min_steps<store_min_steps:
+            #     store_min_steps=min_steps
+            # if max_steps>store_max_steps:
+            #     store_max_steps=max_steps
             if returned_max_depth>store_max_depth:
                 store_max_depth=returned_max_depth
-        
+                store_min_depth=returned_max_depth
+            # if returned_max_depth>store_max_depth:
+            #     store_max_depth=returned_max_depth
+        if new_value==-1 and v==-1:
+            # if min_steps<store_min_steps:
+            #     store_min_steps=min_steps
+            # if max_steps>store_max_steps:
+            #     store_max_steps=max_steps
+            if returned_min_depth<store_min_depth:
+                store_min_depth=returned_min_depth
+                store_max_depth=returned_min_depth
+            # if returned_max_depth>store_max_depth:
+            #     store_max_depth=returned_max_depth        
         
         beta=min(beta,v)
-        if alpha>=beta:
+        # if alpha>=beta:
             
-            # print("pruned!")
-            # s=steps
-            return (v, 1000, -1, 1000, -1)
+        #     print("pruned!")
+        #     # s=steps
+        #     return (v, 1000, -1, 1000, -1)
     # print("v", v)
     # print("------")
     # print("checkpoint A")
