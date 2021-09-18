@@ -35,21 +35,25 @@ def play(state:TicTacToe):
     # print(state)
 
     if state.crosses_turn:
-        print(" Turn: x")
+        print("TURN: x")
     else:
-        print(" Turn: o")
+        print("TURN: o")
     # print("Board")
     print("")
     print(state)
     time.sleep(delay)
-    if state.players==1 and not state.crosses_turn:
+    if state.players==2 or (state.players==1 and not state.crosses_turn):
         print("------------")
         print("What's your move? (A1, B2, C3, etc.)")
         coordinate=input("Your choice: ")
         index=placement(coordinate, state.board_size)
-        aux=state.state[:index]+'o'+state.state[index+1:]
+        if state.crosses_turn:
+            mark="x"
+        else:
+            mark="o"
+        aux=state.state[:index]+mark+state.state[index+1:]
         # print(aux) 
-        new_state=TicTacToe(aux, state.board_size, True, state.max_depth, state.players)  
+        new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.max_depth, state.players)  
     
     else:
         if state.crosses_turn:
