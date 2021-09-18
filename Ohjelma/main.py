@@ -40,11 +40,15 @@ def play(state:TicTacToe):
         # print("siirto_state from play")
         # print(siirto.state)
         (siirron_arvo, min_moves, max_moves, min_depth, max_depth)=alpha_beta_value(siirto)
+        
         print("------------")
         # print("depth", depth)
         print("siirron", i, "arvo", siirron_arvo)
         print("min_depth",min_depth)
         print("max_depth",max_depth)
+        if min_depth==None or max_depth==None:
+            print("mennään suoraan seuraavaan")
+            continue
         print("------------")
         # print(siirto)
         
@@ -380,7 +384,7 @@ def main():
     test_board_2='oxoxox-----------oxoxoxox'
     test_board_3='oxoxoo--o-----xoxoxoxoxxo'
     custom_board=(board_size**2) * '-'
-    test_board_4='-----o--o'
+    test_board_4='------o-o'
     # print(type(empty_board))
     x_starts=False 
     if players==1 and first_move==1:
