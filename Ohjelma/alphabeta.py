@@ -1,22 +1,32 @@
 LARGE_NUMBER = 1000000
-
-max_depth=11
+import string
+# max_depth=10
 
 class TicTacToe():
-    def __init__(self, state, board_size, crosses_turn):
+    def __init__(self, state, board_size, crosses_turn, level, players):
         self.state = state
         self.board_size=board_size
         self.crosses_turn = crosses_turn
         self.to_win=5
+        self.players=players
         if self.board_size==3:
             self.to_win=3
         if self.board_size==4:
-            self.to_win=4
+            self.to_win=3
         if self.board_size==5:
             self.to_win=4
         if self.board_size==7:
             self.to_win=4
-
+        
+        self.max_depth=int(level)
+        if level==1:
+            self.max_depth=4
+        if level==2:
+            self.max_depth=6
+        if level==3:
+            self.max_depth=8
+        # print("max depth", self.max_depth)
+        
     def is_end_state(self):
         # print("is end state function is called")
         if ('-' not in self.state) or self.won('x') or self.won('o'):
@@ -108,9 +118,21 @@ class TicTacToe():
         return False
 
     def __str__(self):
-        row=self.board_size*'|a'
-        row+='|\n'
-        field=self.board_size*row
+        
+        top_row='  '
+        second_row='   '
+        for numero in range(1, self.board_size+1):
+            top_row+=' '+str(numero)
+            second_row+='--'
+        top_row+='\n'
+        second_row+='\n'
+        field=top_row
+        for i in range(self.board_size):
+            row=string.ascii_uppercase[i]+' '
+            row+=self.board_size*'|a'
+            row+='|\n'
+            # field=top_row+second_row+self.board_size*row
+            field+=row
         # print("field")
         # print(field)
         for character in self.state:
@@ -136,7 +158,7 @@ class TicTacToe():
             aux=self.state
             if self.state[i]=='-':
                 aux=aux[:i]+mark+aux[i+1:]
-                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn)
+                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.max_depth, self.players)
                 possible_states.append(new_state)
                 # print (aux)
         # print("---------")
@@ -189,6 +211,17 @@ def count_moves(siirto:TicTacToe):
     # exit()
     return moves
 
+def count_empty(siirto:TicTacToe):
+    empty=0
+    # print(siirto.state)
+    for mark in siirto:
+        if mark=='-':
+            empty+=1
+    # print("moves", moves)
+    # exit()
+    return empty
+
+
 round=0
 
 def alpha_beta_value(node):
@@ -205,8 +238,8 @@ def alpha_beta_value(node):
         value=min_value(node, alpha, beta, depth)
     # print("ollaan alpha_beta_value metodissa")
     # print("arvo", arvo)
-    print("alpha_beta_value palauttaa:")
-    print(value)
+    # print("alpha_beta_value palauttaa:")
+    # print(value)
     return value
 
 store_min_steps=1000
@@ -232,8 +265,8 @@ def max_value(node:TicTacToe, alpha, beta, depth):
         # print("node value", node.value())
         # print("moves-testi B", moves)
         return (node.value(), moves, moves, depth, depth)
-    if depth>=max_depth:
-        print("max-value syvyysrajoitin. depth=", depth)
+    if depth>=node.max_depth:
+        # print("max-value syvyysrajoitin. depth=", depth)
         return(node.heuristics(), moves, moves, depth, depth)
     v=-LARGE_NUMBER
 
@@ -283,13 +316,16 @@ def max_value(node:TicTacToe, alpha, beta, depth):
             # if returned_max_depth>store_max_depth:
             #     store_max_depth=returned_max_depth
         
+        # print("tyhjät", count_empty(child.state))
         alpha=max(alpha,v)
-        # if alpha>=beta:
-        #     # print("max value pruned!")
-        #     # print("v:", v, "store_min_depth:", store_min_depth, "store_max_depth:", store_max_depth, "returned_min_depth:", returned_min_depth, "returned_max_depth:", returned_max_depth)
-        #     # s=steps
-        #     return (v, 88 ,88, store_min_depth, store_max_depth)
-        #     return (v, 1000, -1, 1000, -1)
+        if count_empty(child.state)>10:
+            # print("ollaan prunessa")
+            if alpha>=beta:
+                # print("max value pruned!")
+                # print("v:", v, "store_min_depth:", store_min_depth, "store_max_depth:", store_max_depth, "returned_min_depth:", returned_min_depth, "returned_max_depth:", returned_max_depth)
+                # s=steps
+                return (v, 88 ,88, store_min_depth, store_max_depth)
+                return (v, 1000, -1, 1000, -1)
             
     # print("v", v)
     # print("max_value palauttaa ",v)
@@ -309,8 +345,8 @@ def min_value(node, alpha, beta, depth):
     # print("tultiin min-value haaraan")
     # print(node)
     (is_end_state, moves)=node.is_end_state()
-    if depth>=max_depth:
-        print("min-value syvyysrajoitin. depth=", depth)
+    if depth>=node.max_depth:
+        # print("min-value syvyysrajoitin. depth=", depth)
         return (node.heuristics(), moves,moves, depth, depth)
     # print(is_end_state)
     # exit()
@@ -371,13 +407,16 @@ def min_value(node, alpha, beta, depth):
             #     store_max_depth=returned_max_depth        
         
         beta=min(beta,v)
-        # if alpha>=beta:
-            
-        #     # print("min value pruned!")
-        #     # print("v:", v, "store_min_depth:", store_min_depth, "store_max_depth:", store_max_depth, "returned_min_depth:", returned_min_depth, "returned_max_depth:", returned_max_depth)
-        #     # s=steps
-        #     return (v, 88, 88, store_min_depth, store_max_depth)
-        #     return (v, 1000, -1, 1000, -1)
+        # print("tyhjät", count_empty(child.state))
+        if count_empty(child.state)>10:
+            # print("ollaan prunessa")
+            if alpha>=beta:
+                
+                # print("min value pruned!")
+                # print("v:", v, "store_min_depth:", store_min_depth, "store_max_depth:", store_max_depth, "returned_min_depth:", returned_min_depth, "returned_max_depth:", returned_max_depth)
+                # s=steps
+                return (v, 88, 88, store_min_depth, store_max_depth)
+                return (v, 1000, -1, 1000, -1)
     # print("v", v)
     # print("------")
     # print("checkpoint A")

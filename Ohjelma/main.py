@@ -3,182 +3,210 @@ from alphabeta import alpha_beta_value
 from alphabeta import LARGE_NUMBER
 from alphabeta import get_rounds
 import time
-
+import string
 
 delay=0.3
 
 def input_move():
     print("What's your move?")
 
+def placement(coordinate:str, board_size):
+    letter=coordinate[0]
+    number=int(coordinate[1:])
+    # print("letter", letter)
+    # print("number", number)
+    aux=string.ascii_uppercase.find(letter.capitalize())
+    index=int(aux*board_size+number-1)
+    return index
+
+
 
 def play(state:TicTacToe):  
     time.sleep(delay)
-    if state.crosses_turn:
-        print("x:n vuoro siirtää")
-        print("")
-        print("")
-    else:
-        print("o:n vuoro siirtää")
-        print("")
-        print("")
+    # if state.crosses_turn:
+    #     print("x:n vuoro siirtää")
+    #     print("")
+    #     print("")
+    # else:
+    #     print("o:n vuoro siirtää")
+    #     print("")
+    #     print("")
 
     # print(state)
-     
-    
+
     if state.crosses_turn:
-        arvo=-LARGE_NUMBER
+        print(" Turn: x")
     else:
-        arvo=LARGE_NUMBER
-    new_state=""
-    children=state.generate_children(True)
-    # print("lasten määrä", len(lapset))
-    # moves=LARGE_NUMBER
-    min_depth=999
-    max_depth=-999
-
-    for i, siirto in enumerate (children):
-        # print("siirto_state from play")
-        # print(siirto.state)
-        (siirron_arvo, min_moves, max_moves, min_depth, max_depth)=alpha_beta_value(siirto)
-        
+        print(" Turn: o")
+    # print("Board")
+    print("")
+    print(state)
+    time.sleep(delay)
+    if state.players==1 and not state.crosses_turn:
         print("------------")
-        # print("depth", depth)
-        print("siirron", i, "arvo", siirron_arvo)
-        print("min_depth",min_depth)
-        print("max_depth",max_depth)
-        if min_depth==None or max_depth==None:
-            print("mennään suoraan seuraavaan")
-            continue
-        print("------------")
-        # print(siirto)
-        
-        # print("------------")
-        
+        print("What's your move? (A1, B2, C3, etc.)")
+        coordinate=input("Your choice: ")
+        index=placement(coordinate, state.board_size)
+        aux=state.state[:index]+'o'+state.state[index+1:]
+        # print(aux) 
+        new_state=TicTacToe(aux, state.board_size, True, state.max_depth, state.players)  
+    
+    else:
         if state.crosses_turn:
-            # print("min_moves at checkpoint 0", min_moves)
-            # print("max_moves at checkpoint 0", max_moves)
-            # print("siirron arvo", siirron_arvo)
-            # print("siirron numero", i)
+            arvo=-LARGE_NUMBER
+        else:
+            arvo=LARGE_NUMBER
+        new_state=""
+        children=state.generate_children(True)
+        # print("lasten määrä", len(lapset))
+        # moves=LARGE_NUMBER
+        min_depth=999
+        max_depth=-999
+
+        for i, siirto in enumerate (children):
+            # print("siirto_state from play")
+            # print(siirto.state)
+            (siirron_arvo, min_moves, max_moves, min_depth, max_depth)=alpha_beta_value(siirto)
+            
+            # print("------------")
+            # print("depth", depth)
+            # print("siirron", i, "arvo", siirron_arvo)
+            # print("min_depth",min_depth)
+            # print("max_depth",max_depth)
+            # if min_depth==None or max_depth==None:
+            #     print("mennään suoraan seuraavaan")
+            #     continue
+            # print("------------")
             # print(siirto)
             
-            if i==0:
-                arvo=siirron_arvo
-                new_state=siirto
-                moves=min_moves
-                depth=(min_depth, max_depth)
-                valittu_siirto= i
-            else:
-                if siirron_arvo>arvo:
-                    arvo=siirron_arvo
-                    new_state=siirto
-                    moves=min_moves
-                    depth=min_depth
-                    valittu_siirto= i
-                    # if arvo==1: #lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
-                    #     break
-                elif arvo==1 and siirron_arvo==1:
-                    # if max_moves<moves:
-                    #     moves=max_moves
-                    #     new_state=siirto
-                    #     valittu_siirto= i
-                    try:
-                        if max_depth<depth:
-                            depth=max_depth
-                            new_state=siirto
-                            valittu_siirto= i
-                    except:
-                        if max_depth<depth[1]:
-                            depth=max_depth
-                            new_state=siirto
-                            valittu_siirto= i
-
-                elif arvo==-1 and siirron_arvo==-1:
-                    # if max_moves>moves:
-                    #     moves=max_moves
-                    #     new_state=siirto
-                    #     valittu_siirto= i
-                    try:
-                        if min_depth>depth:
-                            depth=min_depth
-                            new_state=siirto
-                            valittu_siirto= i
-                    except:
-                        if min_depth>depth[0]:
-                            depth=min_depth
-                            new_state=siirto
-                            valittu_siirto= i
-
-        if not state.crosses_turn:
-            # print("nr_moves at checkpoint 1", nr_moves)
-            # print("siirron arvo", siirron_arvo)
-            # print("siirron numero", i)
-            # print(siirto)
+            # print("------------")
             
-            if i==0:
-                arvo=siirron_arvo
-                new_state=siirto
-                moves=min_moves
-                depth=(min_depth, max_depth)
-                valittu_siirto=i 
-            else:
-
-                if siirron_arvo<arvo:
-                    arvo=siirron_arvo
-                    new_state=siirto
-                    valittu_siirto= i
-                    moves=min_moves
-                    depth=min_depth
-                    # print("yo. valittu A")
+            if state.crosses_turn:
+                # print("min_moves at checkpoint 0", min_moves)
+                # print("max_moves at checkpoint 0", max_moves)
+                # print("siirron arvo", siirron_arvo)
+                # print("siirron numero", i)
+                # print(siirto)
                 
-                    # if arvo==-1:#lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
-                    #     break
-                elif arvo==-1 and siirron_arvo==-1:
-                    # if max_moves<moves:
-                    #     moves=max_moves
-                    #     new_state=siirto
-                    #     valittu_siirto= i
-                    #     # print("yo. valittu B")
-                    try:
-                        if max_depth<depth:
-                            depth=max_depth
-                            new_state=siirto
-                            valittu_siirto= i
-                    except:
-                        if max_depth<depth[1]:
-                            depth=max_depth
-                            new_state=siirto
-                            valittu_siirto= i
-                elif arvo==1 and siirron_arvo==1:
-                    # print("moves", moves)
-                    # print("nr_moves", nr_moves)
-                    # print("i", i)
-                    # if min_moves>moves:
-                    #     moves=min_moves
-                    #     new_state=siirto
-                    #     valittu_siirto= i
-                        # print("yo. valittu C")
-                    try:
-                        if min_depth>depth:
-                            depth=min_depth
-                            new_state=siirto
-                            valittu_siirto= i
-                    except:
-                        if min_depth>depth[0]:
-                            depth=min_depth
-                            new_state=siirto
-                            valittu_siirto= i
-        # print("----------")
+                if i==0:
+                    arvo=siirron_arvo
+                    new_state=siirto
+                    moves=min_moves
+                    depth=(min_depth, max_depth)
+                    valittu_siirto= i
+                else:
+                    if siirron_arvo>arvo:
+                        arvo=siirron_arvo
+                        new_state=siirto
+                        moves=min_moves
+                        depth=min_depth
+                        valittu_siirto= i
+                        # if arvo==1: #lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
+                        #     break
+                    elif arvo==1 and siirron_arvo==1:
+                        # if max_moves<moves:
+                        #     moves=max_moves
+                        #     new_state=siirto
+                        #     valittu_siirto= i
+                        try:
+                            if max_depth<depth:
+                                depth=max_depth
+                                new_state=siirto
+                                valittu_siirto= i
+                        except:
+                            if max_depth<depth[1]:
+                                depth=max_depth
+                                new_state=siirto
+                                valittu_siirto= i
+
+                    elif arvo==-1 and siirron_arvo==-1:
+                        # if max_moves>moves:
+                        #     moves=max_moves
+                        #     new_state=siirto
+                        #     valittu_siirto= i
+                        try:
+                            if min_depth>depth:
+                                depth=min_depth
+                                new_state=siirto
+                                valittu_siirto= i
+                        except:
+                            if min_depth>depth[0]:
+                                depth=min_depth
+                                new_state=siirto
+                                valittu_siirto= i
+
+            if not state.crosses_turn:
+                # print("nr_moves at checkpoint 1", nr_moves)
+                # print("siirron arvo", siirron_arvo)
+                # print("siirron numero", i)
+                # print(siirto)
+                
+                if i==0:
+                    arvo=siirron_arvo
+                    new_state=siirto
+                    moves=min_moves
+                    depth=(min_depth, max_depth)
+                    valittu_siirto=i 
+                else:
+
+                    if siirron_arvo<arvo:
+                        arvo=siirron_arvo
+                        new_state=siirto
+                        valittu_siirto= i
+                        moves=min_moves
+                        depth=min_depth
+                        # print("yo. valittu A")
+                    
+                        # if arvo==-1:#lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
+                        #     break
+                    elif arvo==-1 and siirron_arvo==-1:
+                        # if max_moves<moves:
+                        #     moves=max_moves
+                        #     new_state=siirto
+                        #     valittu_siirto= i
+                        #     # print("yo. valittu B")
+                        try:
+                            if max_depth<depth:
+                                depth=max_depth
+                                new_state=siirto
+                                valittu_siirto= i
+                        except:
+                            if max_depth<depth[1]:
+                                depth=max_depth
+                                new_state=siirto
+                                valittu_siirto= i
+                    elif arvo==1 and siirron_arvo==1:
+                        # print("moves", moves)
+                        # print("nr_moves", nr_moves)
+                        # print("i", i)
+                        # if min_moves>moves:
+                        #     moves=min_moves
+                        #     new_state=siirto
+                        #     valittu_siirto= i
+                            # print("yo. valittu C")
+                        try:
+                            if min_depth>depth:
+                                depth=min_depth
+                                new_state=siirto
+                                valittu_siirto= i
+                        except:
+                            if min_depth>depth[0]:
+                                depth=min_depth
+                                new_state=siirto
+                                valittu_siirto= i
+            # print("----------")
     # 
     # print("valitun siirron movesit", moves)
-    print("valitun siirron arvo", arvo)
-    print("valitun siirron min_syvyys", min_depth)
-    print("valitun siirron max_syvyys", max_depth)
-    print("valitun siiron numero", valittu_siirto)
+    # print("valitun siirron arvo", arvo)
+    # print("valitun siirron min_syvyys", min_depth)
+    # print("valitun siirron max_syvyys", max_depth)
+    # print("valitun siiron numero", valittu_siirto)
     print("---------------")  
-    print("checkpoint")
-    print(new_state)
+    # print("checkpoint")
+    # print(new_state)
     if new_state.is_end_state()[0]:
         voittaja=""
+        print(new_state)
         print("----------------")
         if new_state.won('o'):
             print("AND THE WINNER IS: o")
@@ -369,7 +397,7 @@ def settings():
                 print("Sure, let's take it from the beginning.")
                 break
             else:
-                print("Come on man! That's neither Enter nor c. Please try again.")
+                print("Come on - are you trying to hack me?! That's neither Enter nor c. Please try again.")
         
 
 def main():
@@ -389,16 +417,9 @@ def main():
     x_starts=False 
     if players==1 and first_move==1:
         x_starts=True #computer plays crosses and gets to go first
-    state = TicTacToe(test_board_4, board_size, x_starts)
+    state = TicTacToe(custom_board, board_size, x_starts, level, players)
     # state = TicTacToe(custom_board, board_size, False)
-    if x_starts:
-        print("x starts from the below position")
-    else:
-        print("o starts from the below position")
-    print("--------------")
     # state.won('x')
-    
-    print(state)
     play(state)
 
 
