@@ -31,8 +31,9 @@ def play(state:TicTacToe):
     # moves=LARGE_NUMBER
 
     for i, siirto in enumerate (children):
+        # print("siirto_state from play")
         # print(siirto.state)
-        (siirron_arvo, min_moves, max_moves)=alpha_beta_value(siirto)
+        (siirron_arvo, min_moves, max_moves, min_depth, max_depth)=alpha_beta_value(siirto)
         
         # print("------------")
         # print(siirto)
@@ -49,6 +50,7 @@ def play(state:TicTacToe):
                 arvo=siirron_arvo
                 new_state=siirto
                 moves=min_moves
+                depth=min_depth
                 valittu_siirto= i
                 # if arvo==1: #lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
                 #     break
@@ -57,11 +59,17 @@ def play(state:TicTacToe):
                     moves=min_moves
                     new_state=siirto
                     valittu_siirto= i
+                if min_depth<depth:
+                    depth=min_depth
+                    new_state=siirto
             elif arvo==-1 and siirron_arvo==-1:
                 if max_moves>moves:
                     moves=max_moves
                     new_state=siirto
                     valittu_siirto= i
+                if max_depth>depth:
+                    depth=max_depth
+                    new_state=siirto
 
         if not state.crosses_turn:
             # print("nr_moves at checkpoint 1", nr_moves)
@@ -73,6 +81,7 @@ def play(state:TicTacToe):
                 new_state=siirto
                 valittu_siirto= i
                 moves=min_moves
+                depth=min_depth
                 # print("yo. valittu A")
                
                 # if arvo==-1:#lopetetaan heti kun löytyy voittava peli. nopeuttaa algoritmia, mutta johtaa joskus oudon oloisiin peleihin, kun voittavan siirron näkee suoraan silmällä
@@ -83,6 +92,9 @@ def play(state:TicTacToe):
                     new_state=siirto
                     valittu_siirto= i
                     # print("yo. valittu B")
+                if min_depth<depth:
+                    depth=min_depth
+                    new_state=siirto
             elif arvo==1 and siirron_arvo==1:
                 # print("moves", moves)
                 # print("nr_moves", nr_moves)
@@ -92,10 +104,14 @@ def play(state:TicTacToe):
                     new_state=siirto
                     valittu_siirto= i
                     # print("yo. valittu C")
+                if max_depth>depth:
+                    depth=max_depth
+                    new_state=siirto
         # print("----------")
     # 
     # print("valitun siirron movesit", moves)
     print("valitun siirron arvo", arvo)
+    print("valitun siirron syvyys", depth)
     # print("valitun siiron numero", valittu_siirto)
     
     # print("checkpoint")

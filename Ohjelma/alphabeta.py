@@ -1,6 +1,6 @@
 LARGE_NUMBER = 1000000
 
-max_depth=5
+max_depth=11
 
 class TicTacToe():
     def __init__(self, state, board_size, crosses_turn):
@@ -149,12 +149,16 @@ class TicTacToe():
         Current score of the game (0, 1, -1)
         :return: int
         """
+        # print("value function called. Value: 1")
         if self.won('x'):
             # print("x:n voitto!")
+            # print("value function called. Value: 1")
             return 1
         if self.won('o'):
             # print("o:n voitto!")
+            # print("value function called. Value: 1")
             return -1
+        # print("value function called. Value: 0")
         return 0
     
     def heuristics(self):
@@ -191,18 +195,23 @@ def alpha_beta_value(node):
     alpha=-1
     beta=1
     depth=0
+    
     # print("aloitus. Depth =",depth)
     if node.crosses_turn:
-        # print("x:n vuoro")
         value=max_value(node, alpha, beta, depth)
     else:
         # print("o:n vuoro")
         value=min_value(node, alpha, beta, depth)
     # print("ollaan alpha_beta_value metodissa")
     # print("arvo", arvo)
+    # print("alpha_beta_value palauttaa:")
+    # print(value)
     return value
 
-
+store_min_steps=1000
+store_max_steps=-1
+store_min_depth=1000
+store_max_depth=-1
 
 
 def max_value(node:TicTacToe, alpha, beta, depth):
@@ -221,19 +230,26 @@ def max_value(node:TicTacToe, alpha, beta, depth):
     if is_end_state:
         # print("node value", node.value())
         # print("moves-testi B", moves)
-        return (node.value(), moves, moves)
+        return (node.value(), moves, moves, depth, depth)
     if depth>=max_depth:
-        # print("max-value syvyysrajoitin. depth=", depth)
-        return(node.heuristics(), moves, moves)
+        print("max-value syvyysrajoitin. depth=", depth)
+        return(node.heuristics(), moves, moves, depth, depth)
     v=-LARGE_NUMBER
+
     store_min_steps=1000
     store_max_steps=-1
+    store_min_depth=1000
+    store_max_depth=-1
+    
     for child in node.generate_children():
         # print(child)
-        (new_value,min_steps, max_steps)=min_value(child, alpha, beta, depth)
+        # v=max(v, min_value(child, alpha, beta)[0])
+        (new_value,min_steps, max_steps, returned_min_depth, returned_max_depth)=min_value(child, alpha, beta, depth)
         if new_value>v:
             answer=child
             v=new_value
+            store_min_depth=returned_min_depth
+            store_max_depth=returned_max_depth
             store_min_steps=min_steps
             store_max_steps=max_steps
         if new_value==v:
@@ -241,19 +257,25 @@ def max_value(node:TicTacToe, alpha, beta, depth):
                 store_min_steps=min_steps
             if max_steps>store_max_steps:
                 store_max_steps=max_steps
-        # v=max(v, min_value(child, alpha, beta)[0])
+            if returned_min_depth<store_min_depth:
+                store_min_depth=returned_min_depth
+            if returned_max_depth>store_max_depth:
+                store_max_depth=returned_max_depth
+        
         alpha=max(alpha,v)
         if alpha>=beta:
             # print("pruned!")
             # s=steps
-            return (v, store_min_steps, store_max_steps)
+            return (v, 1000, -1, 1000, -1)
     # print("v", v)
-    return (v, store_min_steps, store_max_steps)
+    # print("max_value palauttaa ",v)
+    return (v, store_min_steps, store_max_steps, store_min_depth, store_max_depth)
     # return HUGE_NUMBER
 
 
 def min_value(node, alpha, beta, depth):
     # print("min value function is called")
+    # global max_depth
     depth+=1
     # print("max-value looppi. depth =", depth)
     # print(node.state)
@@ -264,8 +286,8 @@ def min_value(node, alpha, beta, depth):
     # print(node)
     (is_end_state, moves)=node.is_end_state()
     if depth>=max_depth:
-        # print("min-value syvyysrajoitin. depth=", depth)
-        return (node.heuristics(), moves,moves)
+        print("min-value syvyysrajoitin. depth=", depth)
+        return (node.heuristics(), moves,moves, depth, depth)
     # print(is_end_state)
     # exit()
     if is_end_state:
@@ -275,17 +297,23 @@ def min_value(node, alpha, beta, depth):
         # print(node.state)
         # print("moves", moves)
         # print("------")
-        return (node.value(), moves, moves)
+        return (node.value(), moves, moves, depth, depth)
     v=LARGE_NUMBER
 
     store_min_steps=1000
     store_max_steps=-1
+    store_min_depth=1000
+    store_max_depth=-1
+
     for child in node.generate_children():
         # print(child)
-        (new_value, min_steps, max_steps)=max_value(child, alpha, beta, depth)
+        # v=min(v, max_value(child, alpha, beta)[0])
+        (new_value, min_steps, max_steps, returned_min_depth, returned_max_depth)=max_value(child, alpha, beta, depth)
         if new_value<v:
             answer=child
             v=new_value
+            store_min_depth=returned_min_depth
+            store_max_depth=returned_max_depth
             store_min_steps=min_steps
             store_max_steps=max_steps
         if new_value==v:
@@ -293,14 +321,18 @@ def min_value(node, alpha, beta, depth):
                 store_min_steps=min_steps
             if max_steps>store_max_steps:
                 store_max_steps=max_steps
+            if returned_min_depth<store_min_depth:
+                store_min_depth=returned_min_depth
+            if returned_max_depth>store_max_depth:
+                store_max_depth=returned_max_depth
         
-        # min(v, max_value(child, alpha, beta)[0])
+        
         beta=min(beta,v)
         if alpha>=beta:
             
             # print("pruned!")
             # s=steps
-            return (v, store_min_steps, store_max_steps)
+            return (v, 1000, -1, 1000, -1)
     # print("v", v)
     # print("------")
     # print("checkpoint A")
@@ -308,7 +340,8 @@ def min_value(node, alpha, beta, depth):
     # print("siirrot", count_moves(answer.state))
     # print("------")
 
-    return (v, store_min_steps, store_max_steps)
+    # print("min_value palauttaa ",v)
+    return (v, store_min_steps, store_max_steps, store_min_depth, store_max_depth)
     # return +HUGE_NUMBER
 
 def get_rounds():
