@@ -5,7 +5,7 @@ from alphabeta import get_rounds
 import time
 import string
 
-delay=0.1
+delay=0
 
 def input_move():
     print("What's your move?")
@@ -80,9 +80,9 @@ def play(state:TicTacToe):
     if new_state.is_end_state():
         print(new_state)
         print("----------------")
-        if new_state.won('O'):
+        if new_state.won('O', new_state.to_win):
             print("AND THE WINNER IS: O")
-        elif new_state.won('X'):
+        elif new_state.won('X', new_state.to_win):
             print("AND THE WINNER IS: X")
         else:
             print("DRAW")
@@ -244,6 +244,7 @@ def settings():
                 print("Level of AI: 2 (Pro)") 
             if level==3:
                 print("Level of AI: 3 (Deep Blue)") 
+        if players==1:
             if first_move==1:
                 print("First move: Computer")
             if first_move==2:
@@ -285,7 +286,6 @@ def main():
     test_board_3='oxoxoo--o-----xoxoxoxoxxo'
     test_board_4='------o-o'
     custom_board=(board_size**2) * '-'
-    
     state = TicTacToe(custom_board, board_size, x_starts, level, players)
     play(state)
 
