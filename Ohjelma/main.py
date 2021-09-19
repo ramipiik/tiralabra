@@ -5,17 +5,10 @@ from alphabeta import get_rounds
 import time
 import string
 
-delay=0.5
+delay=0.1
 
 def input_move():
     print("What's your move?")
-
-def placement(coordinate:str, board_size):
-    letter=coordinate[0]
-    number=int(coordinate[1:])
-    aux=string.ascii_uppercase.find(letter.capitalize())
-    index=int(aux*board_size+number-1)
-    return index
 
 def play(state:TicTacToe):  
     time.sleep(delay)
@@ -26,18 +19,38 @@ def play(state:TicTacToe):
     print("")
     print(state)
     time.sleep(delay)
-    if state.players==2 or (state.players==1 and not state.crosses_turn):
-        
+    if state.players==2 or (state.players==1 and not state.crosses_turn):        
         print("------------")
-        print("What's your move? (A1, B2, C3, etc.)")
-        coordinate=input("Your choice: ")
-        index=placement(coordinate, state.board_size)
-        if state.crosses_turn:
-            mark="x"
-        else:
-            mark="o"
-        aux=state.state[:index]+mark+state.state[index+1:]
-        new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.max_depth, state.players)  
+        while True:
+            print("What's your move? (A1, B2, C3, etc.)")
+            print("------------")
+            coordinate=input("Your choice: ")
+            try:
+                letter=coordinate[0]
+                number=int(coordinate[1:])
+                aux=string.ascii_uppercase.find(letter.capitalize())
+                if aux>state.board_size or number>state.board_size or number<1:
+                    print("------------")
+                    print(error_message)
+                    print("------------")
+                    continue   
+                index=int(aux*state.board_size+number-1)
+                if state.crosses_turn:
+                    mark="X"
+                else:
+                    mark="O"
+                if state.state[index]=='-':
+                    aux=state.state[:index]+mark+state.state[index+1:]
+                    new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.max_depth, state.players)
+                    break
+                else:
+                    print("------------")
+                    print("Sorry, but that one is already taken. Please try again.")
+            except:
+                print("------------")
+                print(error_message)
+                print("------------")
+            
     
     else:
         if state.crosses_turn:
@@ -67,10 +80,10 @@ def play(state:TicTacToe):
     if new_state.is_end_state():
         print(new_state)
         print("----------------")
-        if new_state.won('o'):
-            print("AND THE WINNER IS: o")
-        elif new_state.won('x'):
-            print("AND THE WINNER IS: x")
+        if new_state.won('O'):
+            print("AND THE WINNER IS: O")
+        elif new_state.won('X'):
+            print("AND THE WINNER IS: X")
         else:
             print("DRAW")
         print("----------------")
@@ -82,7 +95,7 @@ def play(state:TicTacToe):
         play (new_state)
  
 
-error_message="Well - that was not a valid choice. Let's try again."
+error_message="Well - that was not a valid choice. Please try again."
 
 def settings():
     while True:

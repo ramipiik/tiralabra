@@ -26,7 +26,7 @@ class TicTacToe():
             self.max_depth=9
         
     def is_end_state(self):
-        if ('-' not in self.state) or self.won('x') or self.won('o'):
+        if ('-' not in self.state) or self.won('X') or self.won('O'):
             return True
         else:
             return False
@@ -111,13 +111,16 @@ class TicTacToe():
     def __str__(self):
         top_row='  '
         for numero in range(1, self.board_size+1):
-            top_row+=' '+str(numero)
+            if numero<=10:
+                top_row+='   '+str(numero)
+            else:
+                top_row+='  ' +str(numero)
         top_row+='\n'
         field=top_row
         for i in range(self.board_size):
             row=string.ascii_uppercase[i]+' '
-            row+=self.board_size*'|a'
-            row+='|\n'
+            row+=self.board_size*' | a'
+            row+=' |\n'
             field+=row
         for character in self.state:
             field = field.replace('a', character, 1)
@@ -129,9 +132,9 @@ class TicTacToe():
     def generate_children(self, new=False):
         possible_states=[]
         if self.crosses_turn:
-            mark='x'
+            mark='X'
         else:
-            mark='o'
+            mark='O'
         for i in range (len(self.state)):
             aux=self.state
             if self.state[i]=='-':
@@ -143,26 +146,26 @@ class TicTacToe():
         return possible_states
 
     def value(self):
-        if self.won('x'):
+        if self.won('X'):
             return 1
-        if self.won('o'):
+        if self.won('O'):
             return -1
         return 0
     
     def heuristics(self):
         # print("heuristics called")
         # print(self)
-    # IMPLEMENT HEURISTICS CHECK HERE
-    #IF DEPTH == MAX DEPTH (depth kulkee min ja max_value looppien mukana)
-       # RETURN node.heuristics()
-    # node.heuristics on funktio joka arvioi kuinka arvokas laudan tilanne on.
-    # heuristics palauttaa arvon -1:n j 1:n väliltä
-    #testaa ensin siten, että se palauttaa aina nollan ja varmista siten, että syvyysrajoitin toimii ja 4x4-lauta saadaan pelattua läpi
-    #logiikka:
-    # 1) jos löytyy molemmista päistä avoin suora -ooo-, niin se on melkein voitto eli 0.99 plussaa tai miinusta. heuristiikka loppuu tähän, koska se pakko hoittaa
-    # 2) jos tarkistettavalta riviltä löytyy vaadittavan pituinen suora yhdellä -:lla se on 0.8. Jos näitä löytyy useampi kuin yksi, niin 0.95
-    # 3) jos löytyy suora kahdella aukolla se on 0.2. Jos useampia, niin +0.1 jokaisesta
-    # kysymys: pitäisikö kakkosia ja kolmosia summata yhteen, vai palauttaa ainoastaan paras tilanne.     
+        # IMPLEMENT HEURISTICS CHECK HERE
+        #IF DEPTH == MAX DEPTH (depth kulkee min ja max_value looppien mukana)
+        # RETURN node.heuristics()
+        # node.heuristics on funktio joka arvioi kuinka arvokas laudan tilanne on.
+        # heuristics palauttaa arvon -1:n j 1:n väliltä
+        #testaa ensin siten, että se palauttaa aina nollan ja varmista siten, että syvyysrajoitin toimii ja 4x4-lauta saadaan pelattua läpi
+        #logiikka:
+        # 1) jos löytyy molemmista päistä avoin suora -ooo-, niin se on melkein voitto eli 0.99 plussaa tai miinusta. heuristiikka loppuu tähän, koska se pakko hoittaa
+        # 2) jos tarkistettavalta riviltä löytyy vaadittavan pituinen suora yhdellä -:lla se on 0.8. Jos näitä löytyy useampi kuin yksi, niin 0.95
+        # 3) jos löytyy suora kahdella aukolla se on 0.2. Jos useampia, niin +0.1 jokaisesta
+        # kysymys: pitäisikö kakkosia ja kolmosia summata yhteen, vai palauttaa ainoastaan paras tilanne.     
     
         return 0
 
