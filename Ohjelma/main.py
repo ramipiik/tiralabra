@@ -74,7 +74,9 @@ def play(state:TicTacToe):
                     new_state=siirto
                     if arvo==-1:
                         break
-           
+        
+        # print("new_state")
+        # print(new_state)
     print("---------------")  
     
     if new_state.is_end_state():
