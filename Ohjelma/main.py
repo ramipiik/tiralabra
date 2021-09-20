@@ -6,7 +6,6 @@ import time
 import string
 
 delay=0
-
 def input_move():
     print("What's your move?")
 
@@ -134,7 +133,6 @@ def settings():
             print("D: 10x10 (takes five in a row to win)")
             print("E: 15x15 (takes five in a row to win)")
             print("F: 20x20 (takes five in a row to win)")
-            print("G: 25x25 (takes five in a row to win)")
             print("----------------")
             board_letter:str=input("Your choice: ")
             print("----------------")
@@ -168,11 +166,6 @@ def settings():
                 break
             elif board_letter=='F':
                 board_size=20
-                print(str(board_size)+"x"+str(board_size), "board - good choice!")
-                print("----------------")
-                break
-            elif board_letter=='G':
-                board_size=25
                 print(str(board_size)+"x"+str(board_size), "board - good choice!")
                 print("----------------")
                 break

@@ -18,7 +18,7 @@ class TicTacToe():
         if self.board_size==7:
             self.to_win=4
         
-        # self.max_depth=int(level)
+        self.max_depth=3
         if board_size==3:
             if level==1:
                 self.max_depth=2
@@ -40,6 +40,7 @@ class TicTacToe():
                 self.max_depth=3
             if level==3:
                 self.max_depth=4 #liian hidas
+        
         
     def is_end_state(self):
         if ('-' not in self.state) or self.won('X', self.to_win) or self.won('O', self.to_win):
@@ -377,6 +378,124 @@ class TicTacToe():
 
         return count
 
+
+    def heuristics_prevent_mustwins(self, mark, n):
+        combos=[]
+        winning_combos_2=[]
+        winning_combos_3=[]
+        winning_combos_4=[]
+
+        if n==3:
+            combo='-'+mark+'-'+mark+'-'
+            winning_combos_3.append(combo)
+            combo='-'+mark+mark+'-'+'-'
+            winning_combos_3.append(combo)
+            combo='-'+'-'+mark+mark+'-'
+            winning_combos_3.append(combo)
+
+        if n==4:
+            combo='-'+mark+'-'+mark+mark+'-'
+            winning_combos_4.append(combo)
+            combo='-'+mark+mark+'-'+mark+'-'
+            winning_combos_4.append(combo)
+            combo='-'+mark+mark+mark+'-'+'-'
+            winning_combos_4.append(combo)
+            combo='-'+'-'+mark+mark+mark+'-'
+            winning_combos_4.append(combo)
+
+        if n==3:
+            combos=winning_combos_3
+        if n==4:
+            combos=winning_combos_4
+        
+        count=0
+
+        #checks horizontal_lines
+        for i in range (self.board_size):
+            rivi:str=self.state[i*self.board_size:i*self.board_size+self.board_size]
+            # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+        
+        #checks vertical_lines
+        for i in range (self.board_size):
+            rivi=""
+            for j in range (self.board_size):
+                rivi+=self.state[j*self.board_size+i]
+            # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+        
+        #checks diagonal lines from top row to right-down
+        for i in range (self.board_size):
+            rivi=""
+            if i<=self.board_size-n-1: ######### CORRECTION
+                for j in range(self.board_size):
+                    if i+j*(self.board_size+1)<self.board_size**2:
+                        rivi+=self.state[i+j*(self.board_size+1)]
+                # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+
+        #checks diagonal lines from top row to left-down
+        # print("checkpoint 1")
+        for i in range (self.board_size-1,-1,-1):
+            max_length=i+1
+            rivi=""
+            if i>=n: ######### CORRECTION
+                for j in range(self.board_size):
+                    if len(rivi)<max_length:
+                        rivi+=self.state[i+j*(self.board_size-1)]
+                # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+
+        #checks diagonal lines from left column to right-down
+        for j in range (1, self.board_size): #top-left corner has already been checked. Thus starting from row 1.
+            max_length=self.board_size-j
+            rivi=""
+            if j<=self.board_size-n-1:  ######### CORRECTION
+                for i in range(self.board_size):
+                    if len(rivi)<max_length:
+                        rivi+=self.state[j*self.board_size+i*(self.board_size+1)]
+                # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+
+        #checks diagonal lines from right column to left-down
+        # print("checkpoint 2")
+        for j in range (1, self.board_size): #top-right corner has already been checked. Thus starting from row 1.
+            max_length=self.board_size-j
+            rivi=""
+            if j<=self.board_size-n-1:  ######### CORRECTION
+                for i in range(self.board_size):
+                    if len(rivi)<max_length:
+                        rivi+=self.state[(self.board_size-1)+j*(self.board_size)+i*(self.board_size-1)]
+                # print(rivi)
+            for combo in combos:
+                if rivi.__contains__(combo):
+                    # print("mark", mark, "osuma rivillä", rivi)
+                    count+=1
+                    # print("count", count)
+
+        return count
+
+
     def heuristics_sanity_check(self, mark, n):
         combos=[]
         combos_2=[]
@@ -512,7 +631,7 @@ class TicTacToe():
                 # print(rivi)
             for combo in combos:
                 if rivi.__contains__(combo):
-                    print("checkpoitn 4. mark", mark, "osuma rivillä", rivi)
+                    # print("checkpoitn 4. mark", mark, "osuma rivillä", rivi)
                     count+=1
                     # print("count", count)
 
@@ -535,7 +654,7 @@ class TicTacToe():
                 # print("HÄLYTYS! seuraavaksi on x:n vuoro. Älä laita o:aa tähän")
                 # print("-------------------")
                 # input("press any key 1..")
-                return 0.99
+                return 0.999
             o_3_wins=self.heuristics_sanity_check('O', 3)
             if o_3_wins>0 and not self.crosses_turn:
                 # print (self)
@@ -569,12 +688,12 @@ class TicTacToe():
             o_3_wins=self.heuristics_check_mustwins('O', 3)
             if o_3_wins>0:
                 return -0.9
-            x_2_wins=self.heuristics_check_mustwins('X', 2)
-            if x_2_wins>0:
-                return 0.9
-            o_2_wins=self.heuristics_check_mustwins('O', 2)
-            if o_2_wins>0:
-                return -0.9
+            # x_2_wins=self.heuristics_check_mustwins('X', 2)
+            # if x_2_wins>0:
+            #     return 0.9
+            # o_2_wins=self.heuristics_check_mustwins('O', 2)
+            # if o_2_wins>0:
+            #     return -0.9
         
         if self.to_win==5:
             x_4_wins=self.heuristics_check_mustwins('X', 4)
@@ -583,18 +702,47 @@ class TicTacToe():
             o_4_wins=self.heuristics_check_mustwins('O', 4)
             if o_4_wins>0:
                 return -0.9
-            x_3_wins=self.heuristics_check_mustwins('X', 3)
-            if x_3_wins>0:
-                return 0.9
-            o_3_wins=self.heuristics_check_mustwins('O', 3)
-            if o_3_wins>0:
-                return -0.9
-            x_2_wins=self.heuristics_check_mustwins('X', 2)
-            if x_2_wins>0:
-                return 0.9
-            o_2_wins=self.heuristics_check_mustwins('O', 2)
-            if o_2_wins>0:
-                return -0.9
+            # x_3_wins=self.heuristics_check_mustwins('X', 3)
+            # if x_3_wins>0:
+            #     return 0.9
+            # o_3_wins=self.heuristics_check_mustwins('O', 3)
+            # if o_3_wins>0:
+            #     return -0.9
+            # x_2_wins=self.heuristics_check_mustwins('X', 2)
+            # if x_2_wins>0:
+            #     return 0.9
+            # o_2_wins=self.heuristics_check_mustwins('O', 2)
+            # if o_2_wins>0:
+            #     return -0.9
+
+
+        if self.to_win==4:
+            x_3_wins=self.heuristics_prevent_mustwins('X', 3)
+            if x_3_wins>0 and self.crosses_turn:
+                # print (self)
+                # print("HÄLYTYS yllä x:n pakkovoittomahis")
+                # print("HÄLYTYS! seuraavaksi on x:n vuoro. Älä laita o:aa tähän")
+                # print("-------------------")
+                # input("press any key 1..")
+                return 0.95
+            o_3_wins=self.heuristics_prevent_mustwins('O', 3)
+            if o_3_wins>0 and not self.crosses_turn:
+                # print (self)
+                # print("HÄLYTYS. yllä o:n pakkovoittomahis")
+                # print("HÄLYTYS! seuraavaksi on o:n vuoro. Älä laita x:ää tähän")
+                # input("press any key 2..")
+                # print("-------------------")
+                return -0.95
+        
+        if self.to_win==5:
+            x_4_wins=self.heuristics_prevent_mustwins('X', 4)
+            if x_4_wins>0 and self.crosses_turn:
+                return 0.99
+            o_4_wins=self.heuristics_prevent_mustwins('O', 4)
+            if o_4_wins>0 and not self.crosses_turn:
+                return -0.99
+
+
 
         outcome=0
         impact=0
@@ -714,17 +862,19 @@ def max_value(node:TicTacToe, alpha, beta, depth):
     depth+=1  
     global round
     round+=1
-    
+    # print ("depth", depth) 
+    # print("max depth", node.max_depth)
     
     if node.is_end_state():
         return node.value() 
     
     if node.count_empty()>10:
-        result=node.heuristics()
-        # print("---------")
+
+        # print("*************")
         # print(node)
-        # print("heuristics result", result)
-        # print("---------")
+        result=node.heuristics()
+        # print("yo. taulukon heuristics result max-valuesta", result)
+        # print("*************")
         return result
 
     if depth>=node.max_depth:
@@ -758,7 +908,7 @@ def min_value(node:TicTacToe, alpha, beta, depth):
     if node.count_empty()>10:
         result=node.heuristics()
         # print(node)
-        # print("yo. taulukon heuristics result", result)
+        # print("yo. taulukon heuristics result min-valuesta", result)
         # print("---------")
         return result
 
