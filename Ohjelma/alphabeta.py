@@ -17,31 +17,15 @@ class TicTacToe():
             self.to_win=4
         if self.board_size==7:
             self.to_win=4
-        
-        self.max_depth=3
+
+        self.max_depth=2
         if board_size==3:
-            if level==1:
-                self.max_depth=2
-            if level==2:
-                self.max_depth=5
-            if level==3:
-                self.max_depth=7
+            self.max_depth=7
         if board_size==5:
-            if level==1:
-                self.max_depth=2
-            if level==2:
-                self.max_depth=3
-            if level==3:
-                self.max_depth=4
-        if board_size==7:
-            if level==1:
-                self.max_depth=2
-            if level==2:
-                self.max_depth=3
-            if level==3:
-                self.max_depth=4 #liian hidas
+            self.max_depth=4
         
-        
+        self.heuristics_limit=75
+
     def is_end_state(self):
         if ('-' not in self.state) or self.won('X', self.to_win) or self.won('O', self.to_win):
             return True
@@ -637,118 +621,148 @@ class TicTacToe():
 
         return count  
 
+    def heuristics_closeness_check(self, mark):
+        counter=0
+        table=[]
+        for i in range(self.board_size):
+            rivi=self.state[i*self.board_size:(i+1)*self.board_size]
+            table.append(rivi)
+        # for r in table:
+        #     print(r)
+        
+        for i in range(self.board_size):
+            for j in range (self.board_size):
+                    if i-1>=0:
+                        if table[j][i]==mark and table[j][i-1]==mark:
+                            counter+=1
+                    if j-1>=0:
+                        if table[j][i]==mark and table[j-1][i]==mark:
+                            counter+=1
+                    if i+1<self.board_size:
+                        if table[j][i]==mark and table[j][i+1]==mark:
+                            counter+=1
+                    if j+1<self.board_size:
+                        if table[j][i]==mark and table[j+1][i]==mark:
+                            counter+=1
+                    if j+1<self.board_size and i+1<self.board_size:
+                        if table[j][i]==mark and table[j+1][i+1]==mark:
+                            counter+=1
+                    if j-1>=0 and i-1>=0:
+                        if table[j][i]==mark and table[j-1][i-1]==mark:
+                            counter+=1
+                    if j-1>0 and i+1<self.board_size:
+                        if table[j][i]==mark and table[j-1][i+1]==mark:
+                            counter+=1
+                    if i-1>0 and j+1<self.board_size:
+                        if table[j][i]==mark and table[j+1][i-1]==mark:
+                            counter+=1
+
+        # print("counter", counter)
+        max=((self.board_size**2)/2)*9
+        relation=counter/max
+        # print("relation", relation)
+        return relation
+
     def heuristics(self):
         
+        closeness_weight=0.05
+        x_multiplier=1+self.heuristics_closeness_check('X')*closeness_weight
+        o_multiplier=1+self.heuristics_closeness_check('O')*closeness_weight
+
+        # print(self)
+        # print("x_multiplier", x_multiplier)
+        # print("o_multiplier", o_multiplier)
+        # print("-------------")
+
         if self.to_win==3:
-            x_2_wins=self.heuristics_sanity_check('X', 2)
-            if x_2_wins>0 and self.crosses_turn:
-                return 0.99
-            o_2_wins=self.heuristics_sanity_check('O', 2)
-            if o_2_wins>0 and not self.crosses_turn:
-                return -0.99
+            if self.crosses_turn:
+                x_2_wins=self.heuristics_sanity_check('X', 2)
+                if x_2_wins>0:
+                    return 0.9 * x_multiplier
+            
+            if not self.crosses_turn:
+                o_2_wins=self.heuristics_sanity_check('O', 2)
+                if o_2_wins>0:
+                    return -0.9 * o_multiplier
         
         if self.to_win==4:
-            x_3_wins=self.heuristics_sanity_check('X', 3)
-            if x_3_wins>0 and self.crosses_turn:
+            if self.crosses_turn:
+                x_3_wins=self.heuristics_sanity_check('X', 3)
+                if x_3_wins>0:
                 # print (self)
                 # print("HÄLYTYS! seuraavaksi on x:n vuoro. Älä laita o:aa tähän")
                 # print("-------------------")
                 # input("press any key 1..")
-                return 0.999
-            o_3_wins=self.heuristics_sanity_check('O', 3)
-            if o_3_wins>0 and not self.crosses_turn:
-                # print (self)
-                # print("HÄLYTYS! seuraavaksi on o:n vuoro. Älä laita x:ää tähän")
-                # input("press any key 2..")
-                # print("-------------------")
-                return -0.99
+                    return 0.9 * x_multiplier
+            if not self.crosses_turn:
+                o_3_wins=self.heuristics_sanity_check('O', 3)
+                if o_3_wins>0:
+                    # print (self)
+                    # print("HÄLYTYS! seuraavaksi on o:n vuoro. Älä laita x:ää tähän")
+                    # input("press any key 2..")
+                    # print("-------------------")
+                    return -0.9 * o_multiplier
         
         if self.to_win==5:
-            x_4_wins=self.heuristics_sanity_check('X', 4)
-            if x_4_wins>0 and self.crosses_turn:
-                return 0.99
-            o_4_wins=self.heuristics_sanity_check('O', 4)
-            if o_4_wins>0 and not self.crosses_turn:
-                return -0.99
+            if self.crosses_turn:
+                x_4_wins=self.heuristics_sanity_check('X', 4)
+                if x_4_wins>0:
+                    return 0.9 * x_multiplier
+            if not self.crosses_turn:
+                o_4_wins=self.heuristics_sanity_check('O', 4)
+                if o_4_wins>0:
+                    return -0.9 * o_multiplier
 
 
 
         if self.to_win==3:
             x_2_wins=self.heuristics_check_mustwins('X', 2)
             if x_2_wins>0:
-                return 0.9
+                return 0.8 * x_multiplier
             o_2_wins=self.heuristics_check_mustwins('O', 2)
             if o_2_wins>0:
-                return -0.9
+                return -0.8 * o_multiplier
         
         if self.to_win==4:
             x_3_wins=self.heuristics_check_mustwins('X', 3)
             if x_3_wins>0:
-                return 0.9
+                return 0.8 * x_multiplier
             o_3_wins=self.heuristics_check_mustwins('O', 3)
             if o_3_wins>0:
-                return -0.9
-            # x_2_wins=self.heuristics_check_mustwins('X', 2)
-            # if x_2_wins>0:
-            #     return 0.9
-            # o_2_wins=self.heuristics_check_mustwins('O', 2)
-            # if o_2_wins>0:
-            #     return -0.9
+                return -0.8 * o_multiplier
+
         
         if self.to_win==5:
             x_4_wins=self.heuristics_check_mustwins('X', 4)
             if x_4_wins>0:
-                return 0.9
+                return 0.8 * x_multiplier
             o_4_wins=self.heuristics_check_mustwins('O', 4)
             if o_4_wins>0:
-                return -0.9
-            # x_3_wins=self.heuristics_check_mustwins('X', 3)
-            # if x_3_wins>0:
-            #     return 0.9
-            # o_3_wins=self.heuristics_check_mustwins('O', 3)
-            # if o_3_wins>0:
-            #     return -0.9
-            # x_2_wins=self.heuristics_check_mustwins('X', 2)
-            # if x_2_wins>0:
-            #     return 0.9
-            # o_2_wins=self.heuristics_check_mustwins('O', 2)
-            # if o_2_wins>0:
-            #     return -0.9
+                return -0.8 * o_multiplier
+    
 
 
         if self.to_win==4:
             x_3_wins=self.heuristics_prevent_mustwins('X', 3)
             if x_3_wins>0 and self.crosses_turn:
-                # print (self)
-                # print("HÄLYTYS yllä x:n pakkovoittomahis")
-                # print("HÄLYTYS! seuraavaksi on x:n vuoro. Älä laita o:aa tähän")
-                # print("-------------------")
-                # input("press any key 1..")
-                return 0.95
+                return 0.7 * x_multiplier
             o_3_wins=self.heuristics_prevent_mustwins('O', 3)
             if o_3_wins>0 and not self.crosses_turn:
-                # print (self)
-                # print("HÄLYTYS. yllä o:n pakkovoittomahis")
-                # print("HÄLYTYS! seuraavaksi on o:n vuoro. Älä laita x:ää tähän")
-                # input("press any key 2..")
-                # print("-------------------")
-                return -0.95
+                return -0.7 * o_multiplier
         
         if self.to_win==5:
             x_4_wins=self.heuristics_prevent_mustwins('X', 4)
             if x_4_wins>0 and self.crosses_turn:
-                return 0.99
+                return 0.7 * x_multiplier
             o_4_wins=self.heuristics_prevent_mustwins('O', 4)
             if o_4_wins>0 and not self.crosses_turn:
-                return -0.99
-
-
+                return -0.7 * o_multiplier
 
         outcome=0
         impact=0
 
-        x_2_result=self.heuristics_check_1('X', 2)
-        o_2_result=self.heuristics_check_1('O', 2)
+        x_2_result=self.heuristics_check_1('X', 2)*x_multiplier
+        o_2_result=self.heuristics_check_1('O', 2)*o_multiplier
         sum=x_2_result+o_2_result
         diff=x_2_result-o_2_result
         weight=0.05
@@ -759,12 +773,12 @@ class TicTacToe():
         outcome+=impact
 
         if self.to_win==3:
-            return outcome
+            return outcome 
         
         impact=0
 
-        x_3_result=self.heuristics_check_1('X', 3)
-        o_3_result=self.heuristics_check_1('O', 3)
+        x_3_result=self.heuristics_check_1('X', 3)*x_multiplier
+        o_3_result=self.heuristics_check_1('O', 3)*o_multiplier
         sum=x_3_result+o_3_result
         diff=x_3_result-o_3_result
         weight=0.2
@@ -779,8 +793,8 @@ class TicTacToe():
 
         impact=0
         
-        x_4_result=self.heuristics_check_1('X', 4)
-        o_4_result=self.heuristics_check_1('O', 4)
+        x_4_result=self.heuristics_check_1('X', 4)*x_multiplier
+        o_4_result=self.heuristics_check_1('O', 4)*o_multiplier
         sum=x_4_result+o_4_result
         diff=x_4_result-o_4_result
         weight=0.4
@@ -868,7 +882,7 @@ def max_value(node:TicTacToe, alpha, beta, depth):
     if node.is_end_state():
         return node.value() 
     
-    if node.count_empty()>10:
+    if node.count_empty()>node.heuristics_limit or depth>=node.max_depth:
 
         # print("*************")
         # print(node)
@@ -876,16 +890,6 @@ def max_value(node:TicTacToe, alpha, beta, depth):
         # print("yo. taulukon heuristics result max-valuesta", result)
         # print("*************")
         return result
-
-    if depth>=node.max_depth:
-        estimate = node.heuristics()
-        # print("-----------")
-        # print(node)
-        # print("Returned back to O i.e. O should choose the best one:")
-        # print("estimate", estimate)
-        # input("press any key to continue")
-        # print("-----------")
-        return estimate
     
     v=-LARGE_NUMBER
     for child in node.generate_children():
@@ -905,22 +909,12 @@ def min_value(node:TicTacToe, alpha, beta, depth):
     if node.is_end_state():
         return node.value()    
     
-    if node.count_empty()>10:
+    if node.count_empty()>node.heuristics_limit or depth>=node.max_depth:
         result=node.heuristics()
         # print(node)
         # print("yo. taulukon heuristics result min-valuesta", result)
         # print("---------")
         return result
-
-    if depth>=node.max_depth:
-        estimate=node.heuristics()
-        # print("-----------")
-        # print(node)
-        # print("Returned back to X i.e. X should choose the best one:")
-        # print("estimate", estimate)
-        # input("press any key to continue")
-        # print("-----------")
-        return estimate
 
     v=LARGE_NUMBER
 

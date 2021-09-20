@@ -175,29 +175,29 @@ def settings():
         
         time.sleep(delay)
         level=0
-        if players==0 or players==1:
-            while True:
-                print("Choose the level of AI that you want to play against?")
-                print("1: Easy")
-                print("2: Pro")
-                print("3: Deep Blue")
-                print("----------------")
-                level=input("Your choice: ")
-                print("----------------")
-                time.sleep(delay)
-                try:
-                    level=int(level)
-                    if level==1 or level==2 or level==3:
-                        print("Rock'n roll!")
-                        print("----------------")
-                        time.sleep(delay)
-                        break
-                    else:
-                        print(error_message)
-                        print("----------------")    
-                except:
-                    print(error_message)
-                    print("----------------")
+        # if players==0 or players==1:
+        #     while True:
+        #         print("Choose the level of AI that you want to play against?")
+        #         print("1: Easy")
+        #         print("2: Pro")
+        #         print("3: Deep Blue")
+        #         print("----------------")
+        #         level=input("Your choice: ")
+        #         print("----------------")
+        #         time.sleep(delay)
+        #         try:
+        #             level=int(level)
+        #             if level==1 or level==2 or level==3:
+        #                 print("Rock'n roll!")
+        #                 print("----------------")
+        #                 time.sleep(delay)
+        #                 break
+        #             else:
+        #                 print(error_message)
+        #                 print("----------------")    
+        #         except:
+        #             print(error_message)
+        #             print("----------------")
         
         first_move=1
 
@@ -232,13 +232,13 @@ def settings():
         print("----------------")
         print("Players:", players)
         print("Board size:", str(board_size)+"x"+str(board_size))
-        if players==0 or players==1:
-            if level==1 or level=='1':
-                print("Level of AI: 1 (Easy)")
-            if level==2:
-                print("Level of AI: 2 (Pro)") 
-            if level==3:
-                print("Level of AI: 3 (Deep Blue)") 
+        # if players==0 or players==1:
+        #     if level==1 or level=='1':
+        #         print("Level of AI: 1 (Easy)")
+        #     if level==2:
+        #         print("Level of AI: 2 (Pro)") 
+        #     if level==3:
+        #         print("Level of AI: 3 (Deep Blue)") 
         if players==1:
             if first_move==1:
                 print("First move: Computer")
