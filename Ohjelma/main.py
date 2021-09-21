@@ -40,7 +40,7 @@ def play(state:TicTacToe):
                     mark="O"
                 if state.state[index]=='-':
                     aux=state.state[:index]+mark+state.state[index+1:]
-                    new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.max_depth, state.players)
+                    new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.level, state.players)
                     break
                 else:
                     print("------------")
@@ -77,7 +77,7 @@ def play(state:TicTacToe):
         # print("new_state")
         # print(new_state)
     print("---------------")  
-    
+    new_state.first_turn=False
     if new_state.is_end_state():
         print(new_state)
         print("----------------")
@@ -129,7 +129,7 @@ def settings():
             print("Choose the size of the board that you want to play with.")
             print("A: 3x3 (takes three in a row to win)")
             print("B: 5x5 (takes four in a row to win)")
-            print("C: 7x7 (takes four in a row to win)")
+            print("C: 7x7 (takes five in a row to win)")
             print("D: 10x10 (takes five in a row to win)")
             print("E: 15x15 (takes five in a row to win)")
             print("F: 20x20 (takes five in a row to win)")
@@ -175,37 +175,37 @@ def settings():
         
         time.sleep(delay)
         level=0
-        # if players==0 or players==1:
-        #     while True:
-        #         print("Choose the level of AI that you want to play against?")
-        #         print("1: Easy")
-        #         print("2: Pro")
-        #         print("3: Deep Blue")
-        #         print("----------------")
-        #         level=input("Your choice: ")
-        #         print("----------------")
-        #         time.sleep(delay)
-        #         try:
-        #             level=int(level)
-        #             if level==1 or level==2 or level==3:
-        #                 print("Rock'n roll!")
-        #                 print("----------------")
-        #                 time.sleep(delay)
-        #                 break
-        #             else:
-        #                 print(error_message)
-        #                 print("----------------")    
-        #         except:
-        #             print(error_message)
-        #             print("----------------")
+        if players==0 or players==1:
+            while True:
+                print("Choose the level of AI that you want to play against?")
+                print("(There is no hard, because I ran out of time fine tuning the algorithm..)")
+                print("1: Easy")
+                print("2: Medium")
+                print("----------------")
+                level=input("Your choice: ")
+                print("----------------")
+                time.sleep(delay)
+                try:
+                    level=int(level)
+                    if level==1 or level==2:
+                        print("Rock'n roll!")
+                        print("----------------")
+                        time.sleep(delay)
+                        break
+                    else:
+                        print(error_message)
+                        print("----------------")    
+                except:
+                    print(error_message)
+                    print("----------------")
         
         first_move=1
 
         if players==1:    
             while True:
                 print("Which one goes first - computer or human?")
-                print("1: Computer")
-                print("2: Human")
+                print("1: Human")
+                print("2: Computer")
                 print("----------------")
                 first_move=input("Your choice: ")
                 print("----------------")
@@ -213,11 +213,11 @@ def settings():
                 try:
                     first_move=int(first_move)
                     if first_move==1:
-                        print("All right. Computer goes first")
+                        print("All right. Humans first")
                         print("----------------")
                         break
                     if first_move==2:
-                        print("All right. Humans first")
+                        print("All right. Computer goes first")
                         print("----------------")
                         break
                     else:
@@ -232,18 +232,16 @@ def settings():
         print("----------------")
         print("Players:", players)
         print("Board size:", str(board_size)+"x"+str(board_size))
-        # if players==0 or players==1:
-        #     if level==1 or level=='1':
-        #         print("Level of AI: 1 (Easy)")
-        #     if level==2:
-        #         print("Level of AI: 2 (Pro)") 
-        #     if level==3:
-        #         print("Level of AI: 3 (Deep Blue)") 
+        if players==0 or players==1:
+            if level==1 or level=='1':
+                print("Level of AI: 1 (Easy)")
+            if level==2:
+                print("Level of AI: 2 (Medium)") 
         if players==1:
             if first_move==1:
-                print("First move: Computer")
-            if first_move==2:
                 print("First move: Human")
+            if first_move==2:
+                print("First move: Computer")
         print("----------------")
         time.sleep(delay)
         while True:
@@ -272,7 +270,7 @@ def main():
     first_move=user_choices[3]
 
     x_starts=False 
-    if players==1 and first_move==1:
+    if players==1 and first_move==2:
         x_starts=True #computer plays crosses and gets to go first
 
     empty_board = 3 * '---'
@@ -281,7 +279,7 @@ def main():
     test_board_3='oxoxoo--o-----xoxoxoxoxxo'
     test_board_4='------o-o'
     custom_board=(board_size**2) * '-'
-    state = TicTacToe(custom_board, board_size, x_starts, level, players)
+    state = TicTacToe(custom_board, board_size, x_starts, level, players, True)
     play(state)
 
 

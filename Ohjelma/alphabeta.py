@@ -2,7 +2,7 @@ LARGE_NUMBER = 1000000
 import string
 
 class TicTacToe():
-    def __init__(self, state, board_size, crosses_turn, level, players):
+    def __init__(self, state, board_size, crosses_turn, level, players, first_turn=False):
         self.state = state
         self.board_size=board_size
         self.crosses_turn = crosses_turn
@@ -15,16 +15,20 @@ class TicTacToe():
             self.to_win=4
         if self.board_size==5:
             self.to_win=4
-        if self.board_size==7:
-            self.to_win=4
 
-        self.max_depth=2
+        self.max_depth=3
         if board_size==3:
             self.max_depth=7
         if board_size==5:
             self.max_depth=4
         
-        self.heuristics_limit=75
+        self.closeness_weight=0
+        if level==2:
+            self.closeness_weight=0.25
+
+        self.heuristics_limit=50
+
+        self.first_turn=first_turn
 
     def is_end_state(self):
         if ('-' not in self.state) or self.won('X', self.to_win) or self.won('O', self.to_win):
@@ -118,42 +122,68 @@ class TicTacToe():
         combos_4=[]
         
         if n==2:
-            combo='-'+mark+mark+'-'
-            combos_2.append(combo)
-
             combo=mark+'-'+mark
-            combos_2.append(combo)
+            combos_2.append((combo,1))
+            combo= '-'+mark+mark
+            combos_2.append((combo,1))
+            combo= mark+mark+'-'
+            combos_2.append((combo,1))
 
-        if n>=2:
-            combo= '-'+n*mark
-            combos_2.append(combo)
-            combos_3.append(combo)
-            combos_4.append(combo)
-            
-            combo= n*mark+'-'
-            combos_2.append(combo)
-            combos_3.append(combo)
-            combos_4.append(combo)
+        if n==3:
+            combo=mark+'-'+mark
+            combos_3.append((combo,1))
+            combo= '-'+mark+mark
+            combos_3.append((combo,1))
+            combo= mark+mark+'-'
+            combos_3.append((combo,1))
 
-        if n>=3:
             combo=mark+'-'+mark+mark
-            combos_3.append(combo)
-            combos_4.append(combo)
-            
+            combos_3.append((combo,5))
             combo=mark+mark+'-'+mark
-            combos_3.append(combo)
-            combos_4.append(combo)
-      
+            combos_3.append((combo,5))
+
+            combo= '-'+mark+mark+mark
+            combos_3.append((combo,10))
+
+            combo= mark+mark+mark+'-'
+            combos_3.append((combo,10))
+
+     
         if n==4:
+            
+            combo=mark+'-'+mark
+            combos_4.append((combo,1))
+            combo= '-'+mark+mark
+            combos_4.append((combo,1))
+            combo= mark+mark+'-'
+            combos_4.append((combo,1))
+
+            combo=mark+'-'+mark+mark
+            combos_4.append((combo,3))
+            combo=mark+mark+'-'+mark
+            combos_4.append((combo,3))
+
+            combo= '-'+mark+mark+mark
+            combos_4.append((combo,7))
+
+            combo= mark+mark+mark+'-'
+            combos_4.append((combo,7))
+
             combo=mark+'-'+mark+mark+mark
-            combos_4.append(combo)
+            combos_4.append((combo,15))
 
             combo=mark+mark+'-'+mark+mark
-            combos_4.append(combo)
+            combos_4.append((combo,15))
 
             combo=mark+mark+mark+'-'+mark
-            combos_4.append(combo)
+            combos_4.append((combo,15))
 
+            combo= '-'+mark+mark+mark+mark
+            combos_4.append((combo,20))
+
+            combo= mark+mark+mark+mark+'-'
+            combos_4.append((combo,20))
+            
         
         if n==2:
             combos=combos_2
@@ -169,9 +199,9 @@ class TicTacToe():
             rivi:str=self.state[i*self.board_size:i*self.board_size+self.board_size]
             # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
         
         #checks vertical_lines
@@ -181,9 +211,9 @@ class TicTacToe():
                 rivi+=self.state[j*self.board_size+i]
             # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
         
         #checks diagonal lines from top row to right-down
@@ -195,9 +225,9 @@ class TicTacToe():
                         rivi+=self.state[i+j*(self.board_size+1)]
                 # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
 
         #checks diagonal lines from top row to left-down
@@ -211,9 +241,9 @@ class TicTacToe():
                         rivi+=self.state[i+j*(self.board_size-1)]
                 # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
 
         #checks diagonal lines from left column to right-down
@@ -226,9 +256,9 @@ class TicTacToe():
                         rivi+=self.state[j*self.board_size+i*(self.board_size+1)]
                 # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
 
         #checks diagonal lines from right column to left-down
@@ -242,9 +272,9 @@ class TicTacToe():
                         rivi+=self.state[(self.board_size-1)+j*(self.board_size)+i*(self.board_size-1)]
                 # print(rivi)
             for combo in combos:
-                if rivi.__contains__(combo):
+                if rivi.__contains__(combo[0]):
                     # print("mark", mark, "osuma rivillä", rivi)
-                    count+=len(combo)**2
+                    count+=combo[1]
                     # print("count", count)
 
         return count
@@ -621,15 +651,27 @@ class TicTacToe():
 
         return count  
 
-    def heuristics_closeness_check(self, mark):
+    def heuristics_closeness_check(self, mark, first_time=False):
         counter=0
         table=[]
         for i in range(self.board_size):
             rivi=self.state[i*self.board_size:(i+1)*self.board_size]
             table.append(rivi)
+        
         # for r in table:
         #     print(r)
         
+        if first_time:
+            table=[]
+            # print("checkpoint")
+            for i in range(self.board_size):
+                rivi=self.state[i*self.board_size:(i+1)*self.board_size]
+                rivi=rivi.replace("O", "X")
+                table.append(rivi)
+        
+        #     for r in table:
+        #         print(r)
+
         for i in range(self.board_size):
             for j in range (self.board_size):
                     if i-1>=0:
@@ -658,32 +700,54 @@ class TicTacToe():
                             counter+=1
 
         # print("counter", counter)
-        max=((self.board_size**2)/2)*9
-        relation=counter/max
+        maximum=((self.board_size**2)/2)*9
+        relation=counter/maximum
         # print("relation", relation)
         return relation
 
-    def heuristics(self):
-        
-        closeness_weight=0.05
-        x_multiplier=1+self.heuristics_closeness_check('X')*closeness_weight
-        o_multiplier=1+self.heuristics_closeness_check('O')*closeness_weight
 
-        # print(self)
-        # print("x_multiplier", x_multiplier)
-        # print("o_multiplier", o_multiplier)
-        # print("-------------")
+    def heuristics_boundaries_check(self, mark):
+        distance=0
+        table=[]
+        for i in range(self.board_size):
+            rivi=self.state[i*self.board_size:(i+1)*self.board_size]
+            table.append(rivi)
+        # for r in table:
+        #     print(r)
+        
+        for i in range(self.board_size):
+            for j in range (self.board_size):
+                    if table[j][i]==mark:
+                            distance+=min(j, self.board_size-j)+min(i, self.board_size-i)
+        # print("distance", distance)
+        maximum=(self.board_size/2)*self.board_size**2
+        relation=distance/maximum
+        # print("relation", relation)
+        return relation
+
+
+    def heuristics(self):        
+        x_closeness_bonus=self.heuristics_closeness_check('X')*self.closeness_weight
+        o_closeness_bonus=self.heuristics_closeness_check('O')*self.closeness_weight
+        
+        if self.count_empty()==self.board_size**2-2:
+            x_closeness_bonus=self.heuristics_closeness_check('X', True)*self.closeness_weight
+            # print("x_closeness_bonus", x_closeness_bonus)
+
+        center_weight=0.02
+        x_center_bonus=self.heuristics_boundaries_check('X')*center_weight
+        o_center_bonus=self.heuristics_boundaries_check('O')*center_weight
 
         if self.to_win==3:
             if self.crosses_turn:
                 x_2_wins=self.heuristics_sanity_check('X', 2)
                 if x_2_wins>0:
-                    return 0.9 * x_multiplier
+                    return 0.9 + x_closeness_bonus +  x_center_bonus
             
             if not self.crosses_turn:
                 o_2_wins=self.heuristics_sanity_check('O', 2)
                 if o_2_wins>0:
-                    return -0.9 * o_multiplier
+                    return -0.9 - o_closeness_bonus -  o_center_bonus
         
         if self.to_win==4:
             if self.crosses_turn:
@@ -693,7 +757,7 @@ class TicTacToe():
                 # print("HÄLYTYS! seuraavaksi on x:n vuoro. Älä laita o:aa tähän")
                 # print("-------------------")
                 # input("press any key 1..")
-                    return 0.9 * x_multiplier
+                    return 0.9 + x_closeness_bonus +  x_center_bonus
             if not self.crosses_turn:
                 o_3_wins=self.heuristics_sanity_check('O', 3)
                 if o_3_wins>0:
@@ -701,71 +765,77 @@ class TicTacToe():
                     # print("HÄLYTYS! seuraavaksi on o:n vuoro. Älä laita x:ää tähän")
                     # input("press any key 2..")
                     # print("-------------------")
-                    return -0.9 * o_multiplier
+                    return -0.9 - o_closeness_bonus -  o_center_bonus
         
         if self.to_win==5:
             if self.crosses_turn:
                 x_4_wins=self.heuristics_sanity_check('X', 4)
                 if x_4_wins>0:
-                    return 0.9 * x_multiplier
+                    return 2.9 + x_closeness_bonus +  x_center_bonus
             if not self.crosses_turn:
                 o_4_wins=self.heuristics_sanity_check('O', 4)
                 if o_4_wins>0:
-                    return -0.9 * o_multiplier
+                    return -2.9 - o_closeness_bonus -  o_center_bonus
 
 
 
         if self.to_win==3:
             x_2_wins=self.heuristics_check_mustwins('X', 2)
             if x_2_wins>0:
-                return 0.8 * x_multiplier
+                return 0.8 + x_closeness_bonus +  x_center_bonus
             o_2_wins=self.heuristics_check_mustwins('O', 2)
             if o_2_wins>0:
-                return -0.8 * o_multiplier
+                return -0.8 - o_closeness_bonus -  o_center_bonus
         
         if self.to_win==4:
             x_3_wins=self.heuristics_check_mustwins('X', 3)
             if x_3_wins>0:
-                return 0.8 * x_multiplier
+                return 0.8 + x_closeness_bonus +  x_center_bonus
             o_3_wins=self.heuristics_check_mustwins('O', 3)
             if o_3_wins>0:
-                return -0.8 * o_multiplier
+                return -0.8 - o_closeness_bonus -  o_center_bonus
 
         
         if self.to_win==5:
             x_4_wins=self.heuristics_check_mustwins('X', 4)
             if x_4_wins>0:
-                return 0.8 * x_multiplier
+                return 1.8 + x_closeness_bonus +  x_center_bonus
             o_4_wins=self.heuristics_check_mustwins('O', 4)
             if o_4_wins>0:
-                return -0.8 * o_multiplier
+                return -1.8 - o_closeness_bonus -  o_center_bonus
     
 
 
         if self.to_win==4:
             x_3_wins=self.heuristics_prevent_mustwins('X', 3)
             if x_3_wins>0 and self.crosses_turn:
-                return 0.7 * x_multiplier
+                return 0.7 + x_closeness_bonus +  x_center_bonus
             o_3_wins=self.heuristics_prevent_mustwins('O', 3)
             if o_3_wins>0 and not self.crosses_turn:
-                return -0.7 * o_multiplier
+                return -0.7 - o_closeness_bonus -  o_center_bonus
         
         if self.to_win==5:
-            x_4_wins=self.heuristics_prevent_mustwins('X', 4)
-            if x_4_wins>0 and self.crosses_turn:
-                return 0.7 * x_multiplier
-            o_4_wins=self.heuristics_prevent_mustwins('O', 4)
-            if o_4_wins>0 and not self.crosses_turn:
-                return -0.7 * o_multiplier
+            if self.crosses_turn:
+                x_4_wins=self.heuristics_prevent_mustwins('X', 4)
+                if x_4_wins>0:
+                    return 0.7 + x_closeness_bonus +  x_center_bonus
+            if not self.crosses_turn:
+                o_4_wins=self.heuristics_prevent_mustwins('O', 4)
+                if o_4_wins>0:
+                    return -0.7 - o_closeness_bonus -  o_center_bonus
 
-        outcome=0
+        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
 
-        x_2_result=self.heuristics_check_1('X', 2)*x_multiplier
-        o_2_result=self.heuristics_check_1('O', 2)*o_multiplier
+        x_2_result=self.heuristics_check_1('X', 2)
+        o_2_result=self.heuristics_check_1('O', 2)
+        if o_2_result==0:
+            o_2_result=0.0000000000001
+        if x_2_result==0:
+            x_2_result=0.0000000000001    
         sum=x_2_result+o_2_result
         diff=x_2_result-o_2_result
-        weight=0.05
+        weight=1
         try:
             impact=diff/sum*weight
         except:
@@ -775,13 +845,18 @@ class TicTacToe():
         if self.to_win==3:
             return outcome 
         
+        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
 
-        x_3_result=self.heuristics_check_1('X', 3)*x_multiplier
-        o_3_result=self.heuristics_check_1('O', 3)*o_multiplier
+        x_3_result=self.heuristics_check_1('X', 3)
+        o_3_result=self.heuristics_check_1('O', 3)
+        if o_3_result==0:
+            o_3_result=0.0000000000001
+        if x_3_result==0:
+            x_3_result=0.0000000000001    
         sum=x_3_result+o_3_result
         diff=x_3_result-o_3_result
-        weight=0.2
+        weight=1
         try:
             impact=diff/sum*weight
         except:
@@ -791,13 +866,18 @@ class TicTacToe():
         if self.to_win==4:
             return outcome
 
+        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
         
-        x_4_result=self.heuristics_check_1('X', 4)*x_multiplier
-        o_4_result=self.heuristics_check_1('O', 4)*o_multiplier
+        x_4_result=self.heuristics_check_1('X', 4)
+        o_4_result=self.heuristics_check_1('O', 4)
+        if o_4_result==0:
+            o_4_result=0.0000000000001
+        if x_4_result==0:
+            x_4_result=0.0000000000001    
         sum=x_4_result+o_4_result
         diff=x_4_result-o_4_result
-        weight=0.4
+        weight=1
         try:
             impact=diff/sum*weight
         except:
