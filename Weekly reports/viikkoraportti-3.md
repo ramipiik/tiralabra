@@ -1,13 +1,13 @@
 ## Mitä olen tehnyt tällä viikolla?
 * Algoritmin parantelua
 * Bugien korjausta
-* Algoritmi toimii nyt sen verran hyvin, että sitä on erittäin vaikea voittaa.
+* Algoritmi toimii nyt sen verran hyvin, että sitä on jo vaikea voittaa.
 * Koodin jakaminen erillisiin tiedostoihin
 * Koodin kommentointia.
 
 ## Miten ohjelma on edistynyt?
 * Ydintoiminnallisuuden osalta ihan ok.
-* Tavoite oli saada yksikkötestit ja tyylitarkastus hyvään alkuun, mutta viikolla tuli odottamattomia muita kiireitä, enkä siksi ehtinyt aloitta näit. Olen siis  näiltä osin suunnitelmasta jäljessä.
+* Tavoite oli saada yksikkötestit ja tyylitarkastus hyvään alkuun, mutta viikolla tuli odottamattomia muita kiireitä, enkä siksi ehtinyt aloitta näitä. Olen siis  näiltä osin suunnitelmasta/aikataulusta jäljessä.
 
 ## Mitä opin tällä viikolla / tänään?
 * Koodin jaottelu omiin tiedostoihin selkeyttää rakennetta erittäin paljon.
