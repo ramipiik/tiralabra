@@ -1,10 +1,11 @@
 from alphabeta import TicTacToe
 from alphabeta import alpha_beta_value
-from alphabeta import LARGE_NUMBER
+from parameters import LARGE_NUMBER
 from alphabeta import get_rounds
 import time
 import string
 
+from tictactoe import TicTacToe
 
 latest_move=""
 delay=0

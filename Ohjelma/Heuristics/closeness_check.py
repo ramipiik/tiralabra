@@ -1,4 +1,7 @@
-def closeness_check(tictactoe, mark, first_time=False):
+# from Ohjelma.alphabeta import TicTacToe
+
+
+def closeness_check(tictactoe, mark:str, first_time=False):
         counter=0
         table=[]
         for i in range(tictactoe.board_size):

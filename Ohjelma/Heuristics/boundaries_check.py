@@ -1,4 +1,7 @@
-def boundaries_check(tictactoe, mark):
+# from Ohjelma.alphabeta import TicTacToe
+
+
+def boundaries_check(tictactoe, mark:str):
     distance=0
     table=[]
     for i in range(tictactoe.board_size):

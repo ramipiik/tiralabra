@@ -1,4 +1,7 @@
-def prevent_mustwins(tictactoe, mark, n):
+# from Ohjelma.alphabeta import TicTacToe
+
+
+def prevent_mustwins(tictactoe, mark:str, n:int):
         combos=[]
         winning_combos_2=[]
         winning_combos_3=[]

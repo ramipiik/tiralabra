@@ -1,4 +1,7 @@
-def basic_check(tictactoe, mark, n):
+# from tictactoe import TicTacToe
+
+
+def basic_check(tictactoe, mark:str, n:int):
     combos=[]
     combos_2=[]
     combos_3=[]
