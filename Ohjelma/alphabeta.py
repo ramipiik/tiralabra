@@ -1,5 +1,7 @@
 LARGE_NUMBER = 1000000
 import string
+from Heuristics import basic_check
+from Heuristics import basic_check_2
 # sfrom main import latest_move
 
 class TicTacToe():
@@ -121,169 +123,6 @@ class TicTacToe():
 
         return False
 
-    def heuristics_check_1(self, mark, n):
-        combos=[]
-        combos_2=[]
-        combos_3=[]
-        combos_4=[]
-        
-        if n==2:
-            combo=mark+'-'+mark
-            combos_2.append((combo,1))
-            combo= '-'+mark+mark
-            combos_2.append((combo,1))
-            combo= mark+mark+'-'
-            combos_2.append((combo,1))
-
-        if n==3:
-            combo=mark+'-'+mark
-            combos_3.append((combo,1))
-            combo= '-'+mark+mark
-            combos_3.append((combo,1))
-            combo= mark+mark+'-'
-            combos_3.append((combo,1))
-
-            combo=mark+'-'+mark+mark
-            combos_3.append((combo,5))
-            combo=mark+mark+'-'+mark
-            combos_3.append((combo,5))
-
-            combo= '-'+mark+mark+mark
-            combos_3.append((combo,10))
-
-            combo= mark+mark+mark+'-'
-            combos_3.append((combo,10))
-
-     
-        if n==4:
-            
-            combo=mark+'-'+mark
-            combos_4.append((combo,1))
-            combo= '-'+mark+mark
-            combos_4.append((combo,1))
-            combo= mark+mark+'-'
-            combos_4.append((combo,1))
-
-            combo=mark+'-'+mark+mark
-            combos_4.append((combo,3))
-            combo=mark+mark+'-'+mark
-            combos_4.append((combo,3))
-
-            combo= '-'+mark+mark+mark
-            combos_4.append((combo,7))
-
-            combo= mark+mark+mark+'-'
-            combos_4.append((combo,7))
-
-            combo=mark+'-'+mark+mark+mark
-            combos_4.append((combo,15))
-
-            combo=mark+mark+'-'+mark+mark
-            combos_4.append((combo,15))
-
-            combo=mark+mark+mark+'-'+mark
-            combos_4.append((combo,15))
-
-            combo= '-'+mark+mark+mark+mark
-            combos_4.append((combo,20))
-
-            combo= mark+mark+mark+mark+'-'
-            combos_4.append((combo,20))
-            
-        
-        if n==2:
-            combos=combos_2
-        if n==3:
-            combos=combos_3
-        if n==4:
-            combos=combos_4
-        
-        count=0
-
-        #checks horizontal_lines
-        for i in range (self.board_size):
-            rivi:str=self.state[i*self.board_size:i*self.board_size+self.board_size]
-            # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-        
-        #checks vertical_lines
-        for i in range (self.board_size):
-            rivi=""
-            for j in range (self.board_size):
-                rivi+=self.state[j*self.board_size+i]
-            # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-        
-        #checks diagonal lines from top row to right-down
-        for i in range (self.board_size):
-            rivi=""
-            if i<=self.board_size-n-1:   ######### CORRECTION
-                for j in range(self.board_size):
-                    if i+j*(self.board_size+1)<self.board_size**2:
-                        rivi+=self.state[i+j*(self.board_size+1)]
-                # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-
-        #checks diagonal lines from top row to left-down
-        # print("checkpoint 1")
-        for i in range (self.board_size-1,-1,-1):
-            max_length=i+1
-            rivi=""
-            if i>=n:  ######### CORRECTION
-                for j in range(self.board_size):
-                    if len(rivi)<max_length:
-                        rivi+=self.state[i+j*(self.board_size-1)]
-                # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-
-        #checks diagonal lines from left column to right-down
-        for j in range (1, self.board_size): #top-left corner has already been checked. Thus starting from row 1.
-            max_length=self.board_size-j
-            rivi=""
-            if j<=self.board_size-n-1: ######### CORRECTION
-                for i in range(self.board_size):
-                    if len(rivi)<max_length:
-                        rivi+=self.state[j*self.board_size+i*(self.board_size+1)]
-                # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-
-        #checks diagonal lines from right column to left-down
-        # print("checkpoint 2")
-        for j in range (1, self.board_size): #top-right corner has already been checked. Thus starting from row 1.
-            max_length=self.board_size-j
-            rivi=""
-            if j<=self.board_size-n-1:  ######### CORRECTION
-                for i in range(self.board_size):
-                    if len(rivi)<max_length:
-                        rivi+=self.state[(self.board_size-1)+j*(self.board_size)+i*(self.board_size-1)]
-                # print(rivi)
-            for combo in combos:
-                if rivi.__contains__(combo[0]):
-                    # print("mark", mark, "osuma rivillä", rivi)
-                    count+=combo[1]
-                    # print("count", count)
-
-        return count
 
     def heuristics_check_mustwins(self, mark, n):
         combos=[]
@@ -731,6 +570,8 @@ class TicTacToe():
         # print("relation", relation)
         return relation
 
+    def heuristics_check_1(self, mark,n):
+        return basic_check.basic_check(self, mark,n)
 
     def heuristics(self):        
         # print("heuristics called")
@@ -835,6 +676,7 @@ class TicTacToe():
         impact=0
 
         x_2_result=self.heuristics_check_1('X', 2)
+        # x_2_result=basic_check_2.basic_check(self, 'X', 2)
         o_2_result=self.heuristics_check_1('O', 2)
         if o_2_result==0:
             o_2_result=0.0000000000001
