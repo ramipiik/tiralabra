@@ -1,4 +1,4 @@
-def basic_check(self, mark, n):
+def basic_check(tictactoe, mark, n):
     combos=[]
     combos_2=[]
     combos_3=[]
@@ -78,8 +78,8 @@ def basic_check(self, mark, n):
     count=0
 
     #checks horizontal_lines
-    for i in range (self.board_size):
-        rivi:str=self.state[i*self.board_size:i*self.board_size+self.board_size]
+    for i in range (tictactoe.board_size):
+        rivi:str=tictactoe.state[i*tictactoe.board_size:i*tictactoe.board_size+tictactoe.board_size]
         # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):
@@ -88,10 +88,10 @@ def basic_check(self, mark, n):
                 # print("count", count)
     
     #checks vertical_lines
-    for i in range (self.board_size):
+    for i in range (tictactoe.board_size):
         rivi=""
-        for j in range (self.board_size):
-            rivi+=self.state[j*self.board_size+i]
+        for j in range (tictactoe.board_size):
+            rivi+=tictactoe.state[j*tictactoe.board_size+i]
         # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):
@@ -100,12 +100,12 @@ def basic_check(self, mark, n):
                 # print("count", count)
     
     #checks diagonal lines from top row to right-down
-    for i in range (self.board_size):
+    for i in range (tictactoe.board_size):
         rivi=""
-        if i<=self.board_size-n-1:   ######### CORRECTION
-            for j in range(self.board_size):
-                if i+j*(self.board_size+1)<self.board_size**2:
-                    rivi+=self.state[i+j*(self.board_size+1)]
+        if i<=tictactoe.board_size-n-1:   ######### CORRECTION
+            for j in range(tictactoe.board_size):
+                if i+j*(tictactoe.board_size+1)<tictactoe.board_size**2:
+                    rivi+=tictactoe.state[i+j*(tictactoe.board_size+1)]
             # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):
@@ -115,13 +115,13 @@ def basic_check(self, mark, n):
 
     #checks diagonal lines from top row to left-down
     # print("checkpoint 1")
-    for i in range (self.board_size-1,-1,-1):
+    for i in range (tictactoe.board_size-1,-1,-1):
         max_length=i+1
         rivi=""
         if i>=n:  ######### CORRECTION
-            for j in range(self.board_size):
+            for j in range(tictactoe.board_size):
                 if len(rivi)<max_length:
-                    rivi+=self.state[i+j*(self.board_size-1)]
+                    rivi+=tictactoe.state[i+j*(tictactoe.board_size-1)]
             # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):
@@ -130,13 +130,13 @@ def basic_check(self, mark, n):
                 # print("count", count)
 
     #checks diagonal lines from left column to right-down
-    for j in range (1, self.board_size): #top-left corner has already been checked. Thus starting from row 1.
-        max_length=self.board_size-j
+    for j in range (1, tictactoe.board_size): #top-left corner has already been checked. Thus starting from row 1.
+        max_length=tictactoe.board_size-j
         rivi=""
-        if j<=self.board_size-n-1: ######### CORRECTION
-            for i in range(self.board_size):
+        if j<=tictactoe.board_size-n-1: ######### CORRECTION
+            for i in range(tictactoe.board_size):
                 if len(rivi)<max_length:
-                    rivi+=self.state[j*self.board_size+i*(self.board_size+1)]
+                    rivi+=tictactoe.state[j*tictactoe.board_size+i*(tictactoe.board_size+1)]
             # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):
@@ -146,13 +146,13 @@ def basic_check(self, mark, n):
 
     #checks diagonal lines from right column to left-down
     # print("checkpoint 2")
-    for j in range (1, self.board_size): #top-right corner has already been checked. Thus starting from row 1.
-        max_length=self.board_size-j
+    for j in range (1, tictactoe.board_size): #top-right corner has already been checked. Thus starting from row 1.
+        max_length=tictactoe.board_size-j
         rivi=""
-        if j<=self.board_size-n-1:  ######### CORRECTION
-            for i in range(self.board_size):
+        if j<=tictactoe.board_size-n-1:  ######### CORRECTION
+            for i in range(tictactoe.board_size):
                 if len(rivi)<max_length:
-                    rivi+=self.state[(self.board_size-1)+j*(self.board_size)+i*(self.board_size-1)]
+                    rivi+=tictactoe.state[(tictactoe.board_size-1)+j*(tictactoe.board_size)+i*(tictactoe.board_size-1)]
             # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo[0]):

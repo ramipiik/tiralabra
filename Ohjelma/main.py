@@ -131,7 +131,7 @@ def settings():
             try:
                 players=int(players)
                 if players==99:
-                    return (0,3,3,1)
+                    return (1,20,2,1)
                 if players==0 or players==2:
                     print("Got it!", players, "players.")
                     break

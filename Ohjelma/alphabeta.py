@@ -1,8 +1,9 @@
 LARGE_NUMBER = 1000000
 import string
 from Heuristics import basic_check
-from Heuristics import basic_check_2
-# sfrom main import latest_move
+from Heuristics import boundaries_check
+from Heuristics import closeness_check
+
 
 class TicTacToe():
     def __init__(self, state, board_size, crosses_turn, level, players,latest_move:tuple, first_turn=False):
@@ -33,6 +34,8 @@ class TicTacToe():
         self.closeness_weight=0
         if level==2:
             self.closeness_weight=0.25
+
+        self.center_weight=0.02
 
         self.heuristics_limit=40
 
@@ -496,95 +499,18 @@ class TicTacToe():
 
         return count  
 
-    def heuristics_closeness_check(self, mark, first_time=False):
-        counter=0
-        table=[]
-        for i in range(self.board_size):
-            rivi=self.state[i*self.board_size:(i+1)*self.board_size]
-            table.append(rivi)
+    
+    def heuristics_coordinator(self):        
+        x_closeness_bonus=closeness_check.closeness_check(self,'X')*self.closeness_weight
+        o_closeness_bonus=closeness_check.closeness_check(self,'O')*self.closeness_weight
         
-        # for r in table:
-        #     print(r)
-        
-        if first_time:
-            table=[]
-            # print("checkpoint")
-            for i in range(self.board_size):
-                rivi=self.state[i*self.board_size:(i+1)*self.board_size]
-                rivi=rivi.replace("O", "X")
-                table.append(rivi)
-        
-        #     for r in table:
-        #         print(r)
-
-        for i in range(self.board_size):
-            for j in range (self.board_size):
-                    if i-1>=0:
-                        if table[j][i]==mark and table[j][i-1]==mark:
-                            counter+=1
-                    if j-1>=0:
-                        if table[j][i]==mark and table[j-1][i]==mark:
-                            counter+=1
-                    if i+1<self.board_size:
-                        if table[j][i]==mark and table[j][i+1]==mark:
-                            counter+=1
-                    if j+1<self.board_size:
-                        if table[j][i]==mark and table[j+1][i]==mark:
-                            counter+=1
-                    if j+1<self.board_size and i+1<self.board_size:
-                        if table[j][i]==mark and table[j+1][i+1]==mark:
-                            counter+=1
-                    if j-1>=0 and i-1>=0:
-                        if table[j][i]==mark and table[j-1][i-1]==mark:
-                            counter+=1
-                    if j-1>0 and i+1<self.board_size:
-                        if table[j][i]==mark and table[j-1][i+1]==mark:
-                            counter+=1
-                    if i-1>0 and j+1<self.board_size:
-                        if table[j][i]==mark and table[j+1][i-1]==mark:
-                            counter+=1
-
-        # print("counter", counter)
-        maximum=((self.board_size**2)/2)*9
-        relation=counter/maximum
-        # print("relation", relation)
-        return relation
-
-
-    def heuristics_boundaries_check(self, mark):
-        distance=0
-        table=[]
-        for i in range(self.board_size):
-            rivi=self.state[i*self.board_size:(i+1)*self.board_size]
-            table.append(rivi)
-        # for r in table:
-        #     print(r)
-        
-        for i in range(self.board_size):
-            for j in range (self.board_size):
-                    if table[j][i]==mark:
-                            distance+=min(j, self.board_size-j)+min(i, self.board_size-i)
-        # print("distance", distance)
-        maximum=(self.board_size/2)*self.board_size**2
-        relation=distance/maximum
-        # print("relation", relation)
-        return relation
-
-    def heuristics_check_1(self, mark,n):
-        return basic_check.basic_check(self, mark,n)
-
-    def heuristics(self):        
-        # print("heuristics called")
-        x_closeness_bonus=self.heuristics_closeness_check('X')*self.closeness_weight
-        o_closeness_bonus=self.heuristics_closeness_check('O')*self.closeness_weight
-        
+        #Reverses the closeness check for the first turn. Purpose is to steer computers first move close to humans first move.
         if self.count_empty()==self.board_size**2-2:
-            x_closeness_bonus=self.heuristics_closeness_check('X', True)*self.closeness_weight
-            # print("x_closeness_bonus", x_closeness_bonus)
+            x_closeness_bonus=closeness_check.closeness_check(self, 'X', True)*self.closeness_weight
 
-        center_weight=0.02
-        x_center_bonus=self.heuristics_boundaries_check('X')*center_weight
-        o_center_bonus=self.heuristics_boundaries_check('O')*center_weight
+        # center_weight=0.02
+        x_center_bonus=boundaries_check.boundaries_check(self, 'X')*self.center_weight
+        o_center_bonus=boundaries_check.boundaries_check(self, 'O')*self.center_weight
 
         if self.to_win==3:
             if self.crosses_turn:
@@ -675,9 +601,8 @@ class TicTacToe():
         outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
 
-        x_2_result=self.heuristics_check_1('X', 2)
-        # x_2_result=basic_check_2.basic_check(self, 'X', 2)
-        o_2_result=self.heuristics_check_1('O', 2)
+        x_2_result=basic_check.basic_check(self,'X', 2 )
+        o_2_result=basic_check.basic_check(self,'O', 2 )
         if o_2_result==0:
             o_2_result=0.0000000000001
         if x_2_result==0:
@@ -697,8 +622,8 @@ class TicTacToe():
         outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
 
-        x_3_result=self.heuristics_check_1('X', 3)
-        o_3_result=self.heuristics_check_1('O', 3)
+        x_3_result=basic_check.basic_check(self,'X', 3 )
+        o_3_result=basic_check.basic_check(self,'O', 3 )
         if o_3_result==0:
             o_3_result=0.0000000000001
         if x_3_result==0:
@@ -718,8 +643,8 @@ class TicTacToe():
         outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
         impact=0
         
-        x_4_result=self.heuristics_check_1('X', 4)
-        o_4_result=self.heuristics_check_1('O', 4)
+        x_4_result=basic_check.basic_check(self,'X', 4 )
+        o_4_result=basic_check.basic_check(self,'O', 4 )
         if o_4_result==0:
             o_4_result=0.0000000000001
         if x_4_result==0:
@@ -768,6 +693,7 @@ class TicTacToe():
         # print("latest_move")
         # print(self.latest_move)
 
+        #------------------------
         #THIS IS AN ATTEMPT TO LIMIT THE SEARCH AREA OF THE MINIMAX-ALGORITHM
         # closest=[]
         # min_row=string.ascii_uppercase.find(self.latest_move[0].upper())-(self.to_win-2)
@@ -796,6 +722,8 @@ class TicTacToe():
         #         latest_move=(string.ascii_uppercase[row], column+1)
         #         new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players, latest_move)
         #         possible_states.append(new_state)
+        #------------------------
+
 
         for i in range (len(self.state)):
             aux=self.state
@@ -851,7 +779,7 @@ def max_value(node:TicTacToe, alpha, beta, depth):
 
         # print("*************")
         # print(node)
-        result=node.heuristics()
+        result=node.heuristics_coordinator()
         # print("yo. taulukon heuristics result max-valuesta", result)
         # print("*************")
         return result
@@ -875,7 +803,7 @@ def min_value(node:TicTacToe, alpha, beta, depth):
         return node.value()    
     
     if node.count_empty()>node.heuristics_limit or depth>=node.max_depth:
-        result=node.heuristics()
+        result=node.heuristics_coordinator()
         # print(node)
         # print("yo. taulukon heuristics result min-valuesta", result)
         # print("---------")
