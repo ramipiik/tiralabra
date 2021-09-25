@@ -726,7 +726,7 @@ class TicTacToe():
             x_4_result=0.0000000000001    
         sum=x_4_result+o_4_result
         diff=x_4_result-o_4_result
-        weight=1
+        weight=0.1
         try:
             impact=diff/sum*weight
         except:
