@@ -134,6 +134,7 @@ class TicTacToe():
     
      
     def heuristics_coordinator(self):        
+        #scores the position based on number of connection to other own marks. The more own marks are connected, the better it is.
         x_closeness_bonus=closeness_check.closeness_check(self,'X')*self.closeness_weight
         o_closeness_bonus=closeness_check.closeness_check(self,'O')*self.closeness_weight
         
@@ -141,6 +142,7 @@ class TicTacToe():
         if self.count_empty()==self.board_size**2-2:
             x_closeness_bonus=closeness_check.closeness_check(self, 'X', True)*self.closeness_weight
 
+        #scores the position based on distance from the center. Closer to centre is better. Small impact.
         x_center_bonus=boundaries_check.boundaries_check(self, 'X')*self.center_weight
         o_center_bonus=boundaries_check.boundaries_check(self, 'O')*self.center_weight
 
@@ -163,76 +165,31 @@ class TicTacToe():
         if o_wins>0:
             return -0.8 - o_closeness_bonus -  o_center_bonus  
 
-        #Priority 3: Check competitor's mustwin situation must be prevented 
-        x_wins=prevent_mustwins.prevent_mustwins('X', self.to_win-1)
+        #Priority 3: Check competitor is about to get a mustwin situation that must be prevented 
+        x_wins=prevent_mustwins.prevent_mustwins(self, 'X', self.to_win-1)
         if x_wins>0 and self.crosses_turn:
             return 0.7 + x_closeness_bonus +  x_center_bonus
-        o_wins=prevent_mustwins.prevent_mustwins('O', self.to_win-1)
+        o_wins=prevent_mustwins.prevent_mustwins(self, 'O', self.to_win-1)
         if o_wins>0 and not self.crosses_turn:
             return -0.7 - o_closeness_bonus -  o_center_bonus
 
-        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
-        impact=0
-
-        x_2_result=basic_check.basic_check(self,'X', 2 )
-        o_2_result=basic_check.basic_check(self,'O', 2 )
-        if o_2_result==0:
-            o_2_result=0.0000000000001
-        if x_2_result==0:
-            x_2_result=0.0000000000001    
-        sum=x_2_result+o_2_result
-        diff=x_2_result-o_2_result
+        #Calculates scoring for the position if there were no obvious plays dominating the situation
+        x_result=basic_check.basic_check(self,'X', self.to_win-1 )
+        o_result=basic_check.basic_check(self,'O', self.to_win-1 )
+        if o_result==0:
+            o_result=0.0000000000001
+        if x_result==0:
+            x_result=0.0000000000001    
+        sum=x_result+o_result
+        diff=x_result-o_result
         weight=0.1
+        impact=0
         try:
             impact=diff/sum*weight
         except:
             pass
-        outcome+=impact
-
-        if self.to_win==3:
-            return outcome 
-        
-        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
-        impact=0
-
-        x_3_result=basic_check.basic_check(self,'X', 3 )
-        o_3_result=basic_check.basic_check(self,'O', 3 )
-        if o_3_result==0:
-            o_3_result=0.0000000000001
-        if x_3_result==0:
-            x_3_result=0.0000000000001    
-        sum=x_3_result+o_3_result
-        diff=x_3_result-o_3_result
-        weight=0.1
-        try:
-            impact=diff/sum*weight
-        except:
-            pass
-        outcome+=impact
-
-        if self.to_win==4:
-            return outcome
-
-        outcome=x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
-        impact=0
-        
-        x_4_result=basic_check.basic_check(self,'X', 4 )
-        o_4_result=basic_check.basic_check(self,'O', 4 )
-        if o_4_result==0:
-            o_4_result=0.0000000000001
-        if x_4_result==0:
-            x_4_result=0.0000000000001    
-        sum=x_4_result+o_4_result
-        diff=x_4_result-o_4_result
-        weight=0.1
-        try:
-            impact=diff/sum*weight
-        except:
-            pass
-        outcome+=impact
-
-        if self.to_win==5:
-            return outcome
+        outcome=impact+x_closeness_bonus +  x_center_bonus-o_closeness_bonus -  o_center_bonus
+        return outcome 
 
 
     def __str__(self):
