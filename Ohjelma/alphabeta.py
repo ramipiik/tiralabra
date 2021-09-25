@@ -1,20 +1,26 @@
 LARGE_NUMBER = 1000000
 import string
+# sfrom main import latest_move
 
 class TicTacToe():
-    def __init__(self, state, board_size, crosses_turn, level, players, first_turn=False):
+    def __init__(self, state, board_size, crosses_turn, level, players,latest_move:tuple, first_turn=False):
         self.state = state
         self.board_size=board_size
         self.crosses_turn = crosses_turn
         self.to_win=5
         self.players=players
         self.level=level
+        self.latest_move=latest_move
+
         if self.board_size==3:
             self.to_win=3
         if self.board_size==4:
             self.to_win=4
         if self.board_size==5:
             self.to_win=4
+        if self.board_size==7:
+            self.to_win=4
+        
 
         self.max_depth=3
         if board_size==3:
@@ -26,7 +32,7 @@ class TicTacToe():
         if level==2:
             self.closeness_weight=0.25
 
-        self.heuristics_limit=50
+        self.heuristics_limit=40
 
         self.first_turn=first_turn
 
@@ -727,6 +733,7 @@ class TicTacToe():
 
 
     def heuristics(self):        
+        # print("heuristics called")
         x_closeness_bonus=self.heuristics_closeness_check('X')*self.closeness_weight
         o_closeness_bonus=self.heuristics_closeness_check('O')*self.closeness_weight
         
@@ -915,11 +922,47 @@ class TicTacToe():
             mark='X'
         else:
             mark='O'
+        
+        # print("latest_move")
+        # print(self.latest_move)
+
+        #THIS IS AN ATTEMPT TO LIMIT THE SEARCH AREA OF THE MINIMAX-ALGORITHM
+        # closest=[]
+        # min_row=string.ascii_uppercase.find(self.latest_move[0].upper())-(self.to_win-2)
+        # if min_row<0:
+        #     min_row=0
+        # max_row=string.ascii_uppercase.find(self.latest_move[0].upper())+(self.to_win-2)
+        # if max_row>self.board_size-1:
+        #     max_row=self.board_size-1
+        # min_column=self.latest_move[1]-1-(self.to_win-2)
+        # if min_column<0:
+        #     min_column=0
+        # max_column=self.latest_move[1]-1+(self.to_win-2)
+        # if max_column>self.board_size-1:
+        #     max_column=self.board_size-1
+        
+        # for row in range(min_row, max_row+1):
+        #     for column in range (min_column, max_column):
+        #         closest.append(row*self.board_size+column)
+        
+        # for i in closest:
+        #     aux=self.state
+        #     if self.state[i]=='-':
+        #         aux=aux[:i]+mark+aux[i+1:]
+        #         row=(i+1)//self.board_size
+        #         column=i%self.board_size
+        #         latest_move=(string.ascii_uppercase[row], column+1)
+        #         new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players, latest_move)
+        #         possible_states.append(new_state)
+
         for i in range (len(self.state)):
             aux=self.state
             if self.state[i]=='-':
                 aux=aux[:i]+mark+aux[i+1:]
-                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players)
+                row=(i+1)//self.board_size
+                column=i%self.board_size
+                latest_move=(string.ascii_uppercase[row], column+1)
+                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players, latest_move)
                 possible_states.append(new_state)
         # for taulukko in possible_states:
         #     print(taulukko)

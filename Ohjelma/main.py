@@ -5,12 +5,15 @@ from alphabeta import get_rounds
 import time
 import string
 
+
+latest_move=""
 delay=0
 def input_move():
     print("What's your move?")
 
 def play(state:TicTacToe):  
     time.sleep(delay)
+    global latest_move
     if state.crosses_turn:
         print("TURN: X")
     else:
@@ -41,7 +44,9 @@ def play(state:TicTacToe):
                     mark="O"
                 if state.state[index]=='-':
                     aux=state.state[:index]+mark+state.state[index+1:]
-                    new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.level, state.players)
+                    latest_move=(letter, number)
+                    # print("latest move from play", latest_move)
+                    new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.level, state.players, latest_move)
                     break
                 else:
                     # print("------------")
@@ -84,11 +89,12 @@ def play(state:TicTacToe):
                 break
         row=(index+1)//state.board_size
         column=index%state.board_size
+        latest_move=(string.ascii_uppercase[row], (column+1))
         if state.crosses_turn:
             player="X"
         else:
             player="O"
-        print(player+" plays to", string.ascii_uppercase[row]+str((column+1)))
+        print(player+" plays to", latest_move[0]+str(latest_move[1]))
         print("---------------")
 
     new_state.first_turn=False
@@ -143,7 +149,7 @@ def settings():
             print("Choose the size of the board that you want to play with.")
             print("A: 3x3 (takes three in a row to win)")
             print("B: 5x5 (takes four in a row to win)")
-            print("C: 7x7 (takes five in a row to win)")
+            print("C: 7x7 (takes four in a row to win)")
             print("D: 10x10 (takes five in a row to win)")
             print("E: 15x15 (takes five in a row to win)")
             print("F: 20x20 (takes five in a row to win)")
@@ -293,7 +299,8 @@ def main():
     test_board_3='oxoxoo--o-----xoxoxoxoxxo'
     test_board_4='------o-o'
     custom_board=(board_size**2) * '-'
-    state = TicTacToe(custom_board, board_size, x_starts, level, players, True)
+    midpoint=(string.ascii_uppercase[board_size//2], board_size//2)
+    state = TicTacToe(custom_board, board_size, x_starts, level, players, midpoint, True)
     play(state)
 
 
