@@ -3,6 +3,7 @@ center_weight=0.02
 LARGE_NUMBER = 1000000
 alpha=-1
 beta=1
+delay=0
 
 #How many marks in a row are required to win
 def how_much_to_win(board_size:int):
