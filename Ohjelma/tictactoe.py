@@ -2,13 +2,12 @@ from parameters import how_much_to_win, recursion_depth, closeness_weight, cente
 import string
 
 class TicTacToe():
-    def __init__(self, state, board_size, crosses_turn, level, players,latest_move:tuple, first_turn=False):
+    def __init__(self, state, board_size, crosses_turn, level, players, first_turn=False):
         self.state = state
         self.board_size=board_size
         self.crosses_turn = crosses_turn
         self.players=players
         self.level=level
-        self.latest_move=latest_move
         self.first_turn=first_turn
         self.to_win=how_much_to_win(self.board_size)      
         self.max_depth=recursion_depth(self.board_size)
@@ -22,7 +21,8 @@ class TicTacToe():
             return True
         else:
             return False
-
+    
+    #Check whether the board contains a winning combination
     def won(self, mark, n):
         combo = n * mark
 
@@ -88,6 +88,7 @@ class TicTacToe():
 
         return False  
 
+    #Prints the board
     def __str__(self):
         top_row='  '
         for numero in range(1, self.board_size+1):
@@ -106,10 +107,8 @@ class TicTacToe():
             field = field.replace('a', character, 1)
         return field
 
-    def is_crosses_turn(self):
-        return self.crosses_turn
-
-    def generate_children(self, new=False):
+    #Important function. Creates all possible following states of the current board
+    def generate_children(self):
         possible_states=[]
         if self.crosses_turn:
             mark='X'
@@ -120,13 +119,11 @@ class TicTacToe():
             aux=self.state
             if self.state[i]=='-':
                 aux=aux[:i]+mark+aux[i+1:]
-                row=(i+1)//self.board_size
-                column=i%self.board_size
-                latest_move=(string.ascii_uppercase[row], column+1)
-                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players, latest_move)
+                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players)
                 possible_states.append(new_state)
         return possible_states
 
+    #returns 1 if x wins, and -1 if o wins
     def value(self):
         if self.won('X', self.to_win):
             return 1
@@ -134,6 +131,7 @@ class TicTacToe():
             return -1
         return 0
     
+    #Counts the number of empty cells on the board.
     def count_empty(self):
         count=0
         for char in self.state:
