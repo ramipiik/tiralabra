@@ -684,7 +684,7 @@ class TicTacToe():
             x_2_result=0.0000000000001    
         sum=x_2_result+o_2_result
         diff=x_2_result-o_2_result
-        weight=1
+        weight=0.1
         try:
             impact=diff/sum*weight
         except:
@@ -705,7 +705,7 @@ class TicTacToe():
             x_3_result=0.0000000000001    
         sum=x_3_result+o_3_result
         diff=x_3_result-o_3_result
-        weight=1
+        weight=0.1
         try:
             impact=diff/sum*weight
         except:
