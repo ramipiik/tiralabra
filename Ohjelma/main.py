@@ -12,9 +12,9 @@ def input_move():
 def play(state:TicTacToe):  
     time.sleep(delay)
     if state.crosses_turn:
-        print("TURN: x")
+        print("TURN: X")
     else:
-        print("TURN: o")
+        print("TURN: O")
     print("")
     print(state)
     time.sleep(delay)
@@ -24,12 +24,13 @@ def play(state:TicTacToe):
             print("What's your move? (A1, B2, C3, etc.)")
             print("------------")
             coordinate=input("Your choice: ")
+            print("------------")
             try:
                 letter=coordinate[0]
                 number=int(coordinate[1:])
                 aux=string.ascii_uppercase.find(letter.capitalize())
                 if aux>state.board_size or number>state.board_size or number<1:
-                    print("------------")
+                    # print("------------")
                     print(error_message)
                     print("------------")
                     continue   
@@ -43,10 +44,10 @@ def play(state:TicTacToe):
                     new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.level, state.players)
                     break
                 else:
-                    print("------------")
+                    # print("------------")
                     print("Sorry, but that one is already taken. Please try again.")
             except:
-                print("------------")
+                # print("------------")
                 print(error_message)
                 print("------------")
             
@@ -74,9 +75,22 @@ def play(state:TicTacToe):
                     if arvo==-1:
                         break
         
-        # print("new_state")
-        # print(new_state)
-    print("---------------")  
+        old=state.state
+        new=new_state.state
+        index=""
+        for i, letter in enumerate (new):
+            if letter!=old[i]:
+                index=i
+                break
+        row=(index+1)//state.board_size
+        column=index%state.board_size
+        if state.crosses_turn:
+            player="X"
+        else:
+            player="O"
+        print(player+" plays to", string.ascii_uppercase[row]+str((column+1)))
+        print("---------------")
+
     new_state.first_turn=False
     if new_state.is_end_state():
         print(new_state)

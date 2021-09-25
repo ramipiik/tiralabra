@@ -771,11 +771,11 @@ class TicTacToe():
             if self.crosses_turn:
                 x_4_wins=self.heuristics_sanity_check('X', 4)
                 if x_4_wins>0:
-                    return 2.9 + x_closeness_bonus +  x_center_bonus
+                    return 0.9 + x_closeness_bonus +  x_center_bonus
             if not self.crosses_turn:
                 o_4_wins=self.heuristics_sanity_check('O', 4)
                 if o_4_wins>0:
-                    return -2.9 - o_closeness_bonus -  o_center_bonus
+                    return -0.9 - o_closeness_bonus -  o_center_bonus
 
 
 
@@ -799,10 +799,10 @@ class TicTacToe():
         if self.to_win==5:
             x_4_wins=self.heuristics_check_mustwins('X', 4)
             if x_4_wins>0:
-                return 1.8 + x_closeness_bonus +  x_center_bonus
+                return 0.8 + x_closeness_bonus +  x_center_bonus
             o_4_wins=self.heuristics_check_mustwins('O', 4)
             if o_4_wins>0:
-                return -1.8 - o_closeness_bonus -  o_center_bonus
+                return -0.8 - o_closeness_bonus -  o_center_bonus
     
 
 
