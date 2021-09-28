@@ -5,8 +5,10 @@ alpha=-1
 beta=1
 delay=0
 
+error_message="Well - that was not a valid choice. Please try again."
+
 #How many marks in a row are required to win
-def how_much_to_win(board_size:int):
+def how_much_to_win(board_size):
         if board_size==3:
             return 3
         if board_size==4:
@@ -18,13 +20,13 @@ def how_much_to_win(board_size:int):
         return 5
 
 #How many recursion rounds are run before switching to heuristics
-def recursion_depth(board_size:int):
+def recursion_depth(board_size):
     if board_size==3:
         return 7
     return 3
 
 #Defines the importance of having marks close to each other
-def closeness_weight(level:int):
+def closeness_weight(level):
     if level==2:
         return 0.25
     return 0

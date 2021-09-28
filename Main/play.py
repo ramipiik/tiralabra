@@ -2,9 +2,8 @@ import time
 import string
 from alphabeta import alpha_beta_value, get_rounds
 from parameters import delay
-from parameters import LARGE_NUMBER
+from parameters import LARGE_NUMBER, error_message
 from tictactoe import TicTacToe
-from start import error_message
 
 def play_human_turn(state:TicTacToe):
     print("------------")

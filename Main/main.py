@@ -1,6 +1,6 @@
 from tictactoe import TicTacToe
-from start import start
 from play import play
+from Start.start import start
 
 def main():
     user_choices=start()
