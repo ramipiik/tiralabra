@@ -14,7 +14,11 @@ def get_board():
         board_letter=input("Your choice: ")
         print("----------------")
         time.sleep(delay)
-        board_letter=board_letter.capitalize()
+        
+        try:
+            board_letter=board_letter.capitalize()
+        except:
+            continue
         board_size=0
         if board_letter=='A':
             board_size=3

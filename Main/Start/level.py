@@ -2,6 +2,7 @@ from parameters import delay, error_message
 import time
 
 def get_level(players):       
+    
     if players==0 or players==1:
         level=0
         while True:
