@@ -15,7 +15,7 @@ def main():
         x_starts=False
 
     custom_board=(board_size**2) * '-'
-    state = TicTacToe(custom_board, board_size, x_starts, level, players, True)
+    state = TicTacToe(custom_board, x_starts, level, players, True)
     play(state)
 
 main()

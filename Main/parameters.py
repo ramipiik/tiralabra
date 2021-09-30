@@ -22,7 +22,7 @@ def how_much_to_win(board_size):
 #How many recursion rounds are run before switching to heuristics
 def recursion_depth(board_size):
     if board_size==3:
-        return 7
+        return 11
     return 3
 
 #Defines the importance of having marks close to each other

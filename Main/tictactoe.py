@@ -1,10 +1,11 @@
 from parameters import how_much_to_win, recursion_depth, closeness_weight, center_weight, max_empty_cells
 import string
+from math import sqrt
 
 class TicTacToe():
-    def __init__(self, state, board_size, crosses_turn, level, players, first_turn=False):
+    def __init__(self, state, crosses_turn, level, players, first_turn=False):
         self.state = state
-        self.board_size=board_size
+        self.board_size=int(sqrt(len(self.state)))
         self.crosses_turn = crosses_turn
         self.players=players
         self.level=level
@@ -119,7 +120,7 @@ class TicTacToe():
             aux=self.state
             if self.state[i]=='-':
                 aux=aux[:i]+mark+aux[i+1:]
-                new_state=TicTacToe(aux, self.board_size, not self.crosses_turn, self.level, self.players)
+                new_state=TicTacToe(aux, not self.crosses_turn, self.level, self.players)
                 possible_states.append(new_state)
         return possible_states
 

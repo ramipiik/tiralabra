@@ -1,5 +1,7 @@
 # Start the tests by running:
 # python3 -m unittest Tests/Start/test_start.py
+# or
+# python3 -m unittest -v Tests.Start.Test_Start.Test_Start
 
 import unittest
 from unittest.mock import patch
@@ -13,7 +15,7 @@ from Start.confirm import confirm
 from Start.recap import recap
 
 
-class TestStart(unittest.TestCase):    
+class Test_Start(unittest.TestCase):    
     @patch('builtins.input', side_effect=['a','','\n', -1,1,2])
     def test_get_players(self, mock_input):
         result1=get_players()

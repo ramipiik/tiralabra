@@ -28,7 +28,7 @@ def play_human_turn(state:TicTacToe):
             if state.state[index]=='-':
                 aux=state.state[:index]+mark+state.state[index+1:]
                 latest_move=(letter, number)
-                new_state=TicTacToe(aux, state.board_size, not state.crosses_turn, state.level, state.players, latest_move)
+                new_state=TicTacToe(aux, not state.crosses_turn, state.level, state.players, latest_move)
                 return new_state
             else:
                 print("Sorry, but that one is already taken. Please try again.")
