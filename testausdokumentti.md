@@ -21,7 +21,9 @@
 
 
 # Suorituskykytestaus
-Ei vielä aloitettu...
 
-## Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
-*
+## Ajallinen suorituskyky
+* To be done: Kellota tietokone vs. tietokone pelien kestoja eri kokoisilla laudoilla.
+
+## Laadullinen suorituskyky
+* To be done: Pelaa 5 pelin turnaus tietokonetta vastaan jokaisella laudalla ja dokumentoi tulokset
