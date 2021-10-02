@@ -1,5 +1,5 @@
 # Execute the test class by running the following comman from command line:
-# python3 -m unittest -v Tests.Test_alphabeta.Test_alphabetaclass
+# python3 -m unittest -v Tests.Test_alphabeta
 
 import unittest
 from unittest.mock import patch

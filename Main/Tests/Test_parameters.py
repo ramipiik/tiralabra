@@ -1,5 +1,5 @@
 # Execute the test class by running the following comman from command line:
-# python3 -m unittest -v Tests.Test_parameters.Test_parameters_class
+# python3 -m unittest -v Tests.Test_parameters
 
 from parameters import how_much_to_win, recursion_depth, closeness_weight
 import unittest

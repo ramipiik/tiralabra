@@ -147,6 +147,24 @@ class Test_play_class(unittest.TestCase):
         sys.stdout = sys.__stdout__  # Reset redirect.
         self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
 
+        # X should win this game
+        test_board = 221 * "-" + "XXXX"
+        test_state = TicTacToe(test_board, False, 2, 0)
+        capturedOutput = io.StringIO()  # Create StringIO object
+        sys.stdout = capturedOutput  #  and redirect stdout.
+        play(test_state)  # Call play-function.
+        sys.stdout = sys.__stdout__  # Reset redirect.
+        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+
+        # X should win this game
+        test_board = "--------------------------O-OO----OOXOX-----OXXXXO---XOXX-X-----XXO------OOOX-----------------------"
+        test_state = TicTacToe(test_board, True, 2, 0)
+        capturedOutput = io.StringIO()  # Create StringIO object
+        sys.stdout = capturedOutput  #  and redirect stdout.
+        play(test_state)  # Call play-function.
+        sys.stdout = sys.__stdout__  # Reset redirect.
+        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,3 +1,6 @@
+# Start the tests by running:
+# python3 -m unittest -v Tests.Test_tictactoe
+
 from tictactoe import TicTacToe
 import unittest, sys, io
 from unittest.mock import patch

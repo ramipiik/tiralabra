@@ -11,8 +11,6 @@ error_message = "Well - that was not a valid choice. Please try again."
 def how_much_to_win(board_size):
     if board_size == 3:
         return 3
-    if board_size == 4:
-        return 4
     if board_size == 5:
         return 4
     if board_size == 7:
