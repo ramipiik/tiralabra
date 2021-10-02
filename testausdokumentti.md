@@ -14,10 +14,10 @@
 * Yksikkötesteissä heuristiikkaa testataan varmistalla, että pelitilanteen arvostus ("heuristiikkapisteet") on sitä mitä pitääkin.
 
 ## Miten testit voidaan toistaa?
-* Yksikkötestit voidaan toistaa ajamalla seuraava script Main-kansiossa `<./run_all_tests.sh>`
+* Yksikkötestit voidaan toistaa ajamalla seuraava script Main-kansiossa `./run_all_tests.sh`
 * Yksikkötestien kattavuusraportin saa toteutettua ajamalla
-1. Ensin ohjelman raportointityökalun läpi komennolla: "coverage run main.py"
-2. Tämän jälkeen raportin saa tulostettua komennolla: "coverage report -m"
+  1. Ensin ohjelman raportointityökalun läpi komennolla: `coverage run main.py`
+  1. Tämän jälkeen raportin saa tulostettua komennolla: `coverage report -m`
 
 
 # Suorituskykytestaus
