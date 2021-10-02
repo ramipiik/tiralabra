@@ -1,5 +1,5 @@
 #!/bin/bash
-python3 -m unittest Tests.Heuristics.* -b
+python3 -m unittest Tests.Heuristics.Test_basic_check -b
 python3 -m unittest Tests.Test_alphabeta -b
 python3 -m unittest Tests.Test_start -b
 python3 -m unittest Tests.Test_parameters -b

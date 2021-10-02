@@ -9,7 +9,6 @@ from unittest.mock import patch
 class Test_parameters_class(unittest.TestCase):
     def test_how_much_to_win(self):
         self.assertEquals(how_much_to_win(3), 3)
-        self.assertEquals(how_much_to_win(4), 4)
         self.assertEquals(how_much_to_win(5), 4)
         self.assertEquals(how_much_to_win(7), 4)
         self.assertEquals(how_much_to_win(10), 5)
