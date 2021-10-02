@@ -1,6 +1,6 @@
 ## Mitä olen tehnyt tällä viikolla?
 * Tyylityökalun valinta ja käyttöönotto. Päädyin kirjastoon nimeltä "black". Erittäin helppokäyttöinen ja pätevä
-* Testikirjaston valinta ja käyttöönotto. Päädyin muutaman kokeilun jälkeen kirjastoon nimeltä "unittest".
+* Testikirjaston valinta ja käyttöönotto. Päädyin muutaman kokeilun jälkeen Pythonin standardikirjastoon kuuluvaan työkaluun nimeltä "unittest".
 * Yksikkötestien laatimista.
 
 ## Miten ohjelma on edistynyt?
