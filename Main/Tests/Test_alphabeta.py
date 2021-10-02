@@ -8,7 +8,7 @@ from tictactoe import TicTacToe
 from parameters import LARGE_NUMBER, alpha, beta
 
 
-class Test_alphabetaclass(unittest.TestCase):
+class Test_alphabeta_class(unittest.TestCase):
     @patch("alphabeta.max_value")
     @patch("alphabeta.min_value")
     def test_alpha_beta_value(self, mock_min_value, mock_max_value):

@@ -18,13 +18,13 @@ class Test_parameters_class(unittest.TestCase):
         self.assertEquals(how_much_to_win(100), 5)
         self.assertEquals(how_much_to_win(0), 5)
         self.assertEquals(how_much_to_win(-1), 5)
-        self.assertEquals(how_much_to_win('-'), 5)
+        self.assertEquals(how_much_to_win("-"), 5)
 
         with self.assertRaises(TypeError):
             how_much_to_win()
 
         with self.assertRaises(TypeError):
-            how_much_to_win(3,4)
+            how_much_to_win(3, 4)
 
     def test_recursion_depth(self):
         self.assertEquals(recursion_depth(3), 11)
@@ -33,26 +33,27 @@ class Test_parameters_class(unittest.TestCase):
         self.assertEquals(recursion_depth(100), 3)
         self.assertEquals(recursion_depth(0), 3)
         self.assertEquals(recursion_depth(-1), 3)
-        self.assertEquals(recursion_depth('-'), 3)
+        self.assertEquals(recursion_depth("-"), 3)
 
         with self.assertRaises(TypeError):
             recursion_depth()
 
         with self.assertRaises(TypeError):
-            recursion_depth(3,4)
+            recursion_depth(3, 4)
 
     def test_closeness_weight(self):
         self.assertEquals(closeness_weight(2), 0.25)
         self.assertEquals(closeness_weight(1), 0)
         self.assertEquals(closeness_weight(0), 0)
         self.assertEquals(closeness_weight(-1), 0)
-        self.assertEquals(closeness_weight('-'), 0)
+        self.assertEquals(closeness_weight("-"), 0)
 
         with self.assertRaises(TypeError):
             closeness_weight()
 
         with self.assertRaises(TypeError):
-            closeness_weight(3,4)
+            closeness_weight(3, 4)
+
 
 if __name__ == "__main__":
     unittest.main()
