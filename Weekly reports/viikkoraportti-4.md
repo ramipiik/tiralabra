@@ -2,6 +2,7 @@
 * Tyylityökalun valinta ja käyttöönotto. Päädyin kirjastoon nimeltä "black". Erittäin helppokäyttöinen ja pätevä
 * Testikirjaston valinta ja käyttöönotto. Päädyin muutaman kokeilun jälkeen Pythonin standardikirjastoon kuuluvaan työkaluun nimeltä "unittest".
 * Yksikkötestien laatimista.
+* Testikattavuustyökalun "coverage" käyttöönotto.
 
 ## Miten ohjelma on edistynyt?
 * Ihan hyvin. Olen tyytyväinen, että sain testi- ja tyylikirjastot otettua käyttöön.
@@ -16,3 +17,4 @@
 ## Mitä teen seuraavaksi?
 * Yksikkötestejä on vielä jonkun verran tehtävänä
 * Koodin kommentoinnissa on vielä puutteita eli sitä pitää parantaa
+* Mahdolisesti toteutusraportin luonnostelua, jos jää aikaa
