@@ -41,7 +41,6 @@ def play_human_turn(state: TicTacToe):
 
 
 def play_computer_turn(state: TicTacToe):
-    print(state.state)
     if state.crosses_turn:
         arvo = -LARGE_NUMBER
     else:
@@ -113,6 +112,7 @@ def play(state: TicTacToe):
         print("Stats:")
         print("-Recursion calls:", get_rounds())
         print("----------------")
+        print(new_state.state)
         return
     else:
         play(new_state)
