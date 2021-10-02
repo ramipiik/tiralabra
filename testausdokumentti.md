@@ -1,9 +1,14 @@
 # Yksikkötestaus
 
 ## Kattavuusraportti
-* Alla status viikon 4 lopuksi
-![Test coverage image]
+* Alla status viikon 4 ![Test coverage image]
 (https://github.com/ramipiik/tiralabra/blob/main/Test%20coverage%202021-10-03.png)
+
+
+![Test coverage image]
+(Test%20coverage%202021-10-03.png)
+
+![Test coverage image] (Test%20coverage%202021-10-03.png)
 
 
 ## Mitä on testattu, miten tämä tehtiin?
