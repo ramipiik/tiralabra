@@ -1,15 +1,8 @@
 # Yksikkötestaus
 
 ## Kattavuusraportti
-* Alla status viikon 4 ![Test coverage image]
-(https://github.com/ramipiik/tiralabra/blob/main/Test%20coverage%202021-10-03.png)
-
-
-![Test coverage image]
-(Test%20coverage%202021-10-03.png)
-
-![Test coverage image] (Test%20coverage%202021-10-03.png)
-
+* Alla yksikkötestien kattavuus viikon 4 jälkeen:
+![Test coverage 2021-10-03](https://user-images.githubusercontent.com/62505549/135732255-d2082cbb-6181-4a42-856e-3941a2f6a16a.png)
 
 ## Mitä on testattu, miten tämä tehtiin?
 * Toteutin yksikkötestauksen Pythonin standardikirjastoon kuuluvalla unittest-kirjastolla: https://docs.python.org/3/library/unittest.html
