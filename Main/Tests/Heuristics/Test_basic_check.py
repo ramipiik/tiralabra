@@ -129,20 +129,21 @@ class Test_heuristics_basic_check_class(unittest.TestCase):
         test_state = TicTacToe(test_board, False, 1, 2)
         score = basic_check(test_state, "O", 4)
         self.assertEqual(288, score)
-    
-    #Tests faulty input parameters
+
+    # Tests faulty input parameters
     def test_basic_check_faulty_input(self):
         with self.assertRaises(TypeError):
             basic_check()
-        
+
         with self.assertRaises(TypeError):
             test_board = "XX-XX----"
             test_state = TicTacToe(test_board, False, 1, 2)
-            basic_check("X", 2)    
-        
+            basic_check("X", 2)
+
         with self.assertRaises(AttributeError):
             test_board = "XX-XX----"
-            basic_check(test_board, "X", 2)    
+            basic_check(test_board, "X", 2)
+
 
 if __name__ == "__main__":
     unittest.main()

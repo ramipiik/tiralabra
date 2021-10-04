@@ -68,7 +68,6 @@ def prevent_mustwins(tictactoe, mark: str, n: int):
             if rivi.__contains__(combo):
                 count += 1
 
-
     # checks diagonal lines from top row to left-down
     # print("checkpoint 1")
     for i in range(tictactoe.board_size - 1, -1, -1):

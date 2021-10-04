@@ -118,7 +118,9 @@ def basic_check(tictactoe, mark: str, n: int):
                 count += combo[1]
 
     # checks diagonal lines from left column to right-down
-    for j in range(1, tictactoe.board_size):  # top-left corner has already been checked. Thus starting from row 1.
+    for j in range(
+        1, tictactoe.board_size
+    ):  # top-left corner has already been checked. Thus starting from row 1.
         max_length = tictactoe.board_size - j
         rivi = ""
         if j <= tictactoe.board_size - n - 1:

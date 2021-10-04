@@ -76,7 +76,6 @@ def sanity_check(tictactoe, mark, n):
                 count += 1
                 # print("count", count)
 
-    
     # checks diagonal lines from top row to right-down
     for i in range(tictactoe.board_size):
         max_length = tictactoe.board_size - i

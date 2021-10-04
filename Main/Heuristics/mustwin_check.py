@@ -51,7 +51,7 @@ def check_mustwins(tictactoe, mark: str, n: int):
                 # print("mark", mark, "osuma rivillä", rivi)
                 count += 1
                 # print("count", count)
-    
+
     # checks diagonal lines from top row to right-down
     for i in range(tictactoe.board_size):
         max_length = tictactoe.board_size - i
