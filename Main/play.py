@@ -89,7 +89,7 @@ def play(state: TicTacToe):
     else:
         print("Next turn: O")
     print("")
-    print(state.state)
+    # print(state.state)
     print(state)
     time.sleep(delay)
 

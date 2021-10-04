@@ -76,19 +76,18 @@ def sanity_check(tictactoe, mark, n):
                 count += 1
                 # print("count", count)
 
+    
     # checks diagonal lines from top row to right-down
     for i in range(tictactoe.board_size):
+        max_length = tictactoe.board_size - i
         rivi = ""
-        if i <= tictactoe.board_size - n - 1:  #######CORRECTION
+        if i <= tictactoe.board_size - n - 1:
             for j in range(tictactoe.board_size):
-                if i + j * (tictactoe.board_size + 1) < tictactoe.board_size ** 2:
+                if len(rivi) < max_length:
                     rivi += tictactoe.state[i + j * (tictactoe.board_size + 1)]
-            # print(rivi)
         for combo in combos:
             if rivi.__contains__(combo):
-                # print("checkpoint 1. mark", mark, "osuma rivillä", rivi)
                 count += 1
-                # print("count", count)
 
     # checks diagonal lines from top row to left-down
     # print("checkpoint 1")
