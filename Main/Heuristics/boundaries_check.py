@@ -1,6 +1,6 @@
 # from Ohjelma.alphabeta import TicTacToe
 
-
+#Calculate the distance of the marks from the boundaries. Center positions are valued higher by heuristics.
 def boundaries_check(tictactoe, mark: str):
     distance = 0
     table = []
