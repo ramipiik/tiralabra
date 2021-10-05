@@ -1,5 +1,3 @@
-# from Ohjelma.alphabeta import TicTacToe
-
 
 def check_mustwins(tictactoe, mark: str, n: int):
     combos = []
@@ -65,11 +63,10 @@ def check_mustwins(tictactoe, mark: str, n: int):
                 count += 1
 
     # checks diagonal lines from top row to left-down
-    # print("checkpoint 1")
     for i in range(tictactoe.board_size - 1, -1, -1):
         max_length = i + 1
         rivi = ""
-        if i >= n:  ######### CORRECTION
+        if i >= n:
             for j in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[i + j * (tictactoe.board_size - 1)]
@@ -86,7 +83,7 @@ def check_mustwins(tictactoe, mark: str, n: int):
     ):  # top-left corner has already been checked. Thus starting from row 1.
         max_length = tictactoe.board_size - j
         rivi = ""
-        if j <= tictactoe.board_size - n - 1:  ######### CORRECTION
+        if j <= tictactoe.board_size - n - 1:
             for i in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[
@@ -106,7 +103,7 @@ def check_mustwins(tictactoe, mark: str, n: int):
     ):  # top-right corner has already been checked. Thus starting from row 1.
         max_length = tictactoe.board_size - j
         rivi = ""
-        if j <= tictactoe.board_size - n - 1:  ######### CORRECTION
+        if j <= tictactoe.board_size - n - 1:
             for i in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[
