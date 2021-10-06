@@ -3,7 +3,6 @@
 
 import unittest
 from unittest.mock import patch
-from Heuristics.prevent_mustwins import prevent_mustwins
 from Heuristics.run_heuristics import run_heuristics
 from tictactoe import TicTacToe
 
