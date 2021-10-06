@@ -1,3 +1,4 @@
+
 def closeness_check(tictactoe, mark: str, first_time=False):
     counter = 0
     table = []
@@ -45,8 +46,6 @@ def closeness_check(tictactoe, mark: str, first_time=False):
                 if table[j][i] == mark and table[j + 1][i - 1] == mark:
                     counter += 1
 
-    # print("counter", counter)
     maximum = ((tictactoe.board_size ** 2) / 2) * 9
     relation = counter / maximum
-    # print("relation", relation)
     return relation
