@@ -112,8 +112,8 @@ def play(state: TicTacToe):
         print("----------------")
         print("Stats:")
         print("-Recursion calls:", get_rounds())
-        print("----------------")
-        print(new_state.state)
+        # print("----------------")
+        # print(new_state.state)
         return
     else:
         play(new_state)

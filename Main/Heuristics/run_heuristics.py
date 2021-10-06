@@ -50,7 +50,7 @@ def run_heuristics(tictactoe: TicTacToe):
     if o_wins > 0:
         return -0.8 - o_closeness_bonus - o_center_bonus
 
-    # Priority 3: Check competitor is about to get a mustwin situation that must be prevented
+    # Priority 3: Check whether the competitor is about to get a mustwin situation that must be prevented
     x_wins = prevent_mustwins.prevent_mustwins(tictactoe, "X", tictactoe.to_win - 1)
     if x_wins > 0 and tictactoe.crosses_turn:
         return 0.7 + x_closeness_bonus + x_center_bonus
