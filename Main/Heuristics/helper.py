@@ -1,4 +1,4 @@
-from tictactoe import TicTacToe
+# from tictactoe import TicTacToe
 
 # Goes through all horizontal, vertical and diagonal lines on the given board and searches for the given combinations
 # Retuns the sum of combinations
@@ -8,7 +8,7 @@ from tictactoe import TicTacToe
     # n: How many in a row are required to win
 
 
-def line_checker(combos:list, tictactoe:TicTacToe, n:int):    
+def line_checker(combos:list, tictactoe, n:int):    
     count=0
     # checks horizontal_lines
     for i in range(tictactoe.board_size):

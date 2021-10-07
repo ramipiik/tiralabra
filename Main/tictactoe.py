@@ -7,6 +7,7 @@ from parameters import (
 )
 import string
 from math import sqrt
+from Heuristics.helper import line_checker
 
 # Defines the Tictactoe class, which is used for defining the state of the play. 
 class TicTacToe:
@@ -37,79 +38,15 @@ class TicTacToe:
     # Check whether the board contains a winning combination
     def won(self, mark, n):
         combo = n * mark
+        combos=[]
+        combos.append((combo,1))
 
-        # checks horizontal_lines
-        for i in range(self.board_size):
-            rivi: str = self.state[
-                i * self.board_size : i * self.board_size + self.board_size
-            ]
-            # print(rivi)
-            if rivi.__contains__(combo):
-                # print("voitto")
-                return True
-
-        # checks vertical_lines
-        for i in range(self.board_size):
-            rivi = ""
-            for j in range(self.board_size):
-                rivi += self.state[j * self.board_size + i]
-            if rivi.__contains__(combo):
-                return True
-
-        # checks diagonal lines from top row to right-down
-        for i in range(self.board_size):
-            rivi = ""
-            if i <= self.board_size - self.to_win:
-                for j in range(self.board_size):
-                    if i + j * (self.board_size + 1) < self.board_size ** 2:
-                        rivi += self.state[i + j * (self.board_size + 1)]
-            if rivi.__contains__(combo):
-                return True
-
-        # checks diagonal lines from top row to left-down
-        for i in range(self.board_size - 1, -1, -1):
-            max_length = i + 1
-            rivi = ""
-            if i >= self.to_win - 1:
-                for j in range(self.board_size):
-                    if len(rivi) < max_length:
-                        rivi += self.state[i + j * (self.board_size - 1)]
-            if rivi.__contains__(combo):
-                return True
-
-        # checks diagonal lines from left column to right-down
-        for j in range(
-            1, self.board_size
-        ):  # top-left corner has already been checked. Thus starting from row 1.
-            max_length = self.board_size - j
-            rivi = ""
-            if j <= self.board_size - self.to_win:
-                for i in range(self.board_size):
-                    if len(rivi) < max_length:
-                        rivi += self.state[
-                            j * self.board_size + i * (self.board_size + 1)
-                        ]
-            if rivi.__contains__(combo):
-                return True
-
-        # checks diagonal lines from right column to left-down
-        for j in range(
-            1, self.board_size
-        ):  # top-right corner has already been checked. Thus starting from row 1.
-            max_length = self.board_size - j
-            rivi = ""
-            if j <= self.board_size - self.to_win:
-                for i in range(self.board_size):
-                    if len(rivi) < max_length:
-                        rivi += self.state[
-                            (self.board_size - 1)
-                            + j * (self.board_size)
-                            + i * (self.board_size - 1)
-                        ]
-            if rivi.__contains__(combo):
-                return True
-
+        result=line_checker(combos, self, n-1)
+        if result>0:
+            return True
+        
         return False
+
 
     # Prints the board
     def __str__(self):
