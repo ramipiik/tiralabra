@@ -25,7 +25,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, 0.1, 1)
 
-        #X one move away from winning, X's turn
+        # X one move away from winning, X's turn
         test_board = (
             "--OXXXX---"
             + "----------"
@@ -42,7 +42,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, 0.9, 1)
 
-        #X one move away from winning, O's turn
+        # X one move away from winning, O's turn
         test_board = (
             "--OXXXX---"
             + "----------"
@@ -59,7 +59,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, 0.1, 1)
 
-        #O one move away from winning, O's turn
+        # O one move away from winning, O's turn
         test_board = (
             "--OOOOX---"
             + "----------"
@@ -76,7 +76,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, -0.9, 1)
 
-        #O one move away from winning, X's turn
+        # O one move away from winning, X's turn
         test_board = (
             "--OOOOX---"
             + "----------"
@@ -93,7 +93,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, -0.1, 1)
 
-        #X has a better position, heuristics score should be positive
+        # X has a better position, heuristics score should be positive
         test_board = (
             "----------"
             + "----------"
@@ -108,34 +108,13 @@ class Test_run_heuristics_class(unittest.TestCase):
         )
         test_state = TicTacToe(test_board, True, 1, 2)
         result = run_heuristics(test_state)
-        self.assertTrue(result>0)
+        self.assertTrue(result > 0)
 
         test_state = TicTacToe(test_board, False, 1, 2)
         result = run_heuristics(test_state)
-        self.assertTrue(result>0)
+        self.assertTrue(result > 0)
 
-        #Both players have a must-win position
-        test_board = (
-            "----------"
-            + "----------"
-            + "----------"
-            + "---XO-----"
-            + "---XO-----"
-            + "---XO-----"
-            + "---XO-----"
-            + "----------"
-            + "----------"
-            + "----------"
-        )
-        test_state = TicTacToe(test_board, True, 1, 2)
-        result = run_heuristics(test_state)
-        self.assertAlmostEqual(result, 0.9, 1)
-
-        test_state = TicTacToe(test_board, False, 1, 2)
-        result = run_heuristics(test_state)
-        self.assertAlmostEqual(result, -0.9, 1)
-    
-        #Both players have a must-win position
+        # Both players have a must-win position
         test_board = (
             "----------"
             + "----------"
@@ -156,7 +135,28 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, -0.9, 1)
 
-        #Both players can get a must-win position with their next move
+        # Both players have a must-win position
+        test_board = (
+            "----------"
+            + "----------"
+            + "----------"
+            + "---XO-----"
+            + "---XO-----"
+            + "---XO-----"
+            + "---XO-----"
+            + "----------"
+            + "----------"
+            + "----------"
+        )
+        test_state = TicTacToe(test_board, True, 1, 2)
+        result = run_heuristics(test_state)
+        self.assertAlmostEqual(result, 0.9, 1)
+
+        test_state = TicTacToe(test_board, False, 1, 2)
+        result = run_heuristics(test_state)
+        self.assertAlmostEqual(result, -0.9, 1)
+
+        # Both players can get a must-win position with their next move
         test_board = (
             "----------"
             + "----------"
@@ -177,7 +177,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result = run_heuristics(test_state)
         self.assertAlmostEqual(result, -0.7, 1)
 
-         #X's marks are closer to centre. X should get a higher score.
+        # X's marks are closer to centre. X should get a higher score.
         test_board_1 = (
             "----------"
             + "----------"
@@ -209,8 +209,7 @@ class Test_run_heuristics_class(unittest.TestCase):
         result_2 = run_heuristics(test_state_2)
         test_state_2 = TicTacToe(test_board_2, False, 1, 2)
         result_2 = run_heuristics(test_state)
-        self.assertTrue(result_1>result_2)        
-
+        self.assertTrue(result_1 > result_2)
 
     # Tests faulty input parameters
     def test_faulty_inputs(self):

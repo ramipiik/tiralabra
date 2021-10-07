@@ -39,6 +39,7 @@ def play_human_turn(state: TicTacToe):
             print(error_message)
             print("------------")
 
+
 # Handles computer's turns. Calls the minimax algorithm to find the best position.
 def play_computer_turn(state: TicTacToe):
     if state.crosses_turn:
@@ -82,7 +83,7 @@ def play_computer_turn(state: TicTacToe):
     return new_state
 
 
-#Coordinates whether to play human or computer turn. Ends the game if the board is full or one of the players won.
+# Coordinates whether to play human or computer turn. Ends the game if the board is full or one of the players won.
 def play(state: TicTacToe):
     time.sleep(delay)
     if state.crosses_turn:

@@ -71,7 +71,7 @@ class Test_sanity_check_class(unittest.TestCase):
         )
         test_state = TicTacToe(test_board, False, 1, 2)
         result = sanity_check(test_state, "X", 4)
-        self.assertAlmostEqual(result, 0,1)
+        self.assertAlmostEqual(result, 0, 1)
 
         test_board = (
             "----------"
@@ -103,7 +103,7 @@ class Test_sanity_check_class(unittest.TestCase):
         )
         test_state = TicTacToe(test_board, False, 1, 2)
         result = sanity_check(test_state, "X", 4)
-        self.assertAlmostEqual(result, 0,1)
+        self.assertAlmostEqual(result, 0, 1)
 
         test_board = (
             "----------"
@@ -152,8 +152,7 @@ class Test_sanity_check_class(unittest.TestCase):
         test_state = TicTacToe(test_board, False, 1, 2)
         result = sanity_check(test_state, "X", 4)
         self.assertEqual(result, 1)
-        
-    
+
         test_board = (
             "----------"
             + "----------"

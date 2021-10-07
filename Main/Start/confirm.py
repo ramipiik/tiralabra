@@ -3,6 +3,7 @@ from parameters import delay
 
 # User interface for confirming the selections made
 
+
 def confirm():
     while True:
         confirmation = input("Press Enter to confirm or c to change the selections: ")

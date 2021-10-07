@@ -4,6 +4,7 @@
 from tictactoe import TicTacToe
 import unittest, sys, io
 
+
 class Test_tictactoe_class(unittest.TestCase):
     def test_tictactoe(self):
         # Horizontal winning line

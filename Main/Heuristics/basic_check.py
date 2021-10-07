@@ -3,13 +3,14 @@ from tictactoe import TicTacToe
 
 # Gives a score to the board based on the combinations found
 # Combination is expressed as a tuple where first parameter contains the string/combination and second parameter its value
-# Input parameters: 
-    # tictactoe: state of the board
-    # mark: X or O
-    # n: How many in a row are required to win
+# Input parameters:
+# tictactoe: state of the board
+# mark: X or O
+# n: How many in a row are required to win
 
-def basic_check(tictactoe:TicTacToe, mark: str, n: int):
-    
+
+def basic_check(tictactoe: TicTacToe, mark: str, n: int):
+
     combos = []
     combos_2 = []
     combos_3 = []

@@ -9,7 +9,7 @@ import string
 from math import sqrt
 from Heuristics.helper import line_checker
 
-# Defines the Tictactoe class, which is used for defining the state of the play. 
+# Defines the Tictactoe class, which is used for defining the state of the play.
 class TicTacToe:
     def __init__(self, state, crosses_turn, level, players, first_turn=False):
         self.state = state
@@ -38,15 +38,14 @@ class TicTacToe:
     # Check whether the board contains a winning combination
     def won(self, mark, n):
         combo = n * mark
-        combos=[]
-        combos.append((combo,1))
+        combos = []
+        combos.append((combo, 1))
 
-        result=line_checker(combos, self, n-1)
-        if result>0:
+        result = line_checker(combos, self, n - 1)
+        if result > 0:
             return True
-        
-        return False
 
+        return False
 
     # Prints the board
     def __str__(self):

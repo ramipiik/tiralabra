@@ -2,14 +2,14 @@
 
 # Goes through all horizontal, vertical and diagonal lines on the given board and searches for the given combinations
 # Retuns the sum of combinations
-# Input parameters: 
-    # tictactoe: state of the board
-    # combos: List of tuples (string, int). First parameter of the tuple is the string/combination to search for. Second is the points given for that combination.
-    # n: How many in a row are required to win
+# Input parameters:
+# tictactoe: state of the board
+# combos: List of tuples (string, int). First parameter of the tuple is the string/combination to search for. Second is the points given for that combination.
+# n: How many in a row are required to win
 
 
-def line_checker(combos:list, tictactoe, n:int):    
-    count=0
+def line_checker(combos: list, tictactoe, n: int):
+    count = 0
     # checks horizontal_lines
     for i in range(tictactoe.board_size):
         rivi: str = tictactoe.state[
@@ -85,5 +85,5 @@ def line_checker(combos:list, tictactoe, n:int):
         for combo in combos:
             if rivi.__contains__(combo[0]):
                 count += combo[1]
-    
+
     return count

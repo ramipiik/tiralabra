@@ -3,6 +3,7 @@ from parameters import delay, error_message
 
 # User interface for asking how many human players: 0,1 or 2.
 
+
 def get_players():
     while True:
         print("----------------")

@@ -1,7 +1,8 @@
 from parameters import delay, error_message
 import time
 
-#User interface for asking for the board size from the user
+# User interface for asking for the board size from the user
+
 
 def get_board():
     while True:

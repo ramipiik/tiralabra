@@ -6,9 +6,9 @@ from Heuristics import sanity_check
 from Heuristics import mustwin_check
 from Heuristics import prevent_mustwins
 
-#Start the different heuristics routines and returns the value back to the minimax-algorithm
-#Input parameters:
-    #tictactoe: state of the board
+# Start the different heuristics routines and returns the value back to the minimax-algorithm
+# Input parameters:
+# tictactoe: state of the board
 def run_heuristics(tictactoe: TicTacToe):
     # scores the position based on number of connection to other own marks. The more own marks are connected, the better it is.
     x_closeness_bonus = (

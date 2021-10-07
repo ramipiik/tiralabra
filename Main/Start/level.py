@@ -3,6 +3,7 @@ import time
 
 # User interface for asking which level of AI the user wants to play against
 
+
 def get_level(players):
     if players == 0 or players == 1:
         level = 0
