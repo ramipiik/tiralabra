@@ -1,5 +1,12 @@
+from tictactoe import TicTacToe
 
-def closeness_check(tictactoe, mark: str, first_time=False):
+# Scores the board based on number of connection to other own marks. The more own marks are connected, the higher the score.
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # first_time: If computer goes second, encourages computer to put its mark so that it's connected to opponent's mark
+
+def closeness_check(tictactoe:TicTacToe, mark: str, first_time=False):
     counter = 0
     table = []
     for i in range(tictactoe.board_size):
@@ -10,7 +17,6 @@ def closeness_check(tictactoe, mark: str, first_time=False):
 
     if first_time:
         table = []
-        # print("checkpoint")
         for i in range(tictactoe.board_size):
             rivi = tictactoe.state[
                 i * tictactoe.board_size : (i + 1) * tictactoe.board_size

@@ -1,3 +1,5 @@
+# Recaps the choices made by the user
+
 def recap(players, board_size, level, first_move):
     print("Awesome! Let's recap your choices.")
     print("----------------")

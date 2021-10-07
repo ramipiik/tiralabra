@@ -1,6 +1,14 @@
 from Heuristics.helper import line_checker
+from tictactoe import TicTacToe
 
-def basic_check(tictactoe, mark: str, n: int):
+# Gives a score to the board based on the combinations found
+# Combination is expressed as a tuple where first parameter contains the string/combination and second parameter its value
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # n: How many in a row are required to win
+
+def basic_check(tictactoe:TicTacToe, mark: str, n: int):
     
     combos = []
     combos_2 = []

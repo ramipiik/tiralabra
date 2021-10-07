@@ -1,6 +1,13 @@
+from tictactoe import TicTacToe
 
-# Calculate the distance of the marks from the boundaries. Center positions are valued higher by heuristics.
-def boundaries_check(tictactoe, mark: str):
+# Calculates the distance of the marks from the boundaries. Center positions are valued higher than edge positions
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # first_time: If computer goes second, encourages computer to put its mark so that it's connected to opponent's mark
+
+
+def boundaries_check(tictactoe: TicTacToe, mark: str):
     distance = 0
     table = []
     for i in range(tictactoe.board_size):

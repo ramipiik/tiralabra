@@ -1,6 +1,7 @@
 import time
 from parameters import delay, error_message
 
+# User interface for asking which one gets to go first - computer or human
 
 def get_first_move(players):
     first_move = 1

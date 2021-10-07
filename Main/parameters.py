@@ -1,9 +1,11 @@
-max_empty_cells = 40
-center_weight = 0.02
-LARGE_NUMBER = 1000000
+#Contains all the "magic numbers" to fine tune and adjust the algorithm
+
+max_empty_cells = 40    # if too many options go directly for heuristics
+center_weight = 0.02    # how much value to give for center positions
+LARGE_NUMBER = 1000000  # needed for getting started with optimization
 alpha = -1
 beta = 1
-delay = 0
+delay = 0               # how long delay to have between steps. The interaction/experience might be better if things don't happen too quickly. 
 
 error_message = "Well - that was not a valid choice. Please try again."
 

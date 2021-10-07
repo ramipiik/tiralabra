@@ -1,5 +1,11 @@
 from Heuristics.helper import line_checker
 
+# Checks whether there is a possibility to gain a mustwin position
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # n: How many in a row are required to win
+
 def check_mustwins(tictactoe, mark: str, n: int):
     combos = []
     winning_combos_2 = []

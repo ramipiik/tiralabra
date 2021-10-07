@@ -4,7 +4,7 @@ from tictactoe import TicTacToe
 
 round = 0
 
-
+# Starts the minimax-algorithm. If crosses turn -> calls max_value. If not crosses turn -> calls min_value
 def alpha_beta_value(node: TicTacToe):
     depth = 0
     if node.crosses_turn:
@@ -13,7 +13,7 @@ def alpha_beta_value(node: TicTacToe):
         value = min_value(node, alpha, beta, depth)
     return value
 
-
+#Core of the minimax-algorithm. Selects the optimum position for X.
 def max_value(node: TicTacToe, alpha: int, beta: int, depth: int):
     depth += 1
     global round
@@ -33,7 +33,7 @@ def max_value(node: TicTacToe, alpha: int, beta: int, depth: int):
             return v
     return v
 
-
+#Core of the minimax-algorithm. Selects the optimum position for X.
 def min_value(node: TicTacToe, alpha, beta, depth):
     depth += 1
     global round

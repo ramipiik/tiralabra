@@ -7,7 +7,6 @@ from Start.players import get_players
 from Start.board import get_board
 from Start.first_move import get_first_move
 from Start.level import get_level
-
 from Start.start import start
 from Start.confirm import confirm
 from Start.recap import recap

@@ -1,11 +1,4 @@
 import time
-import os, sys
-
-p = os.path.abspath(".")
-print("p", p)
-sys.path.insert(1, p)
-
-# import parameters
 from parameters import delay
 from Start.players import get_players
 from Start.board import get_board
@@ -15,6 +8,7 @@ from Start.confirm import confirm
 from Start.first_move import get_first_move
 
 
+# Coordinates the start of the game by calling the individual user interface methods
 def start():
     while True:
         players = get_players()

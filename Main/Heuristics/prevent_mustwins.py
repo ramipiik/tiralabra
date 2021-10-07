@@ -1,6 +1,13 @@
 from Heuristics.helper import line_checker
+from tictactoe import TicTacToe
 
-def prevent_mustwins(tictactoe, mark: str, n: int):
+# Checks whether there are situations which must be blocked so that the opponent doesn't gain a mustwin position
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # n: How many in a row are required to win
+
+def prevent_mustwins(tictactoe:TicTacToe, mark: str, n: int):
     combos = []
     winning_combos_3 = []
     winning_combos_4 = []

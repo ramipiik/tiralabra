@@ -2,7 +2,7 @@ from tictactoe import TicTacToe
 from play import play
 from Start.start import start
 
-
+#Starts the program by asking for user inputs. After that starts the game.
 def main():
     user_choices = start()
     players = user_choices[0]
@@ -18,6 +18,5 @@ def main():
     custom_board = (board_size ** 2) * "-"
     state = TicTacToe(custom_board, x_starts, level, players, True)
     play(state)
-
 
 main()

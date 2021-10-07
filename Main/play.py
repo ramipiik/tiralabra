@@ -5,7 +5,7 @@ from parameters import delay
 from parameters import LARGE_NUMBER, error_message
 from tictactoe import TicTacToe
 
-
+# Handles humans turn
 def play_human_turn(state: TicTacToe):
     print("------------")
     while True:
@@ -39,7 +39,7 @@ def play_human_turn(state: TicTacToe):
             print(error_message)
             print("------------")
 
-
+# Handles computer's turns. Calls the minimax algorithm to find the best position.
 def play_computer_turn(state: TicTacToe):
     if state.crosses_turn:
         arvo = -LARGE_NUMBER
@@ -82,6 +82,7 @@ def play_computer_turn(state: TicTacToe):
     return new_state
 
 
+#Coordinates whether to play human or computer turn. Ends the game if the board is full or one of the players won.
 def play(state: TicTacToe):
     time.sleep(delay)
     if state.crosses_turn:
@@ -89,7 +90,6 @@ def play(state: TicTacToe):
     else:
         print("Next turn: O")
     print("")
-    # print(state.state)
     print(state)
     time.sleep(delay)
 
@@ -112,8 +112,6 @@ def play(state: TicTacToe):
         print("----------------")
         print("Stats:")
         print("-Recursion calls:", get_rounds())
-        # print("----------------")
-        # print(new_state.state)
         return
     else:
         play(new_state)

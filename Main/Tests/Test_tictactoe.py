@@ -3,8 +3,6 @@
 
 from tictactoe import TicTacToe
 import unittest, sys, io
-from unittest.mock import patch
-
 
 class Test_tictactoe_class(unittest.TestCase):
     def test_tictactoe(self):

@@ -1,6 +1,14 @@
 from Heuristics.helper import line_checker
+from tictactoe import TicTacToe
 
-def sanity_check(tictactoe, mark, n):
+# Checks whether there are situations requiring immediate defensive action
+# Input parameters: 
+    # tictactoe: state of the board
+    # mark: X or O
+    # n: How many in a row are required to win
+
+def sanity_check(tictactoe:TicTacToe, mark:str, n:int):
+ 
     combos = []
     combos_2 = []
     combos_3 = []

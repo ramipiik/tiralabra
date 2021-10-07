@@ -6,7 +6,9 @@ from Heuristics import sanity_check
 from Heuristics import mustwin_check
 from Heuristics import prevent_mustwins
 
-
+#Start the different heuristics routines and returns the value back to the minimax-algorithm
+#Input parameters:
+    #tictactoe: state of the board
 def run_heuristics(tictactoe: TicTacToe):
     # scores the position based on number of connection to other own marks. The more own marks are connected, the better it is.
     x_closeness_bonus = (
@@ -31,7 +33,7 @@ def run_heuristics(tictactoe: TicTacToe):
         boundaries_check.boundaries_check(tictactoe, "O") * tictactoe.center_weight
     )
 
-    # Priority 1: Check whether there are situation requiring immediate defensive action
+    # Priority 1: Check whether there are situations requiring immediate defensive action
     if tictactoe.crosses_turn:
         x_wins = sanity_check.sanity_check(tictactoe, "X", tictactoe.to_win - 1)
         if x_wins > 0:

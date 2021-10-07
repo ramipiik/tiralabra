@@ -8,7 +8,7 @@ from parameters import (
 import string
 from math import sqrt
 
-
+# Defines the Tictactoe class, which is used for defining the state of the play. 
 class TicTacToe:
     def __init__(self, state, crosses_turn, level, players, first_turn=False):
         self.state = state

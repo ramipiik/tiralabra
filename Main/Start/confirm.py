@@ -1,6 +1,7 @@
 import time
 from parameters import delay
 
+# User interface for confirming the selections made
 
 def confirm():
     while True:
@@ -12,7 +13,6 @@ def confirm():
             print("----------------")
             return True
         elif confirmation == "c" or confirmation == "C":
-            # print("----------------")
             print("Sure, let's take it from the beginning.")
             return False
         else:
