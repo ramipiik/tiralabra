@@ -17,4 +17,4 @@
 ## Mitä teen seuraavaksi?
 * Yksikkötestejä on vielä jonkun verran tehtävänä
 * Koodin kommentoinnissa on vielä puutteita eli sitä pitää parantaa
-* Mahdolisesti toteutusraportin luonnostelua, jos jää aikaa
+* Mahdollisesti toteutusraportin luonnostelua, jos jää aikaa

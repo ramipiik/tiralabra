@@ -19,7 +19,6 @@
   1. Ensin ohjelman raportointityökalun läpi komennolla: `coverage run main.py`
   1. Tämän jälkeen raportin saa tulostettua komennolla: `coverage report -m`
 
-
 # Suorituskykytestaus
 
 ## Ajallinen suorituskyky
