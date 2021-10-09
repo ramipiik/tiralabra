@@ -8,3 +8,13 @@
 ## Missä hakemistossa on ajamiseen tarvittavat testitiedostot.
 * Yksikkötestit ajetaan suorittamalla seuraava script Main-kansiossa `./run_all_tests.sh`
 * Itse testit löytyvät kansiosta Main/Tests/
+* Testikattavuuden voi tarkistaa seuraavilla komennoilla:
+```
+ pip install coverage
+ ```
+ ```
+ coverage run main.py
+ ```  
+ ```
+ coverage report -m
+ ```

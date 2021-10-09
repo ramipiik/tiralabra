@@ -1,6 +1,7 @@
 from tictactoe import TicTacToe
 from play import play
 from Start.start import start
+import datetime
 
 # Starts the program by asking for user inputs. After that starts the game.
 def main():
@@ -17,7 +18,8 @@ def main():
 
     custom_board = (board_size ** 2) * "-"
     state = TicTacToe(custom_board, x_starts, level, players, True)
-    play(state)
+    current_time = datetime.datetime.now()
+    play(state, current_time)
 
 
 main()

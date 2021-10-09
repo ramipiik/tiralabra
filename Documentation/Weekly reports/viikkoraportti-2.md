@@ -6,6 +6,7 @@
 * 0, 1 ja 2 pelaajan versiot
 * eri tasoiset tekoälyt
 * syvyysrajoitin (dummy-heuristiikalla)
+* Tunteja käytetty yhteensä tällä viikolla: 16h
 
 ## Miten ohjelma on edistynyt?
 * Ihan ok. Aikaa on tosin mennyt enemmän kuin mitä oletin

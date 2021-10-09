@@ -38,10 +38,10 @@ def basic_check(tictactoe: TicTacToe, mark: str, n: int):
         combos_3.append((combo, 5))
 
         combo = "-" + mark + mark + mark
-        combos_3.append((combo, 10))
+        combos_3.append((combo, 7))
 
         combo = mark + mark + mark + "-"
-        combos_3.append((combo, 10))
+        combos_3.append((combo, 7))
 
     if n == 4:
 

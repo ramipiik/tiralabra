@@ -1,9 +1,11 @@
 import time
+import datetime
 import string
-from alphabeta import alpha_beta_value, get_rounds
+from alphabeta import alpha_beta_value, get_rounds, min_value, max_value
 from parameters import delay
 from parameters import LARGE_NUMBER, error_message
 from tictactoe import TicTacToe
+
 
 # Handles humans turn
 def play_human_turn(state: TicTacToe):
@@ -41,7 +43,12 @@ def play_human_turn(state: TicTacToe):
 
 
 # Handles computer's turns. Calls the minimax algorithm to find the best position.
+nr_of_computer_moves = 0
+
+
 def play_computer_turn(state: TicTacToe):
+    global nr_of_computer_moves
+    nr_of_computer_moves += 1
     if state.crosses_turn:
         arvo = -LARGE_NUMBER
     else:
@@ -83,8 +90,12 @@ def play_computer_turn(state: TicTacToe):
     return new_state
 
 
+start_time = 0
 # Coordinates whether to play human or computer turn. Ends the game if the board is full or one of the players won.
-def play(state: TicTacToe):
+def play(state: TicTacToe, input_time=False):
+    global start_time
+    if not input_time == False:
+        start_time = input_time
     time.sleep(delay)
     if state.crosses_turn:
         print("Next turn: X")
@@ -111,8 +122,19 @@ def play(state: TicTacToe):
         else:
             print("DRAW")
         print("----------------")
+        end_time = datetime.datetime.now()
+        duration = end_time - start_time
+        seconds = duration.total_seconds()
+        milliseconds = seconds * 1000
+        average = milliseconds / nr_of_computer_moves
+        average_rounded = int(round(average, 0))
         print("Stats:")
         print("-Recursion calls:", get_rounds())
+        print("-Number of computer moves", nr_of_computer_moves)
+        if state.players == 0:
+            print(
+                "-Average duration per computer move", average_rounded, "milliseconds"
+            )
         return
     else:
         play(new_state)

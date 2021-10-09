@@ -3,6 +3,7 @@
 * Testikirjaston valinta ja käyttöönotto. Päädyin muutaman kokeilun jälkeen Pythonin standardikirjastoon kuuluvaan työkaluun nimeltä "unittest".
 * Yksikkötestien laatimista.
 * Testikattavuustyökalun "coverage" käyttöönotto.
+* Tunteja käytetty tällä viikolla: 20.5h
 
 ## Miten ohjelma on edistynyt?
 * Ihan hyvin. Olen tyytyväinen, että sain testi- ja tyylikirjastot otettua käyttöön.

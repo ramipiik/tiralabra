@@ -4,6 +4,7 @@
 * Algoritmi toimii nyt sen verran hyvin, että sitä on jo vaikea voittaa.
 * Koodin jakaminen erillisiin tiedostoihin
 * Koodin kommentointia.
+* Tunteja käytetty tällä viikolla: 27.5h
 
 ## Miten ohjelma on edistynyt?
 * Ydintoiminnallisuuden osalta ihan ok.

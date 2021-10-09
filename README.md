@@ -14,6 +14,10 @@ python3 main.py
 ```
 
 **Check test coverage:**  
+
+ ```
+ pip install coverage
+ ```
  ```
  coverage run main.py
  ```  

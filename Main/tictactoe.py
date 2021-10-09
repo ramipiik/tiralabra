@@ -1,9 +1,8 @@
 from parameters import (
+    LARGE_NUMBER,
     how_much_to_win,
-    recursion_depth,
     closeness_weight,
     center_weight,
-    max_empty_cells,
 )
 import string
 from math import sqrt
@@ -19,10 +18,8 @@ class TicTacToe:
         self.level = level
         self.first_turn = first_turn
         self.to_win = how_much_to_win(self.board_size)
-        self.max_depth = recursion_depth(self.board_size)
         self.closeness_weight = closeness_weight(level)
         self.center_weight = center_weight
-        self.heuristics_limit = max_empty_cells
 
     # Checks whether the state ends the game. Either the board is full, or one player won.
     def is_end_state(self):
@@ -99,3 +96,17 @@ class TicTacToe:
             if char == "-":
                 count += 1
         return count
+
+    # Calculates dynamically the max allowed recursion depth depending on the nr. of empty cells.
+    def get_max_depth(self):
+        if self.level == 1:  # easy level uses only heuristics
+            return 0
+        empty = self.count_empty()
+        if empty <= 10:
+            return LARGE_NUMBER  # no need to restrict depth when only a few cells left
+        if empty <= 25:
+            return 4
+        if empty <= 50:
+            return 3
+        else:
+            return 2

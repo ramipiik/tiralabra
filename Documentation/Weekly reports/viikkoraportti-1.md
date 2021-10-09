@@ -6,6 +6,7 @@
 * la 9.9. maarittelydokumentin laatiminen (1.5h)
 * la 9.9. minimax-algoritmiin tutustuminen pintapuolisesti (0.5h)
 * la 9.9. kertasin viittaustyyppisten muuttujien käsittelyä Pythonissa, sillä rekursiokutsuissa tulen välittämään parametrina listan. (0.5 h)
+* Tunteja käytetty yhteensä: 6.5h
 
 ## Miten ohjelma on edistynyt?V
 * En ole vielä aloittanut koodaamista
