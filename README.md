@@ -26,6 +26,11 @@ python3 main.py
  ```
 
 **Apply automatic styling:**  
+
+```
+pip install black
+```
+
 ```
 . black
 ```  
