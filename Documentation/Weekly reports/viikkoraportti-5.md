@@ -1,12 +1,12 @@
 ## Mitä olen tehnyt tällä viikolla?
 * Loppujen yksikkötestien laatiminen
 * Koodin kommentoinnin parantaminen
-* 1. vertaisarviointi
+* Ensimmäinen vertaisarviointi
 * Toteutusdokumentti ja suorituskykytestaus
 * Tunteja käytetty tällä viikolla: 14h
 
 ## Miten ohjelma on edistynyt?
-* Hyvin.
+* Hyvin :)
 
 ## Mitä opin tällä viikolla / tänään?
 * Vertaisarvioinnin antaminen oli ihan hauskaa
