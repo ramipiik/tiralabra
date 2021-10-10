@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=import-error, bad-continuation, too-many-branches, missing-function-docstring, global-statement
+disable=import-error, bad-continuation, too-many-branches, missing-function-docstring, global-statement, too-many-return-statements

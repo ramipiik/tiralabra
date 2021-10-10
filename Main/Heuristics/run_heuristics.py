@@ -1,3 +1,4 @@
+"""Starts and coordinates the heuristics routines"""
 from tictactoe import TicTacToe
 from Heuristics import basic_check
 from Heuristics import boundaries_check
@@ -6,11 +7,10 @@ from Heuristics import sanity_check
 from Heuristics import mustwin_check
 from Heuristics import prevent_mustwins
 
-# Start the different heuristics routines and returns the value back to the minimax-algorithm
-# Input parameters:
-# tictactoe: state of the board
+
 def run_heuristics(tictactoe: TicTacToe):
-    # scores the position based on number of connection to other own marks. The more own marks are connected, the better it is.
+    # scores the position based on number of connection to other own marks.
+    # The more own marks are connected, the higher the score.
     x_closeness_bonus = (
         closeness_check.closeness_check(tictactoe, "X") * tictactoe.closeness_weight
     )
@@ -18,14 +18,16 @@ def run_heuristics(tictactoe: TicTacToe):
         closeness_check.closeness_check(tictactoe, "O") * tictactoe.closeness_weight
     )
 
-    # Reverses the closeness check for the first turn. Purpose is to steer computers first move close to humans first move.
+    # Reverses the closeness check for the first turn.
+    # Purpose is to steer computers first move close to humans first move.
     if tictactoe.count_empty() == tictactoe.board_size ** 2 - 2:
         x_closeness_bonus = (
             closeness_check.closeness_check(tictactoe, "X", True)
             * tictactoe.closeness_weight
         )
 
-    # scores the position based on distance from the center. Closer to centre is better. Small impact.
+    # scores the position based on distance from the center.
+    # Closer to centre is better. Small impact.
     x_center_bonus = (
         boundaries_check.boundaries_check(tictactoe, "X") * tictactoe.center_weight
     )
@@ -52,7 +54,7 @@ def run_heuristics(tictactoe: TicTacToe):
     if o_wins > 0:
         return -0.8 - o_closeness_bonus - o_center_bonus
 
-    # Priority 3: Check whether the competitor is about to get a mustwin situation that must be prevented
+    # Priority 3: Check whether the competitor is about to get a mustwin situation.
     x_wins = prevent_mustwins.prevent_mustwins(tictactoe, "X", tictactoe.to_win - 1)
     if x_wins > 0 and tictactoe.crosses_turn:
         return 0.7 + x_closeness_bonus + x_center_bonus
@@ -67,13 +69,13 @@ def run_heuristics(tictactoe: TicTacToe):
         o_result = 0.0000000000001
     if x_result == 0:
         x_result = 0.0000000000001
-    sum = x_result + o_result
+    total = x_result + o_result
     diff = x_result - o_result
     weight = 0.1
     impact = 0
     try:
-        impact = diff / sum * weight
-    except:
+        impact = diff / total * weight
+    except (TypeError, ZeroDivisionError):
         pass
     outcome = (
         impact + x_closeness_bonus + x_center_bonus - o_closeness_bonus - o_center_bonus
