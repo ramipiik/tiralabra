@@ -13,4 +13,5 @@ disable=import-error,
         too-many-arguments,
         too-many-statements,
         duplicate-code,
-        too-many-instance-attributes
+        too-many-instance-attributes,
+        consider-using-enumerate

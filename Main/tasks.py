@@ -25,12 +25,5 @@ def coverage(ctx):
 
 @task
 def lint(ctx):
-    ctx.run("pylint Heuristics")
-    ctx.run("pylint Start")
-    ctx.run("pylint Tests")
-    ctx.run("pylint alphabeta.py")
-    ctx.run("pylint main.py")
-    ctx.run("pylint parameters.py")
-    ctx.run("pylint play.py")
-    ctx.run("pylint tasks.py")
-    ctx.run("pylint tictactoe.py")
+    with ctx.cd('../'):
+        ctx.run("pylint Main")
