@@ -1,13 +1,13 @@
+"""Test heuristics.prevent_mustwins module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_prevent_mustwins
 
 import unittest
-from unittest.mock import patch
 from Heuristics.prevent_mustwins import prevent_mustwins
 from tictactoe import TicTacToe
 
 
-class Test_prevent_mustwins_class(unittest.TestCase):
+class TestPreventMustwins(unittest.TestCase):
     def test_mustwin(self):
         test_board = (
             "---XXX----"
