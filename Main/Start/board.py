@@ -4,6 +4,7 @@ from parameters import DELAY, ERROR_MESSAGE
 
 
 def get_board():
+    """User interface for asking for the board size from the user"""
     while True:
         print("Choose the size of the board that you want to play with.")
         print("A: 3x3 (takes three in a row to win)")
@@ -19,7 +20,7 @@ def get_board():
 
         try:
             board_letter = board_letter.capitalize()
-        except:
+        except TypeError:
             continue
         board_size = 0
         if board_letter == "A":
@@ -27,32 +28,31 @@ def get_board():
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        elif board_letter == "B":
+        if board_letter == "B":
             board_size = 5
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        elif board_letter == "C":
+        if board_letter == "C":
             board_size = 7
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        elif board_letter == "D":
+        if board_letter == "D":
             board_size = 10
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        elif board_letter == "E":
+        if board_letter == "E":
             board_size = 15
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        elif board_letter == "F":
+        if board_letter == "F":
             board_size = 20
             print(str(board_size) + "x" + str(board_size), "board - good choice!")
             print("----------------")
             break
-        else:
-            print(ERROR_MESSAGE)
-            print("----------------")
+        print(ERROR_MESSAGE)
+        print("----------------")
     return board_size
