@@ -1,14 +1,15 @@
+""""Test the alphabeta module"""
 # Execute the test class by running the following comman from command line:
-# python3 -m unittest -v Tests.Test_alphabeta
+# python3 -m unittest -v Tests.test_alphabeta
 
 import unittest
 from unittest.mock import patch
 from alphabeta import alpha_beta_value, max_value, min_value
 from tictactoe import TicTacToe
-from parameters import LARGE_NUMBER, ALPHA, BETA
+from parameters import ALPHA, BETA
 
 
-class Test_alphabeta_class(unittest.TestCase):
+class TestAlphabetaClass(unittest.TestCase):
     @patch("alphabeta.max_value")
     @patch("alphabeta.min_value")
     def test_alpha_beta_value(self, mock_min_value, mock_max_value):
