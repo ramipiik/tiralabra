@@ -73,7 +73,7 @@ Valitettavasti aikavaatimuksen suuruusluokkaa ei ymmärtääkseni ole mahdollist
  * Mielestäni on edelleen intuitiivisesti erittäin outoa, että O(n!)-aikavaatimuksen vuoksi algoritmi ei pysty pelaamaan kahta siirtoa syvemmälle. Tämä oli itselleni isoin yllätys, vaikka onkin toki linjassa Tirakirjan taulukon kanssa. Onneksi heuristiikka toimii sen verran hyvin, että algoritmiä on silti erittäin vaikea voittaa.
  * Ohjaajan viikon 2 palautteella kokeilin jossain vaiheessa muutosta, jossa uusia siirtoja ei etsitä koko laudalta, vaan ainoastaan edellisen siirron läheltä. Idea on erittäin hyvä, mutta käytännössä se ei auttanut - tai sitten toteutuksessani oli jotain vikaa. Tämä siksi, että  tarkasteltavan ikkunan koon pitää olla neljä ruutua joka suuntaan eli 9x9=81 ruutua. Tämä on edelleen hyvin kaukana kymmenestä, jolla pystyy laskemaan kaikki permutaatiot läpi. Lisäksi siitä tuli ikäviä sivuoireita, sillä tässä versiossa pelin painopisteen pystyi vedättämään eri puolelle lautaa, jos joutui pulaan yhdellä rintamalla. Näin ollen päädyin poistamaan tämän main-branchista.
  * Uskon silti edelleen, että tähän löytyy joku ratkaisu - ristinolla on niin yksinkertainen peli, että on oltava mahdollista katsoa yli kahden siirron päähän.
- * Graafinen käyttöliittymä olisi iso parannus, mutta se on selkeästi laajuuden ulkopuolella. Ja olen pian käyttänyt kurssiin opintopisteiden mukaiset tunnit, joten se jää seuraavaan kertaan..
+ * Graafinen käyttöliittymä olisi iso parannus, mutta se on selkeästi laajuuden ulkopuolella. Ja olen pian käyttänyt kurssiin opintopisteiden mukaiset tunnit, joten se jää seuraavaan kertaan...
 
 ## Lähteet
 * Johdatus tekoälyyn -kurssin materiaali: https://materiaalit.github.io/intro-to-ai/
