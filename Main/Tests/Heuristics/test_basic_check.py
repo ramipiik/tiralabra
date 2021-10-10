@@ -1,4 +1,4 @@
-"""Test heuristics.basic_check"""
+"""Test heuristics.basic_check module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_basic_check
 

@@ -1,13 +1,13 @@
+"""Test heuristics.boundaries_check module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_boundaries_check
 
 import unittest
-from unittest.mock import patch
 from Heuristics.boundaries_check import boundaries_check
 from tictactoe import TicTacToe
 
 
-class Test_boundaries_check_class(unittest.TestCase):
+class TestBoundariesCheck(unittest.TestCase):
     def test_boundaries(self):
         test_board = "---------"
         test_state = TicTacToe(test_board, False, 1, 2)
