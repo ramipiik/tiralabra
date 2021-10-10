@@ -1,8 +1,8 @@
 # Yksikkötestaus
 
 ## Kattavuusraportti
-* Alla yksikkötestien kattavuus viikon 4 jälkeen:
-![Test coverage 2021-10-03](https://user-images.githubusercontent.com/62505549/135732255-d2082cbb-6181-4a42-856e-3941a2f6a16a.png)
+* Alla yksikkötestien kattavuus viikon 5 jälkeen:
+![Screenshot from 2021-10-10 02-29-08](https://user-images.githubusercontent.com/62505549/136676245-b507095a-09d2-4b55-980d-f1c24d8592e8.png)
 
 ## Mitä on testattu, miten tämä tehtiin?
 * Toteutin yksikkötestauksen Pythonin standardikirjastoon kuuluvalla unittest-kirjastolla: https://docs.python.org/3/library/unittest.html
@@ -22,9 +22,9 @@
 # Suorituskykytestaus
 
 ## Laadullinen suorituskyky
-* Hyvä empiirinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten hyvin se pärjää:
-   * Tässä testissä algoritmi pärjää erittäin hyvin. Vaikka olen itse koodannut algoritmin ja heuristiikan, ja tiedän miten sen voi periaatteessa voittaa, en silti pysty yleensä sitä voittamaan. Päinvastoin suurin osa peleistä päätyy tekoälyn voittoon - osa näistä menee tosin käyttöliittymän piikkiin, koska tilanne on välillä hiukan vaikea hahmottaa tekstipohjaisesta käyttöliittymästä.
-   * Joka tapauksessa lopputulos on, että minimax-algoritmin ja heuristiikan yhdistelmä toimii oikein hyvin.
+Hyvä empiirinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten hyvin se pärjää:
+ * Tässä testissä algoritmi pärjää erittäin hyvin. Vaikka olen itse koodannut algoritmin ja heuristiikan, ja tiedän miten sen voi periaatteessa voittaa, en silti pysty yleensä sitä voittamaan. Päinvastoin suurin osa peleistä päätyy tekoälyn voittoon - osa näistä menee tosin käyttöliittymän piikkiin, koska tilanne on välillä hiukan vaikea hahmottaa tekstipohjaisesta käyttöliittymästä.
+ * Joka tapauksessa lopputulos on, että minimax-algoritmin ja heuristiikan yhdistelmä toimii oikein hyvin.
 
 ## Ajallinen suorituskyky
 * Jos tarkastellaan suorituskykyä algoritmin tehokkuuden näkökulmasta, niin nollahypoteesi on Tirakirjan taulukko 2.1, jonka mukaan aikavaatimus O(n!) pystyy käsittelemään tehokkaasti suuruusluokkaa 10 olevan syötteen. Eli siis käytännössä 3x3-kokoisen ristinollaruudukon. Intuitiivisesti tämä tuntuu yllättävän pieneltä.
