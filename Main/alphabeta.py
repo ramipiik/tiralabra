@@ -1,11 +1,13 @@
+"""Minimax algorithm with alpha-beta pruning and depth limitation"""
 from parameters import LARGE_NUMBER, alpha, beta
 from Heuristics import run_heuristics
 from tictactoe import TicTacToe
 
-round = 0
+ROUND = 0
 
-# Starts the minimax-algorithm. If crosses turn -> calls max_value. If not crosses turn -> calls min_value
+
 def alpha_beta_value(node: TicTacToe):
+    """Starts the minimax-algorithm"""
     depth = 1
     max_depth = node.get_max_depth()
     if node.crosses_turn:
@@ -14,12 +16,11 @@ def alpha_beta_value(node: TicTacToe):
         value = min_value(node, alpha, beta, depth, max_depth)
     return value
 
-
-# Core of the minimax-algorithm. Selects the optimum position for X.
-def max_value(node: TicTacToe, alpha: int, beta: int, depth: int, max_depth: int):
+def max_value(node: TicTacToe, param_alpha: int, param_beta: int, depth: int, max_depth: int):
+    """Core of the minimax-algorithm. Selects the optimum position for X."""
     depth += 1
-    global round
-    round += 1
+    global ROUND
+    ROUND += 1
 
     if node.is_end_state():
         return node.value()
@@ -27,20 +28,21 @@ def max_value(node: TicTacToe, alpha: int, beta: int, depth: int, max_depth: int
     if depth >= max_depth:
         return run_heuristics.run_heuristics(node)
 
-    v = -LARGE_NUMBER
+    value = -LARGE_NUMBER
     for child in node.generate_children():
-        v = max(v, min_value(child, alpha, beta, depth, max_depth))
-        alpha = max(alpha, v)
-        if alpha >= beta:
-            return v
-    return v
+        value = max(value, min_value(child, param_alpha, param_beta, depth, max_depth))
+        param_alpha = max(param_alpha, value)
+        if param_alpha >= param_beta:
+            return value
+    return value
 
 
-# Core of the minimax-algorithm. Selects the optimum position for O.
-def min_value(node: TicTacToe, alpha, beta, depth, max_depth: int):
+
+def min_value(node: TicTacToe, param_alpha, param_beta, depth, max_depth: int):
+    """Core of the minimax-algorithm. Selects the optimum position for O."""
     depth += 1
-    global round
-    round += 1
+    global ROUND
+    ROUND += 1
 
     if node.is_end_state():
         return node.value()
@@ -48,14 +50,15 @@ def min_value(node: TicTacToe, alpha, beta, depth, max_depth: int):
     if depth >= max_depth:
         return run_heuristics.run_heuristics(node)
 
-    v = LARGE_NUMBER
+    value = LARGE_NUMBER
     for child in node.generate_children():
-        v = min(v, max_value(child, alpha, beta, depth, max_depth))
-        beta = min(beta, v)
-        if alpha >= beta:
-            return v
-    return v
+        value = min(value, max_value(child, param_alpha, param_beta, depth, max_depth))
+        param_beta = min(param_beta, value)
+        if param_alpha >= param_beta:
+            return value
+    return value
 
 
 def get_rounds():
-    return round
+    """Returns the total number of recursion calls during the game"""
+    return ROUND

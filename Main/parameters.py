@@ -1,15 +1,15 @@
-# Contains all the "magic numbers" to fine tune and adjust the algorithm
+"""Contains all the "magic numbers" to fine tune and adjust the algorithm"""
 
-center_weight = 0.02  # how much value to give for center positions
+CENTER_WEIGHT = 0.02  # how much value to give for center positions
 LARGE_NUMBER = 1000000  # needed for getting started with optimization
-alpha = -1
-beta = 1
-delay = 0  # how long delay to have between steps. The interaction/experience might be better if things don't happen too quickly.
+ALPHA = -1
+BETA = 1
+DELAY = 0  # Delay between steps. The experience might improve if things don't happen too quickly.
 
-error_message = "Well - that was not a valid choice. Please try again."
+ERROR_MESSAGE = "Well - that was not a valid choice. Please try again."
 
-# How many marks in a row are required to win
 def how_much_to_win(board_size):
+    """How many marks in a row are required to win"""
     if board_size == 3:
         return 3
     if board_size == 5:
@@ -19,8 +19,8 @@ def how_much_to_win(board_size):
     return 5
 
 
-# Defines the importance of having marks close to each other
 def closeness_weight(level):
+    """Defines the importance of having marks close to each other"""
     if level == 2:
         return 0.25
     return 0

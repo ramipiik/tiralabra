@@ -128,12 +128,12 @@ def play(state: TicTacToe, input_time=False):
         milliseconds = seconds * 1000
         average = milliseconds / nr_of_computer_moves
         average_rounded = int(round(average, 0))
-        print("Stats:")
+        print("STATS")
         print("-Recursion calls:", get_rounds())
-        print("-Number of computer moves", nr_of_computer_moves)
+        print("-Number of computer moves:", nr_of_computer_moves)
         if state.players == 0:
             print(
-                "-Average duration per computer move", average_rounded, "milliseconds"
+                "-Average duration per computer move:", average_rounded, "milliseconds"
             )
         return
     else:
