@@ -37,7 +37,7 @@ def play_human_turn(state: TicTacToe):
                 )
                 return new_state
             print("Sorry, but that one is already taken. Please try again.")
-        except (ValueError, TypeError, AttributeError):
+        except (ValueError, TypeError, AttributeError, IndexError):
             print(ERROR_MESSAGE)
             print("------------")
 
