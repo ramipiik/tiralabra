@@ -1,6 +1,7 @@
 """Checks whether there is a possibility to gain a mustwin position"""
 from Heuristics.helper import line_checker
 
+
 def check_mustwins(tictactoe, mark: str, n_to_win: int):
     combos = []
     winning_combos_2 = []
