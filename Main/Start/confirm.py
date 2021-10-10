@@ -1,10 +1,9 @@
+"""User interface for confirming the selections made"""
 import time
 from parameters import DELAY
 
-# User interface for confirming the selections made
-
-
 def confirm():
+    """User interface for confirming the selections made"""
     while True:
         confirmation = input("Press Enter to confirm or c to change the selections: ")
         print("----------------")
@@ -13,10 +12,9 @@ def confirm():
             print("Great! Game on!")
             print("----------------")
             return True
-        elif confirmation == "c" or confirmation == "C":
+        if confirmation in ("c", "C"):
             print("Sure, let's take it from the beginning.")
             return False
-        else:
-            print(
-                "Come on - are you trying to hack me?! That's neither Enter nor c. Please try again."
-            )
+        print(
+            "Come on man! That's neither Enter nor c. Please try again."
+        )
