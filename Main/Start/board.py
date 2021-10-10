@@ -20,7 +20,7 @@ def get_board():
 
         try:
             board_letter = board_letter.capitalize()
-        except TypeError:
+        except (TypeError, AttributeError):
             continue
         board_size = 0
         if board_letter == "A":

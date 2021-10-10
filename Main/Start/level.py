@@ -1,12 +1,12 @@
-from parameters import DELAY, ERROR_MESSAGE
+"""User interface for asking which level of AI the user wants to play against"""
 import time
-
-# User interface for asking which level of AI the user wants to play against
+from parameters import DELAY, ERROR_MESSAGE
 
 
 def get_level(players):
-    if players == 0 or players == 1:
-        level = 0
+    """User interface for asking which level of AI the user wants to play against"""
+    level = None
+    if players in (0, 1):
         while True:
             print("Choose the level of AI that you want to play against?")
             print(
@@ -20,15 +20,14 @@ def get_level(players):
             time.sleep(DELAY)
             try:
                 level = int(level)
-                if level == 1 or level == 2:
+                if level in (1, 2):
                     print("Rock'n roll!")
                     print("----------------")
                     time.sleep(DELAY)
                     break
-                else:
-                    print(ERROR_MESSAGE)
-                    print("----------------")
-            except:
                 print(ERROR_MESSAGE)
                 print("----------------")
-        return level
+            except (TypeError, ValueError):
+                print(ERROR_MESSAGE)
+                print("----------------")
+    return level
