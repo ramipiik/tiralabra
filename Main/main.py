@@ -14,12 +14,6 @@ def main():
     board_size = user_choices[1]
     level = user_choices[2]
     first_move = user_choices[3]
-
-    # if first_move == 2:
-    #     x_starts = True
-    # else:
-    #     x_starts = False
-
     x_starts = (first_move == 2)
 
     custom_board = (board_size ** 2) * "-"
