@@ -1,10 +1,10 @@
+"""User interface for asking how many human players: 0,1 or 2."""
 import time
 from parameters import DELAY, ERROR_MESSAGE
 
-# User interface for asking how many human players: 0,1 or 2.
-
 
 def get_players():
+    """User interface for asking how many human players: 0,1 or 2."""
     while True:
         print("----------------")
         time.sleep(DELAY)
@@ -15,15 +15,14 @@ def get_players():
         time.sleep(DELAY)
         try:
             players = int(players)
-            if players == 0 or players == 2:
+            if players in (0, 2):
                 print("Got it!", players, "players.")
                 break
             if players == 1:
                 print("Got it -", players, "player.")
                 break
-            else:
-                print(ERROR_MESSAGE)
-        except:
+            print(ERROR_MESSAGE)
+        except (TypeError, AttributeError, ValueError):
             print(ERROR_MESSAGE)
     print("----------------")
     return players
