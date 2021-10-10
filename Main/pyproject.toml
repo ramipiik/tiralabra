@@ -6,6 +6,11 @@ authors = ["Rami Piik <rami.piik@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pylint = "^2.11.1"
+black = "^21.9b0"
+coverage = "^6.0.1"
+invoke = "^1.6.0"
+unittest = "^0.0"
 
 [tool.poetry.dev-dependencies]
 
