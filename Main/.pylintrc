@@ -9,4 +9,5 @@ disable=import-error,
         no-value-for-parameter,
         too-many-function-args,
         line-too-long,
-        unused-argument
+        unused-argument,
+        too-many-arguments

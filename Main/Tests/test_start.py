@@ -1,3 +1,4 @@
+"""Tests for all start modules"""
 # Start the tests by running:
 # python3 -m unittest -v Tests.Test_start
 
@@ -12,7 +13,7 @@ from Start.confirm import confirm
 from Start.recap import recap
 
 
-class Test_start_class(unittest.TestCase):
+class TestStart(unittest.TestCase):
     @patch("builtins.input", side_effect=["a", "", "\n", -1, 1, 2])
     def test_get_players(self, mock_input):
         result1 = get_players()
