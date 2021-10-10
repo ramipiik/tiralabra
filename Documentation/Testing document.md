@@ -41,7 +41,7 @@ Hyvä empiirinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten 
  * Tämän perusteella, jos rajoitan 5x5-laudalla minimax-algoritmin syvyyden neljään kierrokseen, pitäisi sen vielä toimia nopeasti, koska 25 * 24 * 23 * 22 = 303600.
    * Tämä piti paikkaansa. Keskimääräiseksi tietokoneen siirron kestoksi tuli 340 ms. Kesto on pidempi kuin 3x3-laudalla, koska algoritmin pitää ajaa jokaisen polun lopuksi heuristiikkametodit, ja koska pelin edetessä permutaatioiden määrä pienenee hitaammin kuin 3x3-ruudukolla.
  * Samalla logiikalla 7x7-laudalla syvyyttä saa olla maksimissaan 3, koska 49 * 48 * 47 = 110544.
-   * Tämä piti paikkaan. Kolmen syvyydellä ja 7x7 laudalla siirron kestoksi tuli 718 ms.
+   * Tämäkin piti paikkaansa. Kolmen syvyydellä ja 7x7 laudalla siirron kestoksi tuli 718 ms.
    * Kun taas neljän syvyydellä algoritmi oli jo erittäin hidas.
  * Isommilla laudoilla syvyys pitää rajoittaa kahteen, jotta pelikokemus on mukava, mikä tuntuu yllättävän vähältä, mutta on kuitenkin linjassa O(n!)-aikavaatimuksen ja Tirakirjan taulukon kanssa.
    * Käytännössä päädyin tekemään syvyysrajoittimesta liukuvan siten, että syvyys kasvaa sitä mukaa kun vapaiden ruutujen määrä pienenee. Eli vaikka peli olisi alkanut isolla laudella, voidaan syvyyttä kasvattaa kolmeen siinä vaiheessa, kun vapaita ruutuja on enää 50. Kun vapaita ruutuja on enää 25, voidaan syvyys nostaa neljään. 10 vapaalla ruudulla voidaan Tirakirjan mukaisesti laskea kaikki permutaatiot läpi, eli syvyysrajoitinta ei tarvita.
