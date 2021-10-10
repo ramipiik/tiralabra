@@ -3,7 +3,6 @@ from tictactoe import TicTacToe
 
 
 def closeness_check(tictactoe: TicTacToe, mark: str, first_time=False):
-    """Scores the board based on number of connection to other own marks."""
     # The more own marks are connected, the higher the score.
 
     counter = 0

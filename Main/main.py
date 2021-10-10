@@ -9,7 +9,6 @@ from Start.start import start
 
 
 def main():
-    """Asks for user inputted parameters and starts the game."""
     user_choices = start()
     players = user_choices[0]
     board_size = user_choices[1]

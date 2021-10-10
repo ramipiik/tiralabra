@@ -3,7 +3,6 @@ from tictactoe import TicTacToe
 
 
 def boundaries_check(tictactoe: TicTacToe, mark: str):
-    """Calculates the distance from edges. Center positions are valued higher than edge positions"""
     # Input parameters:
     # tictactoe: state of the board
     # mark: X or O

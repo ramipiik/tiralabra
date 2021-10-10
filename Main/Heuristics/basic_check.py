@@ -4,7 +4,6 @@ from tictactoe import TicTacToe
 
 
 def basic_check(tictactoe: TicTacToe, mark: str, n_to_win: int):
-    """Gives a score to the board based on the combinations found"""
     # Combination is a tuple. 1st parameter is the string/combination. 2nd parameter is its value
 
     combos = []

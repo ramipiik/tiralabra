@@ -2,7 +2,6 @@
 
 
 def line_checker(combos: list, tictactoe, n_to_win: int):
-    """Goes through all lines on the board"""
     # Searches for the combinations in combos parameter
     # Combos is a list of tuples (string, int).
     # First parameter of the tuple is the string/combination to search for.
