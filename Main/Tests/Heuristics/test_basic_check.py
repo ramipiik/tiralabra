@@ -1,14 +1,13 @@
+"""Test heuristics.basic_check"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_basic_check
 
 import unittest
-from unittest.mock import patch
 from Heuristics.basic_check import basic_check
 from tictactoe import TicTacToe
 
 
-class Test_heuristics_basic_check_class(unittest.TestCase):
-
+class TestHeuristicsBasicCheck(unittest.TestCase):
     # Tests whether Heuristics finds the correct combinations on a 3x3 board
     def test_basic_check_3(self):
         test_board = "XX-------"
@@ -137,7 +136,6 @@ class Test_heuristics_basic_check_class(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             test_board = "XX-XX----"
-            test_state = TicTacToe(test_board, False, 1, 2)
             basic_check("X", 2)
 
         with self.assertRaises(AttributeError):
