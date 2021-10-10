@@ -75,6 +75,7 @@ Valitettavasti aikavaatimuksen suuruusluokkaa ei ymmärtääkseni ole mahdollist
  * Uskon silti edelleen, että tähän löytyy joku ratkaisu - ristinolla on niin yksinkertainen peli, että on oltava mahdollista katsoa yli kahden siirron päähän.
  * Graafinen käyttöliittymä olisi iso parannus, mutta se on selkeästi laajuuden ulkopuolella. Ja olen pian käyttänyt kurssiin opintopisteiden mukaiset tunnit, joten se jää seuraavaan kertaan...
 * (new feature branch)
+* again a great new feature
 
 ## Lähteet
 * Johdatus tekoälyyn -kurssin materiaali: https://materiaalit.github.io/intro-to-ai/
