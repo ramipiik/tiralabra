@@ -1,13 +1,13 @@
+"""Test heuristics.sanity_check module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_sanity_check
 
 import unittest
-from unittest.mock import patch
 from Heuristics.sanity_check import sanity_check
 from tictactoe import TicTacToe
 
 
-class Test_sanity_check_class(unittest.TestCase):
+class TestSanityCheck(unittest.TestCase):
     def test_sanity_check(self):
         test_board = (
             "--OXXXX---"
