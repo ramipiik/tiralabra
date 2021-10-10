@@ -27,9 +27,11 @@ poetry run invoke coverage
 # Suorituskykytestaus
 
 ## Laadullinen suorituskyky
-Hyvä empiirinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten hyvin se pärjää:
+Hyvä empiirinen laadullinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten hyvin se pärjää:
  * Tässä testissä algoritmi pärjää erittäin hyvin. Vaikka olen itse koodannut algoritmin ja heuristiikan, ja tiedän miten se arvottaa tilanteita ja miten sen voi periaatteessa voittaa, en silti pysty yleensä sitä voittamaan. Päinvastoin suurin osa peleistä päätyy tekoälyn voittoon - osa näistä menee tosin käyttöliittymän piikkiin, koska tilanne on välillä hiukan vaikea hahmottaa tekstipohjaisesta käyttöliittymästä.
  * Joka tapauksessa lopputulos on, että minimax-algoritmin ja heuristiikan yhdistelmä toimii oikein hyvin.
+
+Jos valitsee pelin alussa tasoksi "helppo", pelaa tietokone pelkällä heuristiikalla eli minimax-algoritmin syvyys on rajoitettu nollaan. Pelkkä heuristiikkakin pelaa ihan hyvin, paitsi että se tekee välillä "tyhmiä" virheitä, koska ei osaa katsoa yhtä siirtoa pidemmällä. Tämän havaitsee helposti esim. 3x3-pelissä, jota ei pitäisi pystyä voittamaan. Isommmilla laudoilla pelkkä heuristiikkakin on ihan kohtalainen vastus, mutta luonnollisesti selkeästi helpommin voitettavissa kuin minimax-algoritmi.
 
 ## Ajallinen suorituskyky
 * Jos tarkastellaan suorituskykyä algoritmin tehokkuuden näkökulmasta, niin nollahypoteesi on Tirakirjan taulukko 2.1, jonka mukaan aikavaatimus O(n!) pystyy käsittelemään tehokkaasti suuruusluokkaa 10 olevan syötteen. Eli siis käytännössä 3x3-kokoisen ristinollaruudukon. Intuitiivisesti tämä tuntuu yllättävän pieneltä.
