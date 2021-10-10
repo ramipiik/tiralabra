@@ -1,13 +1,13 @@
+"""Test heuristics.closeness_check module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_closeness_check
 
 import unittest
-from unittest.mock import patch
 from Heuristics.closeness_check import closeness_check
 from tictactoe import TicTacToe
 
 
-class Test_closeness_check_class(unittest.TestCase):
+class TestClosenessCheck(unittest.TestCase):
     def test_closeness(self):
         test_board = "---------"
         test_state = TicTacToe(test_board, False, 1, 2)
