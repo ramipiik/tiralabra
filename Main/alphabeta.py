@@ -1,5 +1,5 @@
 """Minimax algorithm with alpha-beta pruning and depth limitation"""
-from parameters import LARGE_NUMBER, alpha, beta
+from parameters import LARGE_NUMBER, ALPHA, BETA
 from Heuristics import run_heuristics
 from tictactoe import TicTacToe
 
@@ -11,9 +11,9 @@ def alpha_beta_value(node: TicTacToe):
     depth = 1
     max_depth = node.get_max_depth()
     if node.crosses_turn:
-        value = max_value(node, alpha, beta, depth, max_depth)
+        value = max_value(node, ALPHA, BETA, depth, max_depth)
     else:
-        value = min_value(node, alpha, beta, depth, max_depth)
+        value = min_value(node, ALPHA, BETA, depth, max_depth)
     return value
 
 def max_value(node: TicTacToe, param_alpha: int, param_beta: int, depth: int, max_depth: int):

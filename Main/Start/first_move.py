@@ -1,5 +1,5 @@
 import time
-from parameters import delay, error_message
+from parameters import DELAY, ERROR_MESSAGE
 
 # User interface for asking which one gets to go first - computer or human
 
@@ -14,7 +14,7 @@ def get_first_move(players):
             print("----------------")
             first_move = input("Your choice: ")
             print("----------------")
-            time.sleep(delay)
+            time.sleep(DELAY)
             try:
                 first_move = int(first_move)
                 if first_move == 1:
@@ -26,9 +26,9 @@ def get_first_move(players):
                     print("----------------")
                     break
                 else:
-                    print(error_message)
+                    print(ERROR_MESSAGE)
                     print("----------------")
             except:
-                print(error_message)
+                print(ERROR_MESSAGE)
                 print("----------------")
     return first_move

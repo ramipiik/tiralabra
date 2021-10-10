@@ -1,14 +1,15 @@
+"""Handles the main flow of the game"""
 import time
 import datetime
 import string
-from alphabeta import alpha_beta_value, get_rounds, min_value, max_value
-from parameters import delay
-from parameters import LARGE_NUMBER, error_message
+from alphabeta import alpha_beta_value, get_rounds
+from parameters import DELAY
+from parameters import LARGE_NUMBER, ERROR_MESSAGE
 from tictactoe import TicTacToe
 
 
-# Handles humans turn
 def play_human_turn(state: TicTacToe):
+    """Plays humans turn"""
     print("------------")
     while True:
         print("What's your move? (A1, B2, C3, etc.)")
@@ -20,7 +21,7 @@ def play_human_turn(state: TicTacToe):
             number = int(coordinate[1:])
             aux = string.ascii_uppercase.find(letter.capitalize())
             if aux > state.board_size or number > state.board_size or number < 1:
-                print(error_message)
+                print(ERROR_MESSAGE)
                 print("------------")
                 continue
             index = int(aux * state.board_size + number - 1)
@@ -35,24 +36,21 @@ def play_human_turn(state: TicTacToe):
                     aux, not state.crosses_turn, state.level, state.players, latest_move
                 )
                 return new_state
-            else:
-                print("Sorry, but that one is already taken. Please try again.")
+            print("Sorry, but that one is already taken. Please try again.")
         except:
-            print(error_message)
+            print(ERROR_MESSAGE)
             print("------------")
 
 
-# Handles computer's turns. Calls the minimax algorithm to find the best position.
-nr_of_computer_moves = 0
-
+NR_OF_COMPUTER_MOVES = 0
 
 def play_computer_turn(state: TicTacToe):
-    global nr_of_computer_moves
-    nr_of_computer_moves += 1
+    """Plays computer turn. Calls the minimax algorithm to find the best position."""
+    global NR_OF_COMPUTER_MOVES
+    NR_OF_COMPUTER_MOVES += 1
+    arvo = LARGE_NUMBER
     if state.crosses_turn:
         arvo = -LARGE_NUMBER
-    else:
-        arvo = LARGE_NUMBER
     new_state = ""
     children = state.generate_children()
     for i, siirto in enumerate(children):
@@ -90,20 +88,21 @@ def play_computer_turn(state: TicTacToe):
     return new_state
 
 
-start_time = 0
-# Coordinates whether to play human or computer turn. Ends the game if the board is full or one of the players won.
+START_TIME = datetime.datetime.now()
+
 def play(state: TicTacToe, input_time=False):
-    global start_time
-    if not input_time == False:
-        start_time = input_time
-    time.sleep(delay)
+    """Plays human or computer turn. Ends the game if board full or one of the players won."""
+    global START_TIME
+    if input_time:
+        START_TIME = input_time
+    time.sleep(DELAY)
     if state.crosses_turn:
         print("Next turn: X")
     else:
         print("Next turn: O")
     print("")
     print(state)
-    time.sleep(delay)
+    time.sleep(DELAY)
 
     if state.players == 2 or (state.players == 1 and not state.crosses_turn):
         new_state = play_human_turn(state)
@@ -123,18 +122,17 @@ def play(state: TicTacToe, input_time=False):
             print("DRAW")
         print("----------------")
         end_time = datetime.datetime.now()
-        duration = end_time - start_time
+        duration = end_time - START_TIME
         seconds = duration.total_seconds()
         milliseconds = seconds * 1000
-        average = milliseconds / nr_of_computer_moves
+        average = milliseconds / NR_OF_COMPUTER_MOVES
         average_rounded = int(round(average, 0))
         print("STATS")
         print("-Recursion calls:", get_rounds())
-        print("-Number of computer moves:", nr_of_computer_moves)
+        print("-Number of computer moves:", NR_OF_COMPUTER_MOVES)
         if state.players == 0:
             print(
                 "-Average duration per computer move:", average_rounded, "milliseconds"
             )
         return
-    else:
-        play(new_state)
+    play(new_state)

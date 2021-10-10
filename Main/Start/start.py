@@ -1,5 +1,5 @@
 import time
-from parameters import delay
+from parameters import DELAY
 from Start.players import get_players
 from Start.board import get_board
 from Start.level import get_level
@@ -12,14 +12,14 @@ from Start.first_move import get_first_move
 def start():
     while True:
         players = get_players()
-        time.sleep(delay)
+        time.sleep(DELAY)
         board_size = get_board()
-        time.sleep(delay)
+        time.sleep(DELAY)
         level = get_level(players)
-        time.sleep(delay)
+        time.sleep(DELAY)
         first_move = get_first_move(players)
-        time.sleep(delay)
+        time.sleep(DELAY)
         recap(players, board_size, level, first_move)
-        time.sleep(delay)
+        time.sleep(DELAY)
         if confirm():
             return (players, board_size, level, first_move)

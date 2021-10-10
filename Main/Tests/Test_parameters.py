@@ -1,7 +1,8 @@
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest -v Tests.Test_parameters
 
-from parameters import how_much_to_win, recursion_depth, closeness_weight
+from parameters import how_much_to_win, closeness_weight, LARGE_NUMBER
+from tictactoe import TicTacToe
 import unittest
 from unittest.mock import patch
 
@@ -25,20 +26,33 @@ class Test_parameters_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             how_much_to_win(3, 4)
 
-    def test_recursion_depth(self):
-        self.assertEquals(recursion_depth(3), 11)
-        self.assertEquals(recursion_depth(4), 3)
-        self.assertEquals(recursion_depth(5), 3)
-        self.assertEquals(recursion_depth(100), 3)
-        self.assertEquals(recursion_depth(0), 3)
-        self.assertEquals(recursion_depth(-1), 3)
-        self.assertEquals(recursion_depth("-"), 3)
+    def test_get_max_depth(self):
+        board = "XXX------"
+        node = TicTacToe(board, False, 1, 2)
+        self.assertEquals(node.get_max_depth(), 0)
+
+        node = TicTacToe(board, False, 2, 2)
+        self.assertEquals(node.get_max_depth(), LARGE_NUMBER)
+
+
+        board = "-------------------------"
+        node = TicTacToe(board, False, 2, 2)
+        self.assertEquals(node.get_max_depth(), 4)
+
+
+        board = "------------------------------"
+        node = TicTacToe(board, False, 2, 2)
+        self.assertEquals(node.get_max_depth(), 3)
+
+        board = "------------------------------------------------------------"
+        node = TicTacToe(board, False, 2, 2)
+        self.assertEquals(node.get_max_depth(), 2)
 
         with self.assertRaises(TypeError):
-            recursion_depth()
+            node.get_max_depth(1)
 
         with self.assertRaises(TypeError):
-            recursion_depth(3, 4)
+            node.get_max_depth(3, 4)
 
     def test_closeness_weight(self):
         self.assertEquals(closeness_weight(2), 0.25)

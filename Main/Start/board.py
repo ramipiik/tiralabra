@@ -1,7 +1,6 @@
-from parameters import delay, error_message
+"""User interface for asking for the board size from the user"""
 import time
-
-# User interface for asking for the board size from the user
+from parameters import DELAY, ERROR_MESSAGE
 
 
 def get_board():
@@ -16,7 +15,7 @@ def get_board():
         print("----------------")
         board_letter = input("Your choice: ")
         print("----------------")
-        time.sleep(delay)
+        time.sleep(DELAY)
 
         try:
             board_letter = board_letter.capitalize()
@@ -54,6 +53,6 @@ def get_board():
             print("----------------")
             break
         else:
-            print(error_message)
+            print(ERROR_MESSAGE)
             print("----------------")
     return board_size

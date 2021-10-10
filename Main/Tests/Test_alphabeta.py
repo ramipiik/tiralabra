@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 from alphabeta import alpha_beta_value, max_value, min_value
 from tictactoe import TicTacToe
-from parameters import LARGE_NUMBER, alpha, beta
+from parameters import LARGE_NUMBER, ALPHA, BETA
 
 
 class Test_alphabeta_class(unittest.TestCase):
@@ -28,28 +28,32 @@ class Test_alphabeta_class(unittest.TestCase):
         test_board = "----O----"
         node = TicTacToe(test_board, False, 1, 1)
         depth = 0
-        result = min_value(node, alpha, beta, depth)
+        max_depth=100
+        result = min_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, -1)
 
     def test_max_win(self):
         test_board = "X--------"
         node = TicTacToe(test_board, True, 1, 1)
         depth = 0
-        result = max_value(node, alpha, beta, depth)
+        max_depth=100
+        result = max_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 1)
 
     def test_draw_1(self):
         test_board = "---------"
         node = TicTacToe(test_board, True, 2, 1)
         depth = 0
-        result = max_value(node, alpha, beta, depth)
+        max_depth=100
+        result = max_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 0)
 
     def test_draw_2(self):
         test_board = "---------"
         node = TicTacToe(test_board, False, 2, 1)
         depth = 0
-        result = min_value(node, alpha, beta, depth)
+        max_depth=100
+        result = min_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 0)
 
 

@@ -1,5 +1,5 @@
 import time
-from parameters import delay, error_message
+from parameters import DELAY, ERROR_MESSAGE
 
 # User interface for asking how many human players: 0,1 or 2.
 
@@ -7,12 +7,12 @@ from parameters import delay, error_message
 def get_players():
     while True:
         print("----------------")
-        time.sleep(delay)
+        time.sleep(DELAY)
         print("0, 1 or 2 players game?")
         print("----------------")
         players = input("Your choice: ")
         print("----------------")
-        time.sleep(delay)
+        time.sleep(DELAY)
         try:
             players = int(players)
             if players == 0 or players == 2:
@@ -22,8 +22,8 @@ def get_players():
                 print("Got it -", players, "player.")
                 break
             else:
-                print(error_message)
+                print(ERROR_MESSAGE)
         except:
-            print(error_message)
+            print(ERROR_MESSAGE)
     print("----------------")
     return players

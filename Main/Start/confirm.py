@@ -1,5 +1,5 @@
 import time
-from parameters import delay
+from parameters import DELAY
 
 # User interface for confirming the selections made
 
@@ -8,7 +8,7 @@ def confirm():
     while True:
         confirmation = input("Press Enter to confirm or c to change the selections: ")
         print("----------------")
-        time.sleep(delay)
+        time.sleep(DELAY)
         if confirmation == "":
             print("Great! Game on!")
             print("----------------")

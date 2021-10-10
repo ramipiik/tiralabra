@@ -47,22 +47,22 @@ class Test_heuristics_basic_check_class(unittest.TestCase):
         test_board = "XXX--" + "XXX--" + "XXX--" + "-----" + "-----"
         test_state = TicTacToe(test_board, False, 1, 2)
         score = basic_check(test_state, "X", 3)
-        self.assertEqual(81, score)
+        self.assertEqual(60, score)
 
         test_board = "--OOO" + "--OOO" + "--OOO" + "-----" + "-----"
         test_state = TicTacToe(test_board, False, 1, 2)
         score = basic_check(test_state, "O", 3)
-        self.assertEqual(81, score)
+        self.assertEqual(60, score)
 
         test_board = "-----" + "-----" + "--XXX" + "--XXX" + "--XXX"
         test_state = TicTacToe(test_board, False, 1, 2)
         score = basic_check(test_state, "X", 3)
-        self.assertEqual(81, score)
+        self.assertEqual(60, score)
 
         test_board = "-----" + "-----" + "OOO--" + "OOO--" + "OOO--"
         test_state = TicTacToe(test_board, False, 1, 2)
         score = basic_check(test_state, "O", 3)
-        self.assertEqual(81, score)
+        self.assertEqual(60, score)
 
     # Tests whether Heuristics finds the correct combinations on a 5x5 board
     def test_basic_check_5(self):

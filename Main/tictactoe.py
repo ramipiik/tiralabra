@@ -1,15 +1,18 @@
+"""Class, which is used for defining the state of the play."""
+import string
+from math import sqrt
 from parameters import (
     LARGE_NUMBER,
     how_much_to_win,
     closeness_weight,
-    center_weight,
+    CENTER_WEIGHT,
 )
-import string
-from math import sqrt
 from Heuristics.helper import line_checker
 
-# Defines the Tictactoe class, which is used for defining the state of the play.
+
 class TicTacToe:
+    """Class, which is used for defining the state of the play."""
+
     def __init__(self, state, crosses_turn, level, players, first_turn=False):
         self.state = state
         self.board_size = int(sqrt(len(self.state)))
@@ -19,33 +22,30 @@ class TicTacToe:
         self.first_turn = first_turn
         self.to_win = how_much_to_win(self.board_size)
         self.closeness_weight = closeness_weight(level)
-        self.center_weight = center_weight
+        self.center_weight = CENTER_WEIGHT
 
-    # Checks whether the state ends the game. Either the board is full, or one player won.
     def is_end_state(self):
-        if (
-            ("-" not in self.state)
+        """Checks whether the state ends the game. Either the board is full, or one player won."""
+        return (
+            "-" not in self.state
             or self.won("X", self.to_win)
             or self.won("O", self.to_win)
-        ):
-            return True
-        else:
-            return False
+        )
 
-    # Check whether the board contains a winning combination
-    def won(self, mark, n):
-        combo = n * mark
+    def won(self, mark, board_size):
+        """Checks whether the board contains a winning combination"""
+        combo = board_size * mark
         combos = []
         combos.append((combo, 1))
 
-        result = line_checker(combos, self, n - 1)
+        result = line_checker(combos, self, board_size - 1)
         if result > 0:
             return True
 
         return False
 
-    # Prints the board
     def __str__(self):
+        """Prints the board"""
         top_row = "  "
         for numero in range(1, self.board_size + 1):
             if numero <= 10:
@@ -63,8 +63,8 @@ class TicTacToe:
             field = field.replace("a", character, 1)
         return field
 
-    # Important function. Creates all possible following states of the current board
     def generate_children(self):
+        """Creates all possible following states of the current board"""
         possible_states = []
         if self.crosses_turn:
             mark = "X"
@@ -81,24 +81,24 @@ class TicTacToe:
                 possible_states.append(new_state)
         return possible_states
 
-    # returns 1 if x wins, and -1 if o wins
     def value(self):
+        """Returns 1 if x wins, and -1 if o wins"""
         if self.won("X", self.to_win):
             return 1
         if self.won("O", self.to_win):
             return -1
         return 0
 
-    # Counts the number of empty cells on the board.
     def count_empty(self):
+        """Counts the number of empty cells on the board."""
         count = 0
         for char in self.state:
             if char == "-":
                 count += 1
         return count
 
-    # Calculates dynamically the max allowed recursion depth depending on the nr. of empty cells.
     def get_max_depth(self):
+        """Calculates dynamically the max recursion depth depending on the nr. of empty cells."""
         if self.level == 1:  # easy level uses only heuristics
             return 0
         empty = self.count_empty()
@@ -108,5 +108,4 @@ class TicTacToe:
             return 4
         if empty <= 50:
             return 3
-        else:
-            return 2
+        return 2
