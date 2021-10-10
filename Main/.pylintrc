@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=import-error, bad-continuation
+disable=import-error, bad-continuation, too-many-branches

@@ -1,14 +1,14 @@
-# from tictactoe import TicTacToe
-
-# Goes through all horizontal, vertical and diagonal lines on the given board and searches for the given combinations
-# Retuns the sum of combinations
-# Input parameters:
-# tictactoe: state of the board
-# combos: List of tuples (string, int). First parameter of the tuple is the string/combination to search for. Second is the points given for that combination.
-# n: How many in a row are required to win
+"""Goes through all lines on the board"""
 
 
-def line_checker(combos: list, tictactoe, n: int):
+def line_checker(combos: list, tictactoe, n_to_win: int):
+    """Goes through all lines on the board"""
+    # Searches for the combinations in combos parameter
+    # Combos is a list of tuples (string, int).
+    # First parameter of the tuple is the string/combination to search for.
+    # Second parameter is the points given for that combination.
+    # Retuns the sum of combinations
+
     count = 0
     # checks horizontal_lines
     for i in range(tictactoe.board_size):
@@ -32,7 +32,7 @@ def line_checker(combos: list, tictactoe, n: int):
     for i in range(tictactoe.board_size):
         max_length = tictactoe.board_size - i
         rivi = ""
-        if i <= tictactoe.board_size - n - 1:
+        if i <= tictactoe.board_size - n_to_win - 1:
             for j in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[i + j * (tictactoe.board_size + 1)]
@@ -44,7 +44,7 @@ def line_checker(combos: list, tictactoe, n: int):
     for i in range(tictactoe.board_size - 1, -1, -1):
         max_length = i + 1
         rivi = ""
-        if i >= n - 1:
+        if i >= n_to_win - 1:
             for j in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[i + j * (tictactoe.board_size - 1)]
@@ -58,7 +58,7 @@ def line_checker(combos: list, tictactoe, n: int):
     ):  # top-left corner has already been checked. Thus starting from row 1.
         max_length = tictactoe.board_size - j
         rivi = ""
-        if j <= tictactoe.board_size - n - 1:
+        if j <= tictactoe.board_size - n_to_win - 1:
             for i in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[
@@ -74,7 +74,7 @@ def line_checker(combos: list, tictactoe, n: int):
     ):  # top-right corner has already been checked. Thus starting from row 1.
         max_length = tictactoe.board_size - j
         rivi = ""
-        if j <= tictactoe.board_size - n - 1:
+        if j <= tictactoe.board_size - n_to_win - 1:
             for i in range(tictactoe.board_size):
                 if len(rivi) < max_length:
                     rivi += tictactoe.state[
