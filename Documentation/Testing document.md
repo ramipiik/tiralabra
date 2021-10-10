@@ -14,16 +14,21 @@
 * Yksikkötesteissä heuristiikkaa testataan varmistalla, että pelitilanteen arvostus ("heuristiikkapisteet") on sitä mitä pitääkin.
 
 ## Miten testit voidaan toistaa?
-* Yksikkötestit voidaan toistaa ajamalla seuraava script Main-kansiossa `./run_all_tests.sh`
-* Yksikkötestien kattavuusraportin saa toteutettua ajamalla
-  1. Ensin ohjelman raportointityökalun läpi komennolla: `coverage run main.py`
-  1. Tämän jälkeen raportin saa tulostettua komennolla: `coverage report -m`
+* Yksikkötestit suoritetaan ajamalla "Main"-kansiossa komento
+```
+poetry run invoke test
+``` 
+* Itse testit löytyvät kansiosta Main/Tests/
+* Testikattavuuden voi tarkistaa seuraavilla komennoilla:
+```
+poetry run invoke coverage
+```
 
 # Suorituskykytestaus
 
 ## Laadullinen suorituskyky
 Hyvä empiirinen suorituskykytesti on pelata algoritmia vastaan ja katsoa miten hyvin se pärjää:
- * Tässä testissä algoritmi pärjää erittäin hyvin. Vaikka olen itse koodannut algoritmin ja heuristiikan, ja tiedän miten sen voi periaatteessa voittaa, en silti pysty yleensä sitä voittamaan. Päinvastoin suurin osa peleistä päätyy tekoälyn voittoon - osa näistä menee tosin käyttöliittymän piikkiin, koska tilanne on välillä hiukan vaikea hahmottaa tekstipohjaisesta käyttöliittymästä.
+ * Tässä testissä algoritmi pärjää erittäin hyvin. Vaikka olen itse koodannut algoritmin ja heuristiikan, ja tiedän miten se arvottaa tilanteita ja miten sen voi periaatteessa voittaa, en silti pysty yleensä sitä voittamaan. Päinvastoin suurin osa peleistä päätyy tekoälyn voittoon - osa näistä menee tosin käyttöliittymän piikkiin, koska tilanne on välillä hiukan vaikea hahmottaa tekstipohjaisesta käyttöliittymästä.
  * Joka tapauksessa lopputulos on, että minimax-algoritmin ja heuristiikan yhdistelmä toimii oikein hyvin.
 
 ## Ajallinen suorituskyky

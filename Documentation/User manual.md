@@ -22,3 +22,12 @@ poetry run invoke test
 ```
 poetry run invoke coverage
 ```
+* Linttaustarkistus suoritetaan ajamalla "Main"-kansiossa komento
+```
+poetry run invoke lint
+```
+
+* Automaattinen tyylin korjaus suoritetaan ajamalla "Main"-kansiossa komento
+```
+poetry run invoke black
+```
