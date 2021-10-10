@@ -34,11 +34,9 @@ class Test_parameters_class(unittest.TestCase):
         node = TicTacToe(board, False, 2, 2)
         self.assertEquals(node.get_max_depth(), LARGE_NUMBER)
 
-
         board = "-------------------------"
         node = TicTacToe(board, False, 2, 2)
         self.assertEquals(node.get_max_depth(), 4)
-
 
         board = "------------------------------"
         node = TicTacToe(board, False, 2, 2)

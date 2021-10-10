@@ -2,6 +2,7 @@
 import time
 from parameters import DELAY
 
+
 def confirm():
     """User interface for confirming the selections made"""
     while True:
@@ -15,6 +16,4 @@ def confirm():
         if confirmation in ("c", "C"):
             print("Sure, let's take it from the beginning.")
             return False
-        print(
-            "Come on man! That's neither Enter nor c. Please try again."
-        )
+        print("Come on man! That's neither Enter nor c. Please try again.")

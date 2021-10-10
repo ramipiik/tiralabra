@@ -44,6 +44,7 @@ def play_human_turn(state: TicTacToe):
 
 NR_OF_COMPUTER_MOVES = 0
 
+
 def play_computer_turn(state: TicTacToe):
     """Plays computer turn. Calls the minimax algorithm to find the best position."""
     global NR_OF_COMPUTER_MOVES
@@ -89,6 +90,7 @@ def play_computer_turn(state: TicTacToe):
 
 
 START_TIME = datetime.datetime.now()
+
 
 def play(state: TicTacToe, input_time=False):
     """Plays human or computer turn. Ends the game if board full or one of the players won."""

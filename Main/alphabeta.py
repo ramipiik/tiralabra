@@ -16,7 +16,10 @@ def alpha_beta_value(node: TicTacToe):
         value = min_value(node, ALPHA, BETA, depth, max_depth)
     return value
 
-def max_value(node: TicTacToe, param_alpha: int, param_beta: int, depth: int, max_depth: int):
+
+def max_value(
+    node: TicTacToe, param_alpha: int, param_beta: int, depth: int, max_depth: int
+):
     """Core of the minimax-algorithm. Selects the optimum position for X."""
     depth += 1
     global ROUND
@@ -35,7 +38,6 @@ def max_value(node: TicTacToe, param_alpha: int, param_beta: int, depth: int, ma
         if param_alpha >= param_beta:
             return value
     return value
-
 
 
 def min_value(node: TicTacToe, param_alpha, param_beta, depth, max_depth: int):

@@ -1,10 +1,10 @@
+"""User interface for asking which one gets to go first - computer or human"""
 import time
 from parameters import DELAY, ERROR_MESSAGE
 
-# User interface for asking which one gets to go first - computer or human
-
 
 def get_first_move(players):
+    """User interface for asking which one gets to go first - computer or human"""
     first_move = 1
     if players == 1:
         while True:
@@ -25,10 +25,9 @@ def get_first_move(players):
                     print("All right. Computer goes first")
                     print("----------------")
                     break
-                else:
-                    print(ERROR_MESSAGE)
-                    print("----------------")
-            except:
+                print(ERROR_MESSAGE)
+                print("----------------")
+            except (TypeError, ValueError):
                 print(ERROR_MESSAGE)
                 print("----------------")
     return first_move

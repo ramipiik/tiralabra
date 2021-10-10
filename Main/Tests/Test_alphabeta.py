@@ -28,7 +28,7 @@ class Test_alphabeta_class(unittest.TestCase):
         test_board = "----O----"
         node = TicTacToe(test_board, False, 1, 1)
         depth = 0
-        max_depth=100
+        max_depth = 100
         result = min_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, -1)
 
@@ -36,7 +36,7 @@ class Test_alphabeta_class(unittest.TestCase):
         test_board = "X--------"
         node = TicTacToe(test_board, True, 1, 1)
         depth = 0
-        max_depth=100
+        max_depth = 100
         result = max_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 1)
 
@@ -44,7 +44,7 @@ class Test_alphabeta_class(unittest.TestCase):
         test_board = "---------"
         node = TicTacToe(test_board, True, 2, 1)
         depth = 0
-        max_depth=100
+        max_depth = 100
         result = max_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 0)
 
@@ -52,7 +52,7 @@ class Test_alphabeta_class(unittest.TestCase):
         test_board = "---------"
         node = TicTacToe(test_board, False, 2, 1)
         depth = 0
-        max_depth=100
+        max_depth = 100
         result = min_value(node, ALPHA, BETA, depth, max_depth)
         self.assertEqual(result, 0)
 

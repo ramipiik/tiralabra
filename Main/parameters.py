@@ -8,6 +8,7 @@ DELAY = 0  # Delay between steps. The experience might improve if things don't h
 
 ERROR_MESSAGE = "Well - that was not a valid choice. Please try again."
 
+
 def how_much_to_win(board_size):
     """How many marks in a row are required to win"""
     if board_size == 3:
