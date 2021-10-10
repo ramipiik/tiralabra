@@ -20,7 +20,7 @@ For starting the application, run the following command in the **"Main" director
 ```
 poetry run invoke start
 ```
-Alternatively, if you don't want to install Poetry, you try just running `python3 main.py` in the "Main" directory.
+Alternatively, if you don't want to install Poetry, you try just running `python3 main.py` in the **"Main" directory**.
      
 ## Tests & styling (optional)
 ### Run unit tests  
