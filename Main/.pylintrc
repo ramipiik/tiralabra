@@ -10,4 +10,5 @@ disable=import-error,
         too-many-function-args,
         line-too-long,
         unused-argument,
-        too-many-arguments
+        too-many-arguments,
+        too-many-statements

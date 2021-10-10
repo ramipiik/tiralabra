@@ -1,13 +1,14 @@
+"""Test heuristics.run_heuristics module"""
+
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest Tests.Heuristics.Test_run_heuristics
 
 import unittest
-from unittest.mock import patch
 from Heuristics.run_heuristics import run_heuristics
 from tictactoe import TicTacToe
 
 
-class Test_run_heuristics_class(unittest.TestCase):
+class TestRunHeuristics(unittest.TestCase):
     def test_run_heuristics(self):
         test_board = (
             "---XXX----"
