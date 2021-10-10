@@ -1,3 +1,4 @@
+"""Coordinates the start of the game by calling the individual user interface methods"""
 import time
 from parameters import DELAY
 from Start.players import get_players
@@ -8,8 +9,8 @@ from Start.confirm import confirm
 from Start.first_move import get_first_move
 
 
-# Coordinates the start of the game by calling the individual user interface methods
 def start():
+    """Coordinates the start of the game by calling the individual user interface methods"""
     while True:
         players = get_players()
         time.sleep(DELAY)
