@@ -12,4 +12,5 @@ disable=import-error,
         unused-argument,
         too-many-arguments,
         too-many-statements,
-        duplicate-code
+        duplicate-code,
+        too-many-instance-attributes

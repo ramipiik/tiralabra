@@ -1,8 +1,9 @@
+"""Module for running the program through Poetry invoke"""
 from invoke import task
 
 @task
 def start(ctx):
-    ctx.run("python3 ./main.py")
+    ctx.run("python3 ./main.py", pty=True)
 
 @task
 def test(ctx):
@@ -21,3 +22,15 @@ def test(ctx):
 def coverage(ctx):
     ctx.run("coverage run main.py")
     ctx.run("coverage report -m")
+
+@task
+def lint(ctx):
+    ctx.run("pylint Heuristics")
+    ctx.run("pylint Start")
+    ctx.run("pylint Tests")
+    ctx.run("pylint alphabeta.py")
+    ctx.run("pylint main.py")
+    ctx.run("pylint parameters.py")
+    ctx.run("pylint play.py")
+    ctx.run("pylint tasks.py")
+    ctx.run("pylint tictactoe.py")
