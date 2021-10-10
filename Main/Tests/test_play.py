@@ -1,15 +1,16 @@
+"""Test the play module"""
 # Execute the test class by running the following comman from command line:
 # python3 -m unittest -v Tests.Test_play
 
 import sys
 import io
-from play import play_human_turn, play_computer_turn, play
-from tictactoe import TicTacToe
 import unittest
 from unittest.mock import patch
+from play import play_human_turn, play_computer_turn, play
+from tictactoe import TicTacToe
 
 
-class Test_play_class(unittest.TestCase):
+class TestPlay(unittest.TestCase):
     @patch(
         "builtins.input",
         side_effect=[
@@ -56,7 +57,7 @@ class Test_play_class(unittest.TestCase):
         result = play_human_turn(test_state_2)
         self.assertEqual(result.state, "--------X")
 
-        # Tries to put an X on top of the O on A1, which should not work. After that puts the X to A2.
+        # Tries to put an X on top of O, which should not work. After that puts the X to A2.
         test_board = "O--------"
         test_state_3 = TicTacToe(test_board, True, 1, 2)
         result = play_human_turn(test_state_3)
@@ -114,56 +115,56 @@ class Test_play_class(unittest.TestCase):
         # This situation should in end in a draw
         test_board = "XOOOXX-XO"
         test_state = TicTacToe(test_board, True, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("DRAW"))
+        self.assertTrue(captured_output.getvalue().__contains__("DRAW"))
 
         # X should win this play
         test_board = "XOOOXXOX-"
         test_state = TicTacToe(test_board, True, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+        self.assertTrue(captured_output.getvalue().__contains__("AND THE WINNER IS: X"))
 
         # The first mover should be able to win 7x7 board which requires 4 to win
         test_board = 49 * "-"
         test_state = TicTacToe(test_board, False, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: O"))
+        self.assertTrue(captured_output.getvalue().__contains__("AND THE WINNER IS: O"))
 
         # The first mover should be able to win 7x7 board which requires 4 to win
         test_board = 49 * "-"
         test_state = TicTacToe(test_board, True, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+        self.assertTrue(captured_output.getvalue().__contains__("AND THE WINNER IS: X"))
 
         # X should win this game
         test_board = 221 * "-" + "XXXX"
         test_state = TicTacToe(test_board, False, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+        self.assertTrue(captured_output.getvalue().__contains__("AND THE WINNER IS: X"))
 
         # X should win this game
         test_board = "--------------------------O-OO----OOXOX-----OXXXXO---XOXX-X-----XXO------OOOX-----------------------"
         test_state = TicTacToe(test_board, True, 2, 0)
-        capturedOutput = io.StringIO()  # Create StringIO object
-        sys.stdout = capturedOutput  #  and redirect stdout.
+        captured_output = io.StringIO()  # Create StringIO object
+        sys.stdout = captured_output  #  and redirect stdout.
         play(test_state)  # Call play-function.
         sys.stdout = sys.__stdout__  # Reset redirect.
-        self.assertTrue(capturedOutput.getvalue().__contains__("AND THE WINNER IS: X"))
+        self.assertTrue(captured_output.getvalue().__contains__("AND THE WINNER IS: X"))
 
 
 if __name__ == "__main__":

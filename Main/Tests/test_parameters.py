@@ -7,7 +7,6 @@ from parameters import how_much_to_win, closeness_weight, LARGE_NUMBER
 from tictactoe import TicTacToe
 
 
-
 class TestParameters(unittest.TestCase):
     def test_how_much_to_win(self):
         self.assertEqual(how_much_to_win(3), 3)
