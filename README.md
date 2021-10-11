@@ -14,8 +14,13 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 If it doesn't work, you can try getting help here:    
 https://python-poetry.org/docs/#installation 
 
+### **2) Install dependencies**
+Install the needed dependancies by running 
+```
+poetry install
+```  
 
-### **2) Start the application**  
+### **3) Start application**  
 For starting the application, run the following command in the **"Main" directory**.
 ```
 poetry run invoke start

@@ -1,5 +1,6 @@
 ## Miten ohjelma suoritetaan, miten eri toiminnallisuuksia käytetään
- * Sovellus käynnistetään ajamalla "Main" -hakemistossa ao. komento    
+ * Ks. https://github.com/ramipiik/tiralabra/blob/main/README.md.    
+ Sovellus käynnistetään ajamalla "Main" -hakemistossa ao. komento    
  ```
  poetry run invoke start
  ``` 
